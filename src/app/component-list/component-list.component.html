@@ -1,0 +1,8 @@
+<mat-form-field class="fill">
+  <mat-label>Компоненты</mat-label>
+  <mat-select [(value)]="svc.symbolid">
+    <mat-option *ngFor="let c of svc.dictionaries.symbol" [value]="c.id">
+      {{c.description}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

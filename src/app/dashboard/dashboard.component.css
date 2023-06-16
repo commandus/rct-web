@@ -1,0 +1,39 @@
+.symbol-selector {
+    padding-left: 2pt;
+    width: 170pt;
+}
+
+.query-input {
+    padding-left: 2pt;
+    width: calc(100% - 180pt);
+}
+
+.box-tree {
+    padding-left: 2pt;
+    width: 140pt;
+}
+
+.package-list {
+    padding-left: 2pt;
+    width: calc(100% - 140pt);
+}
+
+.dasboard {
+    width: 100%;
+    height: 100%;
+}
+
+.searchBox {
+    width: 100%;
+    height: 56pt;
+    margin: 0 auto;
+    display: flex;
+}
+
+.boxNlist {
+    width: 100%;
+    height: calc(100% - 56pt) ;
+    margin: 0 auto;
+    display: flex;
+}
+

@@ -1,0 +1,16 @@
+<mat-form-field class="fill">
+    <mat-label>Коробки</mat-label>
+    <mat-selection-list #boxlist [multiple]="false" [(ngModel)]="selectedBox">
+        <mat-list-option *ngFor="let b of svc.boxes.box" [value]="b.id">
+            {{b.box_id_name}}
+        </mat-list-option>
+    </mat-selection-list>
+    selected: {{boxlist.selectedOptions.hasValue() ? boxlist.selectedOptions.selected[0].value : 'None'}}
+    == {{selectedBox}}
+    <mat-select [(value)]="svc.box">
+      <mat-option *ngFor="let b of svc.boxes.box" [value]="b.id">
+        {{b.box_id_name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
