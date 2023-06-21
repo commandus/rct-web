@@ -1,0 +1,8 @@
+<div class="importExcel">
+<div class="paramBox">
+    <app-component-list class="symbol-selector" (symbolSelected)="onParam($event, svc.box)"></app-component-list>
+    <app-box-autocomplete class="box-tree" (boxSelected)="onParam(svc.symbol, $event)"></app-box-autocomplete>
+    <label for="file">Файл Excel</label>
+    <input type="file" id="file" (change)="handleFileInput($event)">
+</div>
+

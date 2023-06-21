@@ -1,4 +1,4 @@
 <mat-form-field class="fill">
     <mat-label>Поиск</mat-label>
-    <input matInput type="text" [value]="svc.query">
+    <input matInput type="text" [(ngModel)]="svc.query" (input)="onChanged($event, svc.query)">
 </mat-form-field>

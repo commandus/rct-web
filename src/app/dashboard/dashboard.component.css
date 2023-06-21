@@ -1,16 +1,23 @@
+.top-menu {
+    padding-top: 10pt;
+    padding-left: 2pt;
+    width: 30pt;
+}
+
 .symbol-selector {
+    padding-left: 2pt;
+    width: 170pt;
+}
+
+.box-tree {
     padding-left: 2pt;
     width: 170pt;
 }
 
 .query-input {
     padding-left: 2pt;
-    width: calc(100% - 180pt);
-}
-
-.box-tree {
-    padding-left: 2pt;
-    width: 140pt;
+    padding-right: 2pt;
+    width: calc(100% - 390pt);
 }
 
 .package-list {

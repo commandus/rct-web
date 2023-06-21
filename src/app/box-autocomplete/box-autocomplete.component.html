@@ -1,0 +1,11 @@
+<form>
+    <mat-form-field class="fill">
+        <mat-label>Коробка</mat-label>
+        <input type="text" placeholder="Номер коробки" aria-label="Номер" matInput [formControl]="cntrl" [matAutocomplete]="auto" >
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let b of filteredOptions | async" [value]="b.box_id_name">
+                {{b.box_id_name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form>

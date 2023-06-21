@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WebappService } from '../webapp.service';
 
 @Component({
   selector: 'app-package-list',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./package-list.component.css']
 })
 export class PackageListComponent {
+  constructor(public svc: WebappService) { 
+  }
 
 }

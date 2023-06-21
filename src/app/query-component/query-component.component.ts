@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { WebappService } from '../webapp.service';
 
 @Component({
@@ -7,6 +7,12 @@ import { WebappService } from '../webapp.service';
   styleUrls: ['./query-component.component.css']
 })
 export class QueryComponentComponent {
+  @Output() queryChanged = new EventEmitter<string>();
   constructor(public svc: WebappService) { 
   }
+
+  public onChanged(event: Event, query: string) {
+    this.queryChanged.emit(query);
+  }
+
 }

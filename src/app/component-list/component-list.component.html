@@ -1,7 +1,7 @@
 <mat-form-field class="fill">
   <mat-label>Компоненты</mat-label>
-  <mat-select [(value)]="svc.symbolid">
-    <mat-option *ngFor="let c of svc.dictionaries.symbol" [value]="c.id">
+  <mat-select [(value)]="svc.symbol" (selectionChange)="onSelectionChanged($event, svc.symbol)">
+    <mat-option *ngFor="let c of svc.dictionaries.symbol" [value]="c">
       {{c.description}}
     </mat-option>
   </mat-select>

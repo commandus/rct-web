@@ -22,7 +22,6 @@ export class Box {
         return boxCnt;
     }
 
-
     public static box2string(
         boxes: string
     ): string 

@@ -1,0 +1,49 @@
+<div style="height: 10pt;">
+	<mat-progress-bar *ngIf="ds.loading | async" mode="indeterminate"></mat-progress-bar>
+</div>
+<div>
+  <table mat-table [dataSource]="ds" matSort>
+	<ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Наименование  </th>
+      <td mat-cell *matCellDef="let v" matTooltip="Открыть {{v.card.name}} ">
+		<a (click)="showCard(v.id)"></a>
+        {{v.card.name}}
+	</td>
+    </ng-container>
+    <ng-container matColumnDef="properties">
+        <th mat-header-cell *matHeaderCellDef> Свойства</th>
+        <td class="small" mat-cell *matCellDef="let v">
+            <ng-container *ngFor="let p of v.properties">
+                {{p.property_type}} : {{p.value}} : 
+            </ng-container>
+          </td>
+      </ng-container>
+  
+	<ng-container matColumnDef="box">
+		<th mat-header-cell *matHeaderCellDef>Коробка</th>
+        <td mat-cell *matCellDef="let v">
+            <ng-container *ngFor="let p of v.packages">
+                {{p.box | box}} 
+            </ng-container>
+        </td>
+	</ng-container>
+	<ng-container matColumnDef="qty">
+		<th mat-header-cell *matHeaderCellDef>Количество</th>
+        <td mat-cell *matCellDef="let v">
+            <ng-container *ngFor="let p of v.packages">
+                {{p.qty}} 
+            </ng-container>
+        </td>
+        
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetails(row)"></tr>
+  </table>
+  <mat-paginator [pageSize]="20"></mat-paginator>
+
+  <div>
+	<button mat-button color="primary" matTooltip="Обновить" (click)="refresh()">Обновить</button>
+  </div>
+
+</div>
