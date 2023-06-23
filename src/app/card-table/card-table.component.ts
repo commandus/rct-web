@@ -4,8 +4,8 @@ import { CardsDataSource } from '../card.ds.service';
 import { RcrJsonService } from '../rcr-json.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Box } from '../box.model';
-import { Symbol } from '../symbol.model';
+import { Box } from '../model/box.model';
+import { Symbol } from '../model/symbol.model';
 import { Observable, delay, startWith, tap } from 'rxjs';
 
 class dumbCollectionViewer implements CollectionViewer {
@@ -24,7 +24,7 @@ export class CardTableComponent {
   public ds: CardsDataSource;
   public selection = new SelectionModel<number>(true, []);
   public selectionMode = 0; // 0- manually selected, 1- select all, 2- unselect all
-  public displayedColumns: string[] = ['name', 'properties', 'box', 'qty'];
+  public displayedColumns: string[] = ['name', 'properties', 'box-qty'];
   lastSymbol: Symbol = new Symbol;
   lastBox: Box = new Box;
   lastQuery = '';

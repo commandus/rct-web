@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { RcrJsonService } from './rcr-json.service';
-import { DictionariesResponse } from './dictionaries-response.model';
-import { DictionariesRequest } from './dictionaries-request.model';
-import { Symbol } from './symbol.model';
-import { BoxResponse } from './box-response.model';
-import { Box } from './box.model';
+import { DictionariesResponse } from './model/dictionaries-response.model';
+import { DictionariesRequest } from './model/dictionaries-request.model';
+import { Symbol } from './model/symbol.model';
+import { BoxResponse } from './model/box-response.model';
+import { Box } from './model/box.model';
 import { AuthenticationService } from './authentication.service';
-import { BoxRequest } from './box-request.model';
+import { BoxRequest } from './model/box-request.model';
 import { Observable, map } from 'rxjs';
-import { CardQueryRequest } from './card-query-request.model';
-import { CardQueryResponse } from './card-query-response.model';
-import { ImportExcelRequest } from './import-excel-request.model';
-import { ExcelFile } from './excel-file.model';
-import { OperationResponse } from './operation-response.model';
-import { User } from './user.model';
+import { CardQueryRequest } from './model/card-query-request.model';
+import { CardQueryResponse } from './model/card-query-response.model';
+import { ImportExcelRequest } from './model/import-excel-request.model';
+import { ExcelFile } from './model/excel-file.model';
+import { OperationResponse } from './model/operation-response.model';
+import { User } from './model/user.model';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Reload } from './reload.model';
+import { Reload } from './model/reload.model';
 
 @Injectable({
   providedIn: 'root'

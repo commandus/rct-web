@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { WebappService } from '../webapp.service';
-import { Box } from '../box.model';
+import { Box } from '../model/box.model';
 import { MatSelectChange } from '@angular/material/select';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { RcrJsonService } from '../rcr-json.service';
 import { WebappService } from '../webapp.service';
 import { MatSelectChange } from '@angular/material/select';
-import { Symbol } from '../symbol.model';
+import { Symbol } from '../model/symbol.model';
 
 @Component({
   selector: 'app-component-list',

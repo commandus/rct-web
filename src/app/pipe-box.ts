@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Box } from './box.model';
+import { Box } from './model/box.model';
 
 @Pipe({
   name: 'box'

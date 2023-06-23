@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { User } from '../user.model';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-dialog-login',

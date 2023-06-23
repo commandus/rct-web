@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Symbol } from '../symbol.model';
-import { Box } from '../box.model';
+import { Symbol } from '../model/symbol.model';
+import { Box } from '../model/box.model';
 import { WebappService } from '../webapp.service';
-import { OperationResponse } from '../operation-response.model';
+import { OperationResponse } from '../model/operation-response.model';
 import { Router } from '@angular/router';
 
 @Component({

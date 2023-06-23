@@ -22,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorIntlRu } from './mat-paginator-ru';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -79,7 +79,8 @@ import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.componen
     MatIconModule,
     MatAutocompleteModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatBadgeModule
   ],
   providers: [
     {

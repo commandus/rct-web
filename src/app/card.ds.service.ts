@@ -3,10 +3,10 @@ import { BehaviorSubject, of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { RcrJsonService } from './rcr-json.service';
-import { Box } from './box.model';
-import { Symbol } from './symbol.model';
-import { CardQueryRequest } from './card-query-request.model';
-import { CardNPropetiesPackages } from './card-npropeties-packages.model';
+import { Box } from './model/box.model';
+import { Symbol } from './model/symbol.model';
+import { CardQueryRequest } from './model/card-query-request.model';
+import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 
 /**
  * @see https://blog.angular-university.io/angular-material-data-table/

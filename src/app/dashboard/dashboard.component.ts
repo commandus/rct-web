@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Box } from '../box.model';
+import { Box } from '../model/box.model';
 import { WebappService } from '../webapp.service';
-import { Symbol } from '../symbol.model';
+import { Symbol } from '../model/symbol.model';
 import { CardTableComponent } from '../card-table/card-table.component';
 
 @Component({
