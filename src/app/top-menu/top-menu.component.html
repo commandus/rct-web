@@ -3,4 +3,6 @@
 </button>
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="nav2('import-excel')">Импорт</button>
+  <button mat-menu-item (click)="env.login()">Войти с именем пользователя</button>
+  <button *ngIf="env.hasAccount()" mat-menu-item (click)="env.logout()">Выйти {{env.user.name}}</button>
 </mat-menu>

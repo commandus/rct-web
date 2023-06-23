@@ -18,7 +18,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatPaginatorIntlRu } from './mat-paginator-ru';
 
@@ -29,13 +32,13 @@ import { PackageListComponent } from './package-list/package-list.component';
 import { BoxCombolistComponent } from './box-combolist/box-combolist.component';
 import { CardTableComponent } from './card-table/card-table.component';
 import { FileNamePipe } from './pipe-file-name';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSortModule } from '@angular/material/sort';
 import { BoxPipe } from './pipe-box';
 import { ImportExcelComponent } from './import-excel/import-excel.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { BoxAutocompleteComponent } from './box-autocomplete/box-autocomplete.component';
-
+import { LoginComponent } from './login/login.component';
+import { DialogLoginComponent } from './dialog-login/dialog-login.component';
+import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { BoxAutocompleteComponent } from './box-autocomplete/box-autocomplete.co
     BoxPipe,
     ImportExcelComponent,
     TopMenuComponent,
-    BoxAutocompleteComponent
+    BoxAutocompleteComponent,
+    LoginComponent,
+    DialogLoginComponent,
+    DialogConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -71,14 +77,22 @@ import { BoxAutocompleteComponent } from './box-autocomplete/box-autocomplete.co
     MatTooltipModule,
     MatMenuModule,
     MatIconModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [
     {
       provide: MatPaginatorIntl,
       useClass: MatPaginatorIntlRu
-  }
+    }
   ],
+  /*
+  entryComponents: [
+    DialogLoginComponent,
+    DialogConfirmComponent
+  ],
+  */
   bootstrap: [AppComponent]
 })
 export class AppModule { }

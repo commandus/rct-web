@@ -17,24 +17,27 @@ export class BoxAutocompleteComponent {
   @ViewChild('boxlist') boxlist: MatSelectionList | undefined;
   @Output() boxSelected = new EventEmitter<Box>();
   cntrl = new FormControl('');
-  constructor(public svc: WebappService) { 
-    
-    if (this.boxlist)
-      this.boxlist.selectedOptions.select(0 as any);
-    else
-      console.error('boxlist bind error');
-  }
 
   filteredOptions!: Observable<Box[]>;
+
+  constructor(public svc: WebappService) { 
+  }
 
   ngOnInit() {
     this.filteredOptions = this.cntrl.valueChanges.pipe(
       startWith(''),
-      map(value => 
-        { 
-          console.log(value);
-          return this.filter(value || '');
-        }),
+      map(value => { 
+        if (value) {
+          const box = new Box;
+          box.box_id = Box.string2box(value);
+          box.name = value;
+          box.uname = value;
+          box.box_id_name = value;
+          this.boxSelected.emit(box);
+        }
+        return this.filter(value || '');
+      }
+      )
     );
   }
 

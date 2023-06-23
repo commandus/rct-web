@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { WebappService } from '../webapp.service';
 
 @Component({
   selector: 'app-top-menu',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class TopMenuComponent {
   constructor(
+    public env: WebappService,
     private router: Router
   ) {
   }

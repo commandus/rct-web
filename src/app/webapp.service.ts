@@ -5,37 +5,61 @@ import { DictionariesRequest } from './dictionaries-request.model';
 import { Symbol } from './symbol.model';
 import { BoxResponse } from './box-response.model';
 import { Box } from './box.model';
+import { AuthenticationService } from './authentication.service';
 import { BoxRequest } from './box-request.model';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CardQueryRequest } from './card-query-request.model';
 import { CardQueryResponse } from './card-query-response.model';
+import { ImportExcelRequest } from './import-excel-request.model';
+import { ExcelFile } from './excel-file.model';
+import { OperationResponse } from './operation-response.model';
+import { User } from './user.model';
+import { DialogLoginComponent } from './dialog-login/dialog-login.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Reload } from './reload.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebappService {
-  private rcr: RcrJsonService;
-  public dictionaries: DictionariesResponse = new DictionariesResponse;
-  public boxes: BoxResponse = new BoxResponse;
+  rcr: RcrJsonService;
+  dictionaries: DictionariesResponse = new DictionariesResponse;
+  boxes: BoxResponse = new BoxResponse;
   // selected symbol id
-  public symbol: Symbol = new Symbol;
+  symbol: Symbol = new Symbol;
   // user query input value
-  public query = "";
+  query = "";
   // selected box
-  public box: Box = new Box;
+  box: Box = new Box;
   // query result
-  public cards: CardQueryResponse = new CardQueryResponse;
+  cards: CardQueryResponse = new CardQueryResponse;
+  
+  user: User;
 
-  public load() {
+  hasAccount(): boolean {
+    return this.user && (this.user.token != 0);
+  }
+
+  load(): void {
     this.loadDictionaries();
     this.loadBoxes();
   }
 
-  public cardQuery(
+  constructor(
+    private dialog: MatDialog,
+    private authenticationService: AuthenticationService,
+    private arcr: RcrJsonService
+  ) { 
+    this.rcr = arcr;
+    this.user = new User(localStorage.getItem('user'));
+    this.load();
+  }
+
+  cardQuery(
     symbol: Symbol,
     box: Box,
     query: string
-  ) {
+  ): void  {
     const r = new CardQueryRequest;
     if (query.indexOf('*') < 0)
       query += '*';
@@ -79,9 +103,48 @@ export class WebappService {
     });
   }
 
-  constructor(private arcr: RcrJsonService) { 
-    this.rcr = arcr;
-    this.load();
+  loadExcelFile(
+    symbol: string,
+    prefixBox: string,
+    numberInFilename: boolean,
+    fileName: string,
+    content: string
+  ) : Observable<OperationResponse>
+  {
+    const r = new ImportExcelRequest;
+    r.number_in_filename = numberInFilename;
+    r.prefix_box = prefixBox;
+    r.symbol = symbol;
+    const file = new ExcelFile;
+    file.name = fileName;
+    file.content = btoa(content);
+    r.file = [file];
+    return this.rcr.importExcel(r);
   }
+
+  public login(self?: Reload) {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: 'Введите логин и пароль',
+      message: 'для входа',
+      user: this.user
+    };
+    const dialogRef = this.dialog.open(DialogLoginComponent, d);
+    dialogRef.componentInstance.logged.subscribe((value: User) => {
+      if (value.token && value.token) {
+        this.user = new User(value);
+        localStorage.setItem('user', JSON.stringify(value));
+      } else {
+        this.logout(self);
+        this.authenticationService.load();
+      }
+    });
+  }
+
+  public logout(self?: Reload) {
+    this.user.logout();
+  }
+
 }
 

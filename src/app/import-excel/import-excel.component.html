@@ -1,8 +1,26 @@
 <div class="importExcel">
 <div class="paramBox">
-    <app-component-list class="symbol-selector" (symbolSelected)="onParam($event, svc.box)"></app-component-list>
-    <app-box-autocomplete class="box-tree" (boxSelected)="onParam(svc.symbol, $event)"></app-box-autocomplete>
-    <label for="file">Файл Excel</label>
-    <input type="file" id="file" (change)="handleFileInput($event)">
+    <app-component-list class="symbol-selector" (symbolSelected)="onParam($event, box, numbersInFilename)"></app-component-list>
+    <app-box-autocomplete class="box-tree" (boxSelected)="onParam(symbol, $event, numbersInFilename)"></app-box-autocomplete>
 </div>
 
+<div class="paramBox">
+    <mat-checkbox class="numbersInFileName" [checked]="numbersInFilename" (change)="onParam(symbol, box, $event.checked)">
+        Номера в имени файла
+    </mat-checkbox>
+
+    <input style="display: none;" #fileUpload type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="handleFileInput($event)">
+    <button class="uploadFile" mat-button color="primary" matTooltip="Загрузить" color="primary" (click)="fileUpload.click()">Выбрать и загрузить Excel</button>
+</div>
+
+<div>
+    <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let f of loadedFiles">
+            {{f.description}} {{f.sum}}
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div>
+	<button mat-button color="primary" matTooltip="Вернуться назад" (click)="back()">Назад</button>
+</div>

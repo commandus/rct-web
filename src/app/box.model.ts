@@ -22,6 +22,11 @@ export class Box {
         return boxCnt;
     }
 
+    /**
+     * Return string representation of the box path
+     * @param boxes box identifier e.g. '35747326337220608'
+     * @returns '127-1'
+     */
     public static box2string(
         boxes: string
     ): string 
@@ -35,5 +40,50 @@ export class Box {
             ss += '-' + ((b >> shift) & 0xffffn);
         }
         return ss;
+    }
+
+    /**
+     * Return box identifier from the box path
+     * @param value string representation of the box path e.g. '127-1'
+     * @returns box identifier e.g. '35747326337220608'
+     */
+    static string2box(
+        value: string
+    ): string {
+        let retBoxes = 0n;
+        
+        // skip spaces if exists
+        let s = 0;
+    
+        let blocks = 0;
+        for (let block = 0; block < 4; block++) {
+            let f = value.length;
+            // skip separator(s)
+            for (let p = s; p < f; p++) {
+                const c = value.substring(p, p + 1);
+                if (c >= '0' && c <= '9') {
+                    s = p;
+                    break;
+                }
+            }
+            // find out end of the number block
+            for (let p = s; p < f; p++) {
+                const c = value.substring(p, p + 1);
+                if (!(c >= '0' && c <= '9')) {
+                    f = p;
+                    break;
+                }
+            }
+            // nothing found
+            if (f <= s)
+                break;
+            // has box number, try to read
+            let sv = value.substring(s, f);
+            const b = BigInt(sv);
+            retBoxes |= (b & 0xffffn) << BigInt(((3 - block) * 16));
+            blocks++;
+            s = f;
+        }
+        return retBoxes.toString();
     }
 }

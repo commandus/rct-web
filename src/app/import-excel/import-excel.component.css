@@ -9,3 +9,12 @@
     margin: 0 auto;
     display: flex;
 }
+
+.uploadFile {
+    padding-left: 10pt;
+    padding-top: 14pt;
+}
+
+.numbersInFileName {
+    padding-top: 6pt;
+}
