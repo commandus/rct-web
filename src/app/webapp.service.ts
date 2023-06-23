@@ -61,6 +61,7 @@ export class WebappService {
     query: string
   ): void  {
     const r = new CardQueryRequest;
+    r.user = this.user;
     if (query.indexOf('*') < 0)
       query += '*';
     r.measure_symbol = symbol.sym;
@@ -86,6 +87,7 @@ export class WebappService {
 
   private loadBoxes() {
     const r = new BoxRequest;
+    r.user = this.user;
     this.rcr.getBox(r)
     .pipe(map(v => {
       // add helper property
@@ -115,6 +117,7 @@ export class WebappService {
     r.number_in_filename = numberInFilename;
     r.prefix_box = prefixBox;
     r.symbol = symbol;
+    r.user = this.user;
     const file = new ExcelFile;
     file.name = fileName;
     file.content = btoa(content);
