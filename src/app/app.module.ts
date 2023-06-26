@@ -33,12 +33,16 @@ import { BoxCombolistComponent } from './box-combolist/box-combolist.component';
 import { CardTableComponent } from './card-table/card-table.component';
 import { FileNamePipe } from './pipe-file-name';
 import { BoxPipe } from './pipe-box';
+import { QtyColorPipe } from './pipe-qty-color';
 import { ImportExcelComponent } from './import-excel/import-excel.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { BoxAutocompleteComponent } from './box-autocomplete/box-autocomplete.component';
 import { LoginComponent } from './login/login.component';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component';
+import { CardEditComponent } from './card-edit/card-edit.component';
+import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
+import { BoxQtyComponent } from './box-qty/box-qty.component';
 
 @NgModule({
   declarations: [
@@ -52,12 +56,16 @@ import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.componen
     CardTableComponent,
     FileNamePipe,
     BoxPipe,
+    QtyColorPipe,
     ImportExcelComponent,
     TopMenuComponent,
     BoxAutocompleteComponent,
     LoginComponent,
     DialogLoginComponent,
-    DialogConfirmComponent
+    DialogConfirmComponent,
+    CardEditComponent,
+    CardEditDialogComponent,
+    BoxQtyComponent
   ],
   imports: [
     BrowserModule,
@@ -88,12 +96,6 @@ import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.componen
       useClass: MatPaginatorIntlRu
     }
   ],
-  /*
-  entryComponents: [
-    DialogLoginComponent,
-    DialogConfirmComponent
-  ],
-  */
   bootstrap: [AppComponent]
 })
 export class AppModule { }

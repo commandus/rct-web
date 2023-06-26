@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<p></p>
+<div>
+  <app-card-edit [value]="value" (changed)="onChanged($event)" (cancelled)="onCancel()">
+  </app-card-edit>
+</div>

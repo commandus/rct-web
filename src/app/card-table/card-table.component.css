@@ -13,3 +13,15 @@
 	margin-top: 10pt;
 	margin-bottom: 10pt;
 }
+
+::ng-deep .mat-badge-content {
+    width: auto;
+    display: grid;
+    min-width: 22px;
+    min-height: 22px;
+    text-align: center;
+    align-items: center;
+    padding: 5px 3px;
+    top: -20px;
+    right: -22px;
+}

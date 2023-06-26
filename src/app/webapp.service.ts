@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { RcrJsonService } from './rcr-json.service';
 import { DictionariesResponse } from './model/dictionaries-response.model';
 import { DictionariesRequest } from './model/dictionaries-request.model';
-import { Symbol } from './model/symbol.model';
 import { BoxResponse } from './model/box-response.model';
 import { Box } from './model/box.model';
+import { Symbol } from './model/symbol.model';
 import { AuthenticationService } from './authentication.service';
 import { BoxRequest } from './model/box-request.model';
 import { Observable, map } from 'rxjs';
@@ -17,6 +17,8 @@ import { User } from './model/user.model';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Reload } from './model/reload.model';
+import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
+import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,7 @@ export class WebappService {
   boxes: BoxResponse = new BoxResponse;
   // selected symbol id
   symbol: Symbol = new Symbol;
+
   // user query input value
   query = "";
   // selected box
@@ -147,6 +150,30 @@ export class WebappService {
 
   public logout(self?: Reload) {
     this.user.logout();
+  }
+
+  public editCard(
+    card: CardNPropetiesPackages
+  ): void {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: 'Карточка',
+      message: '',
+      value: card
+    };
+    const dialogRef = this.dialog.open(CardEditDialogComponent, d);
+    dialogRef.componentInstance.changed.subscribe((value: CardNPropetiesPackages) => {
+
+    });
+  }
+
+  public getComponentById(id: number): Symbol {
+    for (let i = 0; i < this.dictionaries.symbol.length; i++) {
+      if (this.dictionaries.symbol[i].id == id)
+        return this.dictionaries.symbol[i];
+    };
+    return this.dictionaries.symbol.length ? this.dictionaries.symbol[0] : new Symbol;
   }
 
 }

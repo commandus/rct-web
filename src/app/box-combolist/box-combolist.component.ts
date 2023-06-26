@@ -10,6 +10,7 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class BoxCombolistComponent {
   @Output() boxSelected = new EventEmitter<Box>();
+  
   constructor(public svc: WebappService) { 
 
   }

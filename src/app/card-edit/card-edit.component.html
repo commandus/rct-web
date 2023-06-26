@@ -1,0 +1,32 @@
+<div class="dlg">
+    <mat-progress-bar class="progressbar" *ngIf="progress" mode="indeterminate"></mat-progress-bar>
+    <form #orderForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()">
+        <div *ngIf="!this.progress">
+            <div fxLayout="row" fxLayoutAlign="space-around center" [style.color]="success ? 'green' : 'red'">
+            {{message}}
+            </div>
+            <div fxLayout="row" fxLayoutAlign="stretch" >
+                <mat-form-field>
+                    <mat-label>Наименование</mat-label>
+                    <input matInput type="text" placeholder="Наименование" autocomplete="name" formControlName="name">
+                </mat-form-field>
+                <div>
+                    <app-component-list [symbol_id]="value.card.symbol_id" class="symbol-selector" (symbolSelected)="onSymbolSelected($event)"></app-component-list>
+                </div>
+                <mat-form-field>
+                    <mat-label>Номинал</mat-label>
+                    <input matInput type="text" placeholder="Номинал" formControlName="nominal">
+                </mat-form-field>
+
+                <ng-container *ngFor="let p of value.packages">
+                    <app-box-qty [value]="p"></app-box-qty>
+                </ng-container>
+            
+                <div fxLayout="row" fxLayoutAlign="end stretch">
+                    <button mat-button (click)="cancel()">Отменить</button>  
+                    <button color="primary" mat-button type="submit">Сохранить</button>  
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

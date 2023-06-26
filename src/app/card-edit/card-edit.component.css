@@ -1,0 +1,10 @@
+.dlg {
+	padding-left: 20pt;
+	padding-right: 20pt;
+	width: 340pt;
+	height: 450pt;
+}
+
+form {
+	max-width: 340pt;
+}

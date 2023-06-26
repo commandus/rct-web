@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { RcrJsonService } from '../rcr-json.service';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { WebappService } from '../webapp.service';
 import { MatSelectChange } from '@angular/material/select';
 import { Symbol } from '../model/symbol.model';
@@ -10,13 +9,27 @@ import { Symbol } from '../model/symbol.model';
   styleUrls: ['./component-list.component.css']
 })
 export class ComponentListComponent {
+  @Input() symbol_id: number = 0;
+  @Input() symbol: Symbol = new Symbol;
   @Output() symbolSelected = new EventEmitter<Symbol>();
   
+  selectedSymbol: Symbol = new Symbol;
+
   constructor(public svc: WebappService) { 
   }
 
-  public onSelectionChanged(event: MatSelectChange, symbol: Symbol) {
-    this.symbolSelected.emit(symbol);
+  public onSelectionChanged(event: MatSelectChange) {
+    this.symbolSelected.emit(this.selectedSymbol);
+  }
+
+  ngOnInit(): void {
+    if (this.symbol_id) {
+      this.selectedSymbol = this.svc.getComponentById(this.symbol_id);
+    } else {
+      if (this.symbol) {
+        this.selectedSymbol = this.symbol;
+      }
+    }
   }
 
 }
