@@ -19,6 +19,8 @@ import { UserRequest } from './model/user-request.model';
 import { GroupRequest } from './model/group-request.model';
 import { GroupUserRequest } from './model/group-user-request.model';
 import { ImportExcelRequest } from './model/import-excel-request.model';
+import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
+import { GetItemRequest } from './model/get-item-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +42,9 @@ export class RcrJsonService {
   }
   chPropertyType(request: ChPropertyTypeRequest): Observable<OperationResponse> {
     return this.httpClient.post<OperationResponse>(Config.endpoint + "/chPropertyType", request);
+  }
+  getCard(request: GetItemRequest): Observable<CardNPropetiesPackages> {
+    return this.httpClient.post<CardNPropetiesPackages>(Config.endpoint + "/getCard", request);
   }
   chCard(request: ChCardRequest): Observable<OperationResponse> {
     return this.httpClient.post<OperationResponse>(Config.endpoint + "/chCard", request);

@@ -19,6 +19,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Reload } from './model/reload.model';
 import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
+import { GetItemRequest } from './model/get-item-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -153,6 +154,17 @@ export class WebappService {
   }
 
   public editCard(
+    card: CardNPropetiesPackages
+  ): void {
+    const request = new GetItemRequest;
+    request.user = this.user;
+    request.id = card.card.id;
+    this.rcr.getCard(request).subscribe( v => {
+      this.showCard(v);
+    });
+  }
+
+  public showCard(
     card: CardNPropetiesPackages
   ): void {
     const d = new MatDialogConfig();
