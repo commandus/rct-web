@@ -1,0 +1,9 @@
+<mat-form-field class="fill">
+    <mat-label>Свойства</mat-label>
+    <mat-select [(value)]="selectedPropertyType" (selectionChange)="onSelectionChanged($event)">
+      <mat-option *ngFor="let c of svc.dictionaries.property_type" [value]="c">
+        {{c.description}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  

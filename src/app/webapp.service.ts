@@ -21,6 +21,7 @@ import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
 import { GetItemRequest } from './model/get-item-request.model';
 import { ChCardRequest } from './model/ch-card-request.model';
+import { PropertyType } from './model/property-type.model';
 
 @Injectable({
   providedIn: 'root'
@@ -160,7 +161,7 @@ export class WebappService {
     const d = new MatDialogConfig();
     d.autoFocus = true;
     d.data = {
-      title: 'Карточка',
+      title: 'Карточка ' + card.card.id,
       message: '',
       value: card
     };
@@ -187,6 +188,14 @@ export class WebappService {
         return this.dictionaries.symbol[i];
     };
     return this.dictionaries.symbol.length ? this.dictionaries.symbol[0] : new Symbol;
+  }
+
+  getPropertyTypeById(id: number): PropertyType {
+    for (let i = 0; i < this.dictionaries.property_type.length; i++) {
+      if (this.dictionaries.property_type[i].id == id)
+        return this.dictionaries.property_type[i];
+    };
+    return this.dictionaries.property_type.length ? this.dictionaries.property_type[0] : new PropertyType;
   }
 
 }

@@ -18,6 +18,9 @@
                     <input matInput type="text" placeholder="Номинал" formControlName="nominal">
                 </mat-form-field>
 
+                <ng-container *ngFor="let p of value.properties">
+                    <app-property-value [value]="p"></app-property-value>
+                </ng-container>
                 <ng-container *ngFor="let p of value.packages">
                     <app-box-qty [value]="p"></app-box-qty>
                 </ng-container>

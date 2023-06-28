@@ -43,6 +43,8 @@ import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.componen
 import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
 import { BoxQtyComponent } from './box-qty/box-qty.component';
+import { PropertyValueComponent } from './property-value/property-value.component';
+import { PropertyTypeSelectComponent } from './property-type-select/property-type-select.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { BoxQtyComponent } from './box-qty/box-qty.component';
     DialogConfirmComponent,
     CardEditComponent,
     CardEditDialogComponent,
-    BoxQtyComponent
+    BoxQtyComponent,
+    PropertyValueComponent,
+    PropertyTypeSelectComponent
   ],
   imports: [
     BrowserModule,

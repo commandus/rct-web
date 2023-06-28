@@ -1,0 +1,9 @@
+<form #propertyValueForm="ngForm" [formGroup]="formGroup">
+    <div fxLayout="row" fxLayoutAlign="stretch" >
+        <app-property-type-select ([value])="value.property_type"></app-property-type-select>
+        <mat-form-field>
+            <mat-label>Значение</mat-label>
+            <input matInput type="text" placeholder="Значение" formControlName="value" (change)="onValueChanged($event)">
+        </mat-form-field>
+    </div>
+</form>

@@ -49,7 +49,6 @@ export class CardTableComponent {
         })
         )
       .subscribe();
-
     
     this.sort.sortChange
     .pipe(
@@ -70,6 +69,8 @@ export class CardTableComponent {
     box: Box,
     query: string
   ): void {
+    if (this.lastSymbol != symbol || this.lastBox != box || this.lastQuery != query)
+      this.paginator.pageIndex = 0;
     this.lastSymbol = symbol;
     this.lastBox = box;
     this.lastQuery = query;
