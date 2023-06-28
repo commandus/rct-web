@@ -20,6 +20,7 @@ import { Reload } from './model/reload.model';
 import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
 import { GetItemRequest } from './model/get-item-request.model';
+import { ChCardRequest } from './model/ch-card-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -153,20 +154,9 @@ export class WebappService {
     this.user.logout();
   }
 
-  public editCard(
-    card: CardNPropetiesPackages
-  ): void {
-    const request = new GetItemRequest;
-    request.user = this.user;
-    request.id = card.card.id;
-    this.rcr.getCard(request).subscribe( v => {
-      this.showCard(v);
-    });
-  }
-
   public showCard(
     card: CardNPropetiesPackages
-  ): void {
+  ): Promise<string> {
     const d = new MatDialogConfig();
     d.autoFocus = true;
     d.data = {
@@ -175,8 +165,19 @@ export class WebappService {
       value: card
     };
     const dialogRef = this.dialog.open(CardEditDialogComponent, d);
-    dialogRef.componentInstance.changed.subscribe((value: CardNPropetiesPackages) => {
-
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.componentInstance.changed.subscribe((request: ChCardRequest) => {
+        this.rcr.chCard(request).subscribe(
+          resp => {
+            if (resp && resp.code == 0) {
+              resolve("ok");
+            }
+          },
+          error => {
+            reject('fail');
+        });    
+      });
+        
     });
   }
 

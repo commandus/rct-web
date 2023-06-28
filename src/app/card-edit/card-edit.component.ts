@@ -13,7 +13,7 @@ import { Property } from '../model/property.model';
 })
 export class CardEditComponent implements OnInit {
   @Input() value: CardNPropetiesPackages = new CardNPropetiesPackages;
-  @Output() changed = new EventEmitter<CardNPropetiesPackages>();
+  @Output() changed = new EventEmitter<ChCardRequest>();
   @Output() cancelled = new EventEmitter<void>();
   public formGroup: FormGroup = new FormGroup({});
   public progress = false;
@@ -36,9 +36,6 @@ export class CardEditComponent implements OnInit {
       name: [this.value ? this.value.card.name : '',
         [ Validators.required ]
       ],
-      symbId: [this.value ? this.value.card.symbol_id : 0,
-        [ Validators.required ]
-      ],
       nominal: [this.value ? this.value.card.nominal : 0,
         [ Validators.required ]
       ]
@@ -50,27 +47,13 @@ export class CardEditComponent implements OnInit {
   }
 
   save(): void {
-    if (this.hasChanges()) {
-        // save card
-        this.saveCard();
-      } else
-        this.cancelled.emit();
-  }
-  hasChanges(): boolean {
-    return this.value.card.name != this.formGroup.getRawValue().name ||
-      this.value.card.symbol_id != this.formGroup.getRawValue().symbId ||
-      this.value.card.nominal != this.formGroup.getRawValue().nominal
-      || true;
-  }
-
-  saveCard(): void {
     const r = new ChCardRequest;
     r.value.id = this.value.card.id;
     r.user = this.env.user;
     // save card
     r.operationSymbol = '=';
     r.value.name = this.formGroup.getRawValue().name;
-    r.value.symbol_id = this.formGroup.getRawValue().symbId;
+    r.value.symbol_id = this.value.card.symbol_id;
     r.value.nominal = this.formGroup.getRawValue().nominal;
     r.packages = this.value.packages;
 
@@ -81,29 +64,11 @@ export class CardEditComponent implements OnInit {
       r.properties.push(p);
     });
 
-    this.env.rcr.chCard(r).subscribe(
-      value => {
-        this.progress = false;
-        if (value && value.code == 0) {
-          this.success = true;
-          this.message = 'Изменения в карточке успешно сохранены';
-          this.changed.emit(this.value);
-        } else {
-          this.success = false;
-          this.message = 'Ошибка, повторите';
-          this.cancelled.emit();
-        }
-      },
-      error => {
-        this.progress = false;
-        this.success = false;
-        this.message = 'Ошибка, повторите позже';
-        this.cancelled.emit();
-      });    
+    this.changed.emit(r);
   }
 
   onSymbolSelected(value: Symbol) {
-    console.log(value);
+    this.value.card.symbol_id = value.id;
   }
 
 }

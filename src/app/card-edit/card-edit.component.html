@@ -1,6 +1,6 @@
 <div class="dlg">
     <mat-progress-bar class="progressbar" *ngIf="progress" mode="indeterminate"></mat-progress-bar>
-    <form #orderForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()">
+    <form #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()">
         <div *ngIf="!this.progress">
             <div fxLayout="row" fxLayoutAlign="space-around center" [style.color]="success ? 'green' : 'red'">
             {{message}}
@@ -23,7 +23,7 @@
                 </ng-container>
             
                 <div fxLayout="row" fxLayoutAlign="end stretch">
-                    <button mat-button (click)="cancel()">Отменить</button>  
+                    <button mat-button type="button" (click)="cancel()">Отменить</button>  
                     <button color="primary" mat-button type="submit">Сохранить</button>  
                 </div>
             </div>

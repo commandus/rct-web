@@ -16,7 +16,7 @@ export class DashboardComponent {
   }
 
   public onQuery(symbol: Symbol, box: Box, query: string) {
-    // this.svc.cardQuery(symbol, box, query);
+    this.svc.symbol = symbol;
     this.cardTable.load(symbol, box, query);
   }
 

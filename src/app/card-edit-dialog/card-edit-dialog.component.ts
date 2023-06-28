@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model';
+import { ChCardRequest } from '../model/ch-card-request.model';
 
 @Component({
   selector: 'app-card-edit-dialog',
@@ -8,7 +9,7 @@ import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model'
   styleUrls: ['./card-edit-dialog.component.css']
 })
 export class CardEditDialogComponent {
-  @Output() changed = new EventEmitter<CardNPropetiesPackages>();
+  @Output() changed = new EventEmitter<ChCardRequest>();
   @Output() cancelled = new EventEmitter<void>();
   title: string;
   message: string;
@@ -23,11 +24,9 @@ export class CardEditDialogComponent {
     this.value = data.value ? data.value : new CardNPropetiesPackages();
   }
 
-  onChanged(value: CardNPropetiesPackages) {
+  onChanged(value: ChCardRequest) {
     this.changed.emit(value);
-    if (value) {
-      this.dialogRef.close( {yes: true} );
-    }
+    this.dialogRef.close( {yes: true} );
   }
 
   onCancel() {

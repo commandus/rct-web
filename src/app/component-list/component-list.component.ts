@@ -9,8 +9,8 @@ import { Symbol } from '../model/symbol.model';
   styleUrls: ['./component-list.component.css']
 })
 export class ComponentListComponent {
-  @Input() symbol_id: number = 0;
-  @Input() symbol: Symbol = new Symbol;
+  @Input() @Output() symbol_id: number = 0;
+  @Input() @Output() symbol: Symbol = new Symbol;
   @Output() symbolSelected = new EventEmitter<Symbol>();
   
   selectedSymbol: Symbol = new Symbol;
@@ -19,6 +19,8 @@ export class ComponentListComponent {
   }
 
   public onSelectionChanged(event: MatSelectChange) {
+    this.symbol = this.selectedSymbol;
+    this.symbol_id = this.selectedSymbol.id;
     this.symbolSelected.emit(this.selectedSymbol);
   }
 

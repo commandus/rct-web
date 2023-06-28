@@ -7,11 +7,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Box } from '../model/box.model';
 import { Symbol } from '../model/symbol.model';
 import { Observable, delay, startWith, tap } from 'rxjs';
-import { CardResponse } from '../model/card-response.model';
-import { Property } from '../model/property.model';
-import { Package } from '../model/package.model';
 import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model';
 import { WebappService } from '../webapp.service';
+import { GetItemRequest } from '../model/get-item-request.model';
 
 class dumbCollectionViewer implements CollectionViewer {
   viewChange!: Observable<ListRange>;
@@ -35,10 +33,10 @@ export class CardTableComponent {
   lastQuery = '';
 
   constructor(
-    public svc: RcrJsonService,
-    private app: WebappService
+    public rcr: RcrJsonService,
+    public app: WebappService
   ) {
-    this.ds = new CardsDataSource(this.svc);
+    this.ds = new CardsDataSource(this.rcr);
   }
 
   ngAfterViewInit() {
@@ -79,17 +77,13 @@ export class CardTableComponent {
     this.ds.load(symbol, box, query, ofs, this.paginator.pageSize);
   }
 
-  showCard(
-    id: number
-  ): void {
-
-  }
-
-  showDetails(
-    value: CardNPropetiesPackages
-
-    ): void {
-      this.app.editCard(value);
+  edit(row: CardNPropetiesPackages) {
+    const request = new GetItemRequest;
+    request.user = this.app.user;
+    request.id = row.card.id;
+    this.rcr.getCard(request).subscribe( v => {
+      this.app.showCard(v).then(v=>{this.refresh();});
+    });
   }
 
   refresh(): void {
