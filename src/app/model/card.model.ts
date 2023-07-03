@@ -3,5 +3,5 @@ export class Card {
     public name = "";
     public uname = "";   ///< uppercase name for search
     public symbol_id = 0;
-    public nominal = 0;
+    public nominal = '';
 }

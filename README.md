@@ -1,5 +1,33 @@
 # Rcr
 
+## Prerequisites
+
+Install nvm
+
+https://github.com/nvm-sh/nvm#installing-and-updating
+
+If you wish to uninstall them at a later point (or re-install them under your
+nvm` Nodes), you can remove them from the system Node as follows:
+```
+nvm use system
+npm uninstall -g a_module
+```
+
+Install node.js:
+```
+nvm install --lts
+nvm use --lts
+```
+
+```
+cd rct-web
+sudo apt install npm
+
+sudo npm install -g @angular/cli
+npm install
+ng serve
+```
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
 
 ## Development server

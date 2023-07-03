@@ -45,6 +45,8 @@ import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.com
 import { BoxQtyComponent } from './box-qty/box-qty.component';
 import { PropertyValueComponent } from './property-value/property-value.component';
 import { PropertyTypeSelectComponent } from './property-type-select/property-type-select.component';
+import { CardNominalPipe } from './pipe-card-nominal';
+import { CardNamePipe } from './pipe-card-name';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { PropertyTypeSelectComponent } from './property-type-select/property-typ
     FileNamePipe,
     BoxPipe,
     QtyColorPipe,
+    CardNominalPipe,
+    CardNamePipe,
     ImportExcelComponent,
     TopMenuComponent,
     BoxAutocompleteComponent,

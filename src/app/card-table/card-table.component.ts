@@ -27,7 +27,7 @@ export class CardTableComponent {
   public ds: CardsDataSource;
   public selection = new SelectionModel<number>(true, []);
   public selectionMode = 0; // 0- manually selected, 1- select all, 2- unselect all
-  public displayedColumns: string[] = ['name', 'properties', 'box-qty'];
+  public displayedColumns: string[] = ['name', 'nominal', 'properties', 'box-qty'];
   lastSymbol: Symbol = new Symbol;
   lastBox: Box = new Box;
   lastQuery = '';
