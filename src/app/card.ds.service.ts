@@ -38,8 +38,10 @@ export class CardsDataSource implements DataSource<CardNPropetiesPackages> {
   ): void {
     this.loadingSubject.next(true);
     const r = new CardQueryRequest;
+    /*
     if (query.indexOf('*') < 0)
       query += '*';
+      */
     if (box.box_id.length > 0)
       query += ' ' + Box.box2string(box.box_id);
     r.query = query;
