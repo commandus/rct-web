@@ -36,7 +36,7 @@ export class CardTableComponent {
     public rcr: RcrJsonService,
     public app: WebappService
   ) {
-    this.ds = new CardsDataSource(this.rcr);
+    this.ds = new CardsDataSource(this.rcr, this.app);
   }
 
   ngAfterViewInit() {

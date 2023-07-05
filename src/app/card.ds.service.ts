@@ -7,6 +7,7 @@ import { Box } from './model/box.model';
 import { Symbol } from './model/symbol.model';
 import { CardQueryRequest } from './model/card-query-request.model';
 import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
+import { WebappService } from './webapp.service';
 
 /**
  * @see https://blog.angular-university.io/angular-material-data-table/
@@ -18,7 +19,10 @@ export class CardsDataSource implements DataSource<CardNPropetiesPackages> {
   public loading = this.loadingSubject.asObservable();
   public cardCount = 0;
 
-  constructor(private service: RcrJsonService) { }
+  constructor(
+    private service: RcrJsonService,
+    private app: WebappService
+  ) { }
 
   connect(collectionViewer: CollectionViewer): Observable<CardNPropetiesPackages[]> {
     return this.subject.asObservable();
@@ -38,7 +42,8 @@ export class CardsDataSource implements DataSource<CardNPropetiesPackages> {
   ): void {
     this.loadingSubject.next(true);
     const r = new CardQueryRequest;
-    
+    r.user = this.app.user;
+
     if (query.length == 0)
       query = '*';
     if (box.box_id.length > 0)

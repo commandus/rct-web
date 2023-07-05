@@ -19,7 +19,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Reload } from './model/reload.model';
 import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
-import { GetItemRequest } from './model/get-item-request.model';
 import { ChCardRequest } from './model/ch-card-request.model';
 import { PropertyType } from './model/property-type.model';
 
