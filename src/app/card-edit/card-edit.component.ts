@@ -36,7 +36,7 @@ export class CardEditComponent implements OnInit {
       name: [this.value ? this.value.card.name : '',
         [ Validators.required ]
       ],
-      nominal: [this.value ? this.value.card.nominal : 0,
+      nominal: [this.value ? Symbol.nominal2string(String.fromCharCode(+this.value.card.symbol_id + 0x40), this.value.card.nominal) : 0,
         [ Validators.required ]
       ]
     });
@@ -54,7 +54,7 @@ export class CardEditComponent implements OnInit {
     r.operationSymbol = '=';
     r.value.name = this.formGroup.getRawValue().name;
     r.value.symbol_id = this.value.card.symbol_id;
-    r.value.nominal = this.formGroup.getRawValue().nominal;
+    r.value.nominal = Symbol.string2nominal(String.fromCharCode(+this.value.card.symbol_id + 0x40), this.formGroup.getRawValue().nominal).toString();
     r.packages = this.value.packages;
 
     this.value.properties.forEach(pn => {

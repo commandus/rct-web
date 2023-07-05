@@ -198,5 +198,13 @@ export class WebappService {
     return this.dictionaries.property_type.length ? this.dictionaries.property_type[0] : new PropertyType;
   }
 
+  getPropertyTypeByKey(key: string): PropertyType {
+    for (let i = 0; i < this.dictionaries.property_type.length; i++) {
+      if (this.dictionaries.property_type[i].key == key)
+        return this.dictionaries.property_type[i];
+    };
+    return this.dictionaries.property_type.length ? this.dictionaries.property_type[0] : new PropertyType;
+  }
+
 }
 

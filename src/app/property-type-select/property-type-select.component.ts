@@ -9,8 +9,9 @@ import { PropertyType } from '../model/property-type.model';
   styleUrls: ['./property-type-select.component.css']
 })
 export class PropertyTypeSelectComponent {
-  @Input() @Output() propertyTypeId: number = 0;
-  @Input() @Output() propertyType: PropertyType = new PropertyType;
+  @Input() id: number = 0;
+  @Input() key = '';
+  @Input() @Output() value: PropertyType = new PropertyType;
   @Output() propertyTypeSelected = new EventEmitter<PropertyType>();
   
   selectedPropertyType: PropertyType = new PropertyType;
@@ -19,17 +20,19 @@ export class PropertyTypeSelectComponent {
   }
 
   public onSelectionChanged(event: MatSelectChange) {
-    this.propertyType = this.propertyType;
-    this.propertyTypeId = this.propertyType.id;
     this.propertyTypeSelected.emit(this.selectedPropertyType);
   }
 
   ngOnInit(): void {
-    if (this.propertyTypeId) {
-      this.selectedPropertyType = this.svc.getPropertyTypeById(this.propertyTypeId);
+    if (this.key && this.key.length > 0) {
+      this.selectedPropertyType = this.svc.getPropertyTypeByKey(this.key);
     } else {
-      if (this.propertyType) {
-        this.selectedPropertyType = this.propertyType;
+      if (this.id) {
+        this.selectedPropertyType = this.svc.getPropertyTypeById(this.id);
+      } else {
+        if (this.value) {
+          this.selectedPropertyType = this.value;
+        }
       }
     }
   }
