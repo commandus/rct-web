@@ -97,7 +97,7 @@ export class Symbol {
                 return Symbol.val1000(b, 0) + 'Вт';
             default:
         }
-        return '';
+        return b.toString();
     }
 
     static string2nominal(
