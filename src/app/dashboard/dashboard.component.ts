@@ -13,6 +13,7 @@ export class DashboardComponent {
   @ViewChild(CardTableComponent) cardTable!: CardTableComponent;
 
   constructor(public svc: WebappService) { 
+      svc.load();
   }
 
   public onQuery(symbol: Symbol, box: Box, query: string) {

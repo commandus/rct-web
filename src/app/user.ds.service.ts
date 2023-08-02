@@ -1,20 +1,17 @@
 import { CollectionViewer, DataSource} from '@angular/cdk/collections';
 import { BehaviorSubject, of } from 'rxjs';
 import { Observable } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
 import { RcrJsonService } from './rcr-json.service';
-import { Box } from './model/box.model';
-import { Symbol } from './model/symbol.model';
-import { CardQueryRequest } from './model/card-query-request.model';
-import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { WebappService } from './webapp.service';
+import { User } from './model/user.model';
+import { UserRequest } from './model/user-request.model';
 
 /**
  * @see https://blog.angular-university.io/angular-material-data-table/
  * @see https://github.com/angular-university/angular-material-course/tree/2-data-table-finished
  */
-export class CardsDataSource implements DataSource<CardNPropetiesPackages> {
-  private subject = new BehaviorSubject<CardNPropetiesPackages[]>([]);
+export class UserDataSource implements DataSource<User> {
+  private subject = new BehaviorSubject<User[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading = this.loadingSubject.asObservable();
   public count = 0;
@@ -24,7 +21,7 @@ export class CardsDataSource implements DataSource<CardNPropetiesPackages> {
     private app: WebappService
   ) { }
 
-  connect(collectionViewer: CollectionViewer): Observable<CardNPropetiesPackages[]> {
+  connect(collectionViewer: CollectionViewer): Observable<User[]> {
     return this.subject.asObservable();
   }
 
@@ -34,29 +31,19 @@ export class CardsDataSource implements DataSource<CardNPropetiesPackages> {
   }
 
   load(
-    symbol: Symbol,
-    box: Box,
-    query: string,
     ofs: number,
     pagesize: number
   ): void {
     this.loadingSubject.next(true);
-    const r = new CardQueryRequest;
+    const r = new UserRequest;
     r.user = this.app.user;
-
-    if (query.length == 0)
-      query = '*';
-    if (box.box_id.length > 0)
-      query += ' ' + Box.box2string(box.box_id);
-    r.query = query;
-    r.measure_symbol = symbol.sym;
-    r.list.offset = ofs;
-    r.list.size = pagesize;
-    this.service.cardQuery(r)
+    // r.list.offset = ofs;
+    // r.list.size = pagesize;
+    this.service.lsUser(r)
     .subscribe(
       value => {
-        this.count = value.rslt.count;
-        this.subject.next(value.cards.cards);
+        this.count = value.user.length;
+        this.subject.next(value.user);
         this.loadingSubject.next(false);
       });
   }

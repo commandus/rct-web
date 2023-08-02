@@ -1,42 +1,38 @@
 import { Component, ViewChild } from '@angular/core';
 import { CollectionViewer, ListRange, SelectionModel } from '@angular/cdk/collections';
-import { Observable, delay, startWith, tap } from 'rxjs';
-import { CardsDataSource } from '../card.ds.service';
+import { PropertyDataSource } from '../property.ds.service';
 import { RcrJsonService } from '../rcr-json.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { Box } from '../model/box.model';
-import { Symbol } from '../model/symbol.model';
-import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model';
+import { Observable, delay, startWith, tap } from 'rxjs';
 import { WebappService } from '../webapp.service';
 import { GetItemRequest } from '../model/get-item-request.model';
+import { PropertyType } from '../model/property-type.model';
 
 class dumbCollectionViewer implements CollectionViewer {
   viewChange!: Observable<ListRange>;
 }
 
 @Component({
-  selector: 'app-card-table',
-  templateUrl: './card-table.component.html',
-  styleUrls: ['./card-table.component.css']
+  selector: 'app-property-table',
+  templateUrl: './property-table.component.html',
+  styleUrls: ['./property-table.component.css']
 })
-export class CardTableComponent {
+export class PropertyTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
 
-  public ds: CardsDataSource;
+  public ds: PropertyDataSource;
   public selection = new SelectionModel<number>(true, []);
   public selectionMode = 0; // 0- manually selected, 1- select all, 2- unselect all
-  public displayedColumns: string[] = ['name', 'nominal', 'properties', 'box-qty'];
-  lastSymbol: Symbol = new Symbol;
-  lastBox: Box = new Box;
-  lastQuery = '';
-
-  constructor(
-    public rcr: RcrJsonService,
-    public app: WebappService
+  public displayedColumns: string[] = ['id', 'key', 'description'];
+  
+    constructor(
+      public rcr: RcrJsonService,
+      public app: WebappService
   ) {
-    this.ds = new CardsDataSource(this.rcr, this.app);
+    this.ds = new PropertyDataSource(this.rcr, this.app);
   }
 
   ngAfterViewInit() {
@@ -64,31 +60,24 @@ export class CardTableComponent {
     });
   }
 
-  load(
-    symbol: Symbol,
-    box: Box,
-    query: string
-  ): void {
-    if (this.lastSymbol != symbol || this.lastBox != box || this.lastQuery != query)
-      this.paginator.pageIndex = 0;
-    this.lastSymbol = symbol;
-    this.lastBox = box;
-    this.lastQuery = query;
+  load(): void {
     const ofs = this.paginator.pageIndex * this.paginator.pageSize;
-    this.ds.load(symbol, box, query, ofs, this.paginator.pageSize);
+    this.ds.load(ofs, this.paginator.pageSize);
   }
 
-  edit(row: CardNPropetiesPackages) {
+  edit(row: PropertyType) {
     const request = new GetItemRequest;
     request.user = this.app.user;
-    request.id = row.card.id;
+    request.id = row.id;
+    /*
     this.rcr.getCard(request).subscribe( v => {
       this.app.showCard(v).then(v=>{this.refresh();});
     });
+    */
   }
 
   refresh(): void {
-    this.load(this.lastSymbol, this.lastBox, this.lastQuery);
+    this.load();
   }
 
 }

@@ -57,7 +57,6 @@ export class WebappService {
   ) { 
     this.rcr = arcr;
     this.user = new User(localStorage.getItem('user'));
-    this.load();
   }
 
   cardQuery(

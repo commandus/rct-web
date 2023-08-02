@@ -47,6 +47,17 @@ import { PropertyValueComponent } from './property-value/property-value.componen
 import { PropertyTypeSelectComponent } from './property-type-select/property-type-select.component';
 import { CardNominalPipe } from './pipe-card-nominal';
 import { CardNamePipe } from './pipe-card-name';
+import { UserTableComponent } from './user-table/user-table.component';
+import { UserDasboardComponent } from './user-dasboard/user-dasboard.component';
+import { BoxTableComponent } from './box-table/box-table.component';
+import { BoxDashboardComponent } from './box-dashboard/box-dashboard.component';
+import { PropertyTableComponent } from './property-table/property-table.component';
+import { PropertyDashboardComponent } from './property-dashboard/property-dashboard.component';
+import { OperationTableComponent } from './operation-table/operation-table.component';
+import { OperationDashboardComponent } from './operation-dashboard/operation-dashboard.component';
+import { SymbolTableComponent } from './symbol-table/symbol-table.component';
+import { SymbolDashboardComponent } from './symbol-dashboard/symbol-dashboard.component';
+import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +84,18 @@ import { CardNamePipe } from './pipe-card-name';
     CardEditDialogComponent,
     BoxQtyComponent,
     PropertyValueComponent,
-    PropertyTypeSelectComponent
+    PropertyTypeSelectComponent,
+    UserTableComponent,
+    UserDasboardComponent,
+    BoxTableComponent,
+    BoxDashboardComponent,
+    PropertyTableComponent,
+    PropertyDashboardComponent,
+    OperationTableComponent,
+    OperationDashboardComponent,
+    SymbolTableComponent,
+    SymbolDashboardComponent,
+    SettingsMenuComponent
   ],
   imports: [
     BrowserModule,

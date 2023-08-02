@@ -21,6 +21,8 @@ import { GroupUserRequest } from './model/group-user-request.model';
 import { ImportExcelRequest } from './model/import-excel-request.model';
 import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { GetItemRequest } from './model/get-item-request.model';
+import { User } from './model/user.model';
+import { UserResponse } from './model/user-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +59,9 @@ export class RcrJsonService {
   }
   getBox(request: BoxRequest): Observable<BoxResponse> {
     return this.httpClient.post<BoxResponse>(Config.endpoint + "/getBox", request);
+  }
+  lsUser(request: UserRequest): Observable<UserResponse> {
+    return this.httpClient.post<UserResponse>(Config.endpoint + "/lsUser", request);
   }
   chUser(request: UserRequest): Observable<OperationResponse> {
     return this.httpClient.post<OperationResponse>(Config.endpoint + "/chUser", request);

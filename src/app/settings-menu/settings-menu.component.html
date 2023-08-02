@@ -1,0 +1,8 @@
+<button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>settings</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button *ngIf="env.hasAccount()" mat-menu-item (click)="nav2('symbols')">Список типов компонент</button>
+  <button *ngIf="env.hasAccount()" mat-menu-item (click)="nav2('operations')">Список типов операций</button>
+  <hr/>
+</mat-menu>

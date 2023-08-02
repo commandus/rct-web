@@ -2,7 +2,25 @@
     <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="nav2('')">Список компонентов</button>
+  <button mat-menu-item (click)="nav2('boxes')">Коробки</button>
+  <hr/>
   <button mat-menu-item (click)="nav2('import-excel')">Импорт</button>
-  <button mat-menu-item (click)="env.login()">Войти с именем пользователя</button>
-  <button *ngIf="env.hasAccount()" mat-menu-item (click)="env.logout()">Выйти {{env.user.name}}</button>
+  <button mat-menu-item (click)="nav2('stat')">Сводка</button>
+  <hr/>
+  <button *ngIf="!env.hasAccount()" mat-menu-item (click)="env.login()">Войти</button>
+  <ng-container *ngIf="env.hasAccount()">
+    <button mat-menu-item (click)="env.login()">Войти с другим именем</button>
+    <button mat-menu-item (click)="env.logout()">Выйти ({{env.user.name}})</button>
+    <hr/>
+    <button mat-menu-item [matMenuTriggerFor]="settings">
+      Настройки
+    </button>
+    <mat-menu #settings="matMenu">
+      <button mat-menu-item (click)="nav2('users')">Пользователи</button>
+      <button mat-menu-item (click)="nav2('properties')">Типы свойств</button>
+      <button mat-menu-item (click)="nav2('symbols')">Типы компонент</button>
+      <button mat-menu-item (click)="nav2('operations')">Типы операций</button>
+    </mat-menu>
+  </ng-container>
 </mat-menu>
