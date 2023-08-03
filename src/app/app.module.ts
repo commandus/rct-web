@@ -25,15 +25,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorIntlRu } from './mat-paginator-ru';
 
+import { FileNamePipe } from './pipe-file-name';
+import { BoxPipe } from './pipe-box';
+import { QtyColorPipe } from './pipe-qty-color';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QueryComponentComponent } from './query-component/query-component.component';
 import { BoxTreeComponent } from './box-tree/box-tree.component';
 import { PackageListComponent } from './package-list/package-list.component';
 import { BoxCombolistComponent } from './box-combolist/box-combolist.component';
+import { BoxTableComponent } from './box-table/box-table.component';
+import { BoxDashboardComponent } from './box-dashboard/box-dashboard.component';
 import { CardTableComponent } from './card-table/card-table.component';
-import { FileNamePipe } from './pipe-file-name';
-import { BoxPipe } from './pipe-box';
-import { QtyColorPipe } from './pipe-qty-color';
 import { ImportExcelComponent } from './import-excel/import-excel.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { BoxAutocompleteComponent } from './box-autocomplete/box-autocomplete.component';
@@ -42,6 +44,10 @@ import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component';
 import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
+import { SymbolEditComponent } from './symbol-edit/symbol-edit.component';
+import { SymbolEditDialogComponent } from './symbol-edit-dialog/symbol-edit-dialog.component';
+import { SymbolTableComponent } from './symbol-table/symbol-table.component';
+import { SymbolDashboardComponent } from './symbol-dashboard/symbol-dashboard.component';
 import { BoxQtyComponent } from './box-qty/box-qty.component';
 import { PropertyValueComponent } from './property-value/property-value.component';
 import { PropertyTypeSelectComponent } from './property-type-select/property-type-select.component';
@@ -49,15 +55,15 @@ import { CardNominalPipe } from './pipe-card-nominal';
 import { CardNamePipe } from './pipe-card-name';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserDasboardComponent } from './user-dasboard/user-dasboard.component';
-import { BoxTableComponent } from './box-table/box-table.component';
-import { BoxDashboardComponent } from './box-dashboard/box-dashboard.component';
 import { PropertyTableComponent } from './property-table/property-table.component';
 import { PropertyDashboardComponent } from './property-dashboard/property-dashboard.component';
 import { OperationTableComponent } from './operation-table/operation-table.component';
 import { OperationDashboardComponent } from './operation-dashboard/operation-dashboard.component';
-import { SymbolTableComponent } from './symbol-table/symbol-table.component';
-import { SymbolDashboardComponent } from './symbol-dashboard/symbol-dashboard.component';
+import { OperationEditComponent } from './operation-edit/operation-edit.component';
+import { OperationEditDialogComponent } from './operation-edit-dialog/operation-edit-dialog.component';
 import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
+import { PropertytypeEditDialogComponent } from './propertytype-edit-dialog/propertytype-edit-dialog.component';
+import { PropertytypeEditComponent } from './propertytype-edit/propertytype-edit.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +88,8 @@ import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
     DialogConfirmComponent,
     CardEditComponent,
     CardEditDialogComponent,
+    SymbolEditComponent,
+    SymbolEditDialogComponent,
     BoxQtyComponent,
     PropertyValueComponent,
     PropertyTypeSelectComponent,
@@ -93,9 +101,13 @@ import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
     PropertyDashboardComponent,
     OperationTableComponent,
     OperationDashboardComponent,
+    OperationEditComponent,
+    OperationEditDialogComponent,
     SymbolTableComponent,
     SymbolDashboardComponent,
-    SettingsMenuComponent
+    SettingsMenuComponent,
+    PropertytypeEditDialogComponent,
+    PropertytypeEditComponent
   ],
   imports: [
     BrowserModule,

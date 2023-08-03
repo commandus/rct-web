@@ -5,7 +5,7 @@ import { User } from "./user.model";
 
 export class ChCardRequest {
     public user: User = new User;
-    public  operationSymbol = "";
+    public operationSymbol = "";
     public value: Card = new Card;
     public properties: Property[] = [];
     public packages: Package[] = [];

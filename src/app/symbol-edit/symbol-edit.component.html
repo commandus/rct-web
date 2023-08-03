@@ -1,0 +1,37 @@
+<mat-progress-bar class="progressbar" *ngIf="progress" mode="indeterminate"></mat-progress-bar>
+<ng-container *ngIf="!this.progress">
+    <form class="dlg" fxLayout="column" fxLayoutAlign="stretch" fxFlex #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()">
+        <div [style.color]="success ? 'green' : 'red'">
+            {{message}}
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Символ</mat-label>
+                <input matInput type="text" placeholder="Символ" formControlName="sym">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Наименование</mat-label>
+                <input matInput type="text" placeholder="Наименование" formControlName="description">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Единица измерения</mat-label>
+                <input matInput type="text" placeholder="Единица измерения" formControlName="unit">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Степень 10</mat-label>
+                <input matInput type="number" placeholder="Степень 10" formControlName="pow10">
+            </mat-form-field>
+        </div>
+        <div>
+            <div fxLayout="row" fxLayoutAlign="end stretch">
+                <button mat-button type="button" (click)="cancel()">Закрыть</button>  
+            </div>
+        </div>
+    </form>
+</ng-container>

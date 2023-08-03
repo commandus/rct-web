@@ -21,6 +21,12 @@ import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
 import { ChCardRequest } from './model/ch-card-request.model';
 import { PropertyType } from './model/property-type.model';
+import { Operation } from './model/operation.model';
+import { ChPropertyTypeRequest } from './model/ch-property-type-request.model';
+import { SymbolEditDialogComponent } from './symbol-edit-dialog/symbol-edit-dialog.component';
+import { OperationEditDialogComponent } from './operation-edit-dialog/operation-edit-dialog.component';
+import { PropertytypeEditDialogComponent } from './propertytype-edit-dialog/propertytype-edit-dialog.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -178,6 +184,62 @@ export class WebappService {
       });
         
     });
+  }
+
+  public showPropertyType(
+    v: PropertyType
+  ) {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: 'Свойство ' + v.id,
+      message: '',
+      value: v
+    };
+
+    const dialogRef = this.dialog.open(PropertytypeEditDialogComponent, d);
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.componentInstance.changed.subscribe((request: ChPropertyTypeRequest) => {
+        this.rcr.chPropertyType(request).subscribe(
+          resp => {
+            if (resp && resp.code == 0) {
+              resolve("ok");
+            }
+          },
+          error => {
+            reject('fail');
+        });    
+      });
+        
+    });
+  }
+
+  public showOperation(
+    v: Operation
+  ) {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: 'Операция ' + v.id,
+      message: '',
+      value: v
+    };
+
+    const dialogRef = this.dialog.open(OperationEditDialogComponent, d);
+  }
+
+  public showSymbol(
+    v: Symbol
+  ) {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: 'Тип компонента ' + v.id,
+      message: '',
+      value: v
+    };
+
+    const dialogRef = this.dialog.open(SymbolEditDialogComponent, d);
   }
 
   public getComponentById(id: number): Symbol {

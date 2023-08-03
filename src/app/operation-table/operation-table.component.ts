@@ -65,15 +65,8 @@ export class OperationTableComponent {
     this.ds.load(ofs, this.paginator.pageSize);
   }
 
-  edit(row: Operation) {
-    const request = new GetItemRequest;
-    request.user = this.app.user;
-    request.id = row.id;
-    /*
-    this.rcr.getCard(request).subscribe( v => {
-      this.app.showCard(v).then(v=>{this.refresh();});
-    });
-    */
+  show(row: Operation) {
+    this.app.showOperation(row);
   }
 
   refresh(): void {

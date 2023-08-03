@@ -66,14 +66,7 @@ export class PropertyTableComponent {
   }
 
   edit(row: PropertyType) {
-    const request = new GetItemRequest;
-    request.user = this.app.user;
-    request.id = row.id;
-    /*
-    this.rcr.getCard(request).subscribe( v => {
-      this.app.showCard(v).then(v=>{this.refresh();});
-    });
-    */
+    this.app.showPropertyType(row).then(v=>{this.refresh();});
   }
 
   refresh(): void {

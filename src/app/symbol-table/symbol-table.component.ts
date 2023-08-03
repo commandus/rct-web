@@ -6,8 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, delay, startWith, tap } from 'rxjs';
 import { WebappService } from '../webapp.service';
-import { GetItemRequest } from '../model/get-item-request.model';
-import { User } from '../model/user.model';
+import { Symbol } from '../model/symbol.model';
 
 class dumbCollectionViewer implements CollectionViewer {
   viewChange!: Observable<ListRange>;
@@ -64,15 +63,8 @@ export class SymbolTableComponent {
     this.ds.load(ofs, this.paginator.pageSize);
   }
 
-  edit(row: User) {
-    const request = new GetItemRequest;
-    request.user = this.app.user;
-    request.id = row.id;
-    /*
-    this.rcr.getCard(request).subscribe( v => {
-      this.app.showCard(v).then(v=>{this.refresh();});
-    });
-    */
+  show(row: Symbol) {
+    this.app.showSymbol(row);
   }
 
   refresh(): void {
