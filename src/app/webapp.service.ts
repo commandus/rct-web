@@ -26,7 +26,9 @@ import { ChPropertyTypeRequest } from './model/ch-property-type-request.model';
 import { SymbolEditDialogComponent } from './symbol-edit-dialog/symbol-edit-dialog.component';
 import { OperationEditDialogComponent } from './operation-edit-dialog/operation-edit-dialog.component';
 import { PropertytypeEditDialogComponent } from './propertytype-edit-dialog/propertytype-edit-dialog.component';
-
+import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
+import { UserRequest } from './model/user-request.model';
+import { List } from './model/list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -199,8 +201,50 @@ export class WebappService {
 
     const dialogRef = this.dialog.open(PropertytypeEditDialogComponent, d);
     return new Promise<string>((resolve, reject) => { 
-      dialogRef.componentInstance.changed.subscribe((request: ChPropertyTypeRequest) => {
+      dialogRef.componentInstance.changed.subscribe((v: PropertyType) => {
+        const request = new ChPropertyTypeRequest() ;
+        request.user = this.user;
+        request.operationSymbol = "=";
+        request.value = v;
         this.rcr.chPropertyType(request).subscribe(
+          resp => {
+            if (resp && resp.code == 0) {
+              resolve("ok");
+            }
+          },
+          error => {
+            reject('fail');
+        });    
+      });
+        
+    });
+  }
+
+  public showUser(
+    v: User
+  ) {
+    const d = new MatDialogConfig();
+    const isNew = !(v.id > 0);
+    console.log(isNew);
+    d.autoFocus = true;
+    d.data = {
+      title: isNew ? 'Пользователь ' + v.id : 'Новый пользователь',
+      message: '',
+      value: v
+    };
+
+    const dialogRef = this.dialog.open(UserEditDialogComponent, d);
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.componentInstance.changed.subscribe((v: User) => {
+        const request = new UserRequest() ;
+        request.user = this.user;
+        request.operationSymbol = isNew ? '+' : '=';
+        v.token = 0;
+        if (typeof v.rights !== "number")
+          v.rights = 0;
+        request.value = v;
+        request.list = new List();
+        this.rcr.chUser(request).subscribe(
           resp => {
             if (resp && resp.code == 0) {
               resolve("ok");

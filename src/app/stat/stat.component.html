@@ -1,0 +1,54 @@
+<div class="user-table">
+    <div class="menu">
+        <app-top-menu class="top-menu"></app-top-menu>
+        <div class="right-menu">
+            Сводка
+        </div>
+    </div>
+    <div class="stat">
+        <mat-progress-bar class="progressbar" *ngIf="progress" mode="indeterminate"></mat-progress-bar>
+        <div *ngIf="!this.progress">
+            <form #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="refresh()">
+                <div fxLayout="row" fxLayoutAlign="space-around center" [style.color]="success ? 'green' : 'red'">
+                {{message}}
+                </div>
+                <div fxLayout="column" fxLayoutAlign="stretch" >
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Карточек</mat-label>
+                            <input matInput type="number" placeholder="Количество" formControlName="count" [value]="count">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Деталей</mat-label>
+                            <input matInput type="number" placeholder="Количество" formControlName="sum" [value]="sum">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="end stretch">
+                        <button mat-button type="button" (click)="cancel()">Закрыть</button>  
+                        <button color="primary" mat-button type="submit">Обновить</button>  
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>    
+    <div fxLayout="column" fxLayoutAlign="stretch" >
+        <div>
+            Репозитории:
+        </div>
+        <div>
+            <a href="https://github.com/commandus/rcr">CLI клиент для GNU Linux></a>
+        </div>
+        <div>
+            <a href="https://github.com/commandus/rcr-gnome">Десктоп клиент для GNU Linux></a>
+        </div>
+        <div>
+            <a href="https://github.com/commandus/rcr-win"><s>Десктоп клиент для Microsoft Windows></s></a>
+        </div>
+        <div>
+            <a href="https://github.com/commandus/rct-web">Клиент для браузера</a>
+        </div>
+    </div>
+</div>
+

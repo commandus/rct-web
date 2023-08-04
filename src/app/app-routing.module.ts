@@ -8,6 +8,7 @@ import { PropertyDashboardComponent } from './property-dashboard/property-dashbo
 import { SymbolDashboardComponent } from './symbol-dashboard/symbol-dashboard.component';
 import { OperationDashboardComponent } from './operation-dashboard/operation-dashboard.component';
 import { ImportExcelComponent } from './import-excel/import-excel.component';
+import { StatComponent } from './stat/stat.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'symbols', component: SymbolDashboardComponent},
   { path: 'login', component: LoginComponent},
   { path: 'import-excel', component: ImportExcelComponent},
+  { path: 'stat', component: StatComponent},
 ];
 
 

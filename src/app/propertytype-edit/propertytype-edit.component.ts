@@ -44,6 +44,8 @@ export class PropertytypeEditComponent implements OnInit {
   }
 
   save(): void {
+    this.value.key = this.formGroup.getRawValue().key;
+    this.value.description = this.formGroup.getRawValue().description;
     this.changed.emit(this.value);
   }
 

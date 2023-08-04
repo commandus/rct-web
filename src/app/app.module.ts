@@ -64,6 +64,9 @@ import { OperationEditDialogComponent } from './operation-edit-dialog/operation-
 import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
 import { PropertytypeEditDialogComponent } from './propertytype-edit-dialog/propertytype-edit-dialog.component';
 import { PropertytypeEditComponent } from './propertytype-edit/propertytype-edit.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
+import { StatComponent } from './stat/stat.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +110,10 @@ import { PropertytypeEditComponent } from './propertytype-edit/propertytype-edit
     SymbolDashboardComponent,
     SettingsMenuComponent,
     PropertytypeEditDialogComponent,
-    PropertytypeEditComponent
+    PropertytypeEditComponent,
+    UserEditComponent,
+    UserEditDialogComponent,
+    StatComponent
   ],
   imports: [
     BrowserModule,

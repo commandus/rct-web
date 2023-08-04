@@ -1,6 +1,6 @@
 <mat-progress-bar class="progressbar" *ngIf="progress" mode="indeterminate"></mat-progress-bar>
 <ng-container *ngIf="!this.progress">
-    <form class="dlg" fxLayout="column" fxLayoutAlign="stretch" fxFlex #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()">
+    <form class="dlg" fxLayout="column" fxLayoutAlign="stretch" fxFlex #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="cancel()">
         <div [style.color]="success ? 'green' : 'red'">
             {{message}}
         </div>

@@ -1,0 +1,38 @@
+<mat-progress-bar class="progressbar" *ngIf="progress" mode="indeterminate"></mat-progress-bar>
+<ng-container *ngIf="!this.progress">
+    <form class="dlg" fxLayout="column" fxLayoutAlign="stretch" fxFlex #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()">
+        <div [style.color]="success ? 'green' : 'red'">
+            {{message}}
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Логин</mat-label>
+                <input matInput type="text" placeholder="Логин" formControlName="name">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Пароль</mat-label>
+                <input matInput type="password" placeholder="Пароль" formControlName="password">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Токен</mat-label>
+                <input matInput type="text" placeholder="Токен" formControlName="token">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Права</mat-label>
+                <input matInput type="number" placeholder="Права" formControlName="rights">
+            </mat-form-field>
+        </div>
+        <div>
+            <div fxLayout="row" fxLayoutAlign="end stretch">
+                <button mat-button type="submit">Сохранить</button>  
+                <button mat-button type="button" (click)="cancel()">Отмена</button>  
+            </div>
+        </div>
+    </form>
+</ng-container>

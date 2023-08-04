@@ -69,6 +69,11 @@ export class PropertyTableComponent {
     this.app.showPropertyType(row).then(v=>{this.refresh();});
   }
 
+  add() {
+    const v = new PropertyType();
+    this.app.showPropertyType(v).then(v=>{this.refresh();});
+  }
+
   refresh(): void {
     this.load();
   }

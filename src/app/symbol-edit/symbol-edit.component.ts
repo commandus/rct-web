@@ -45,9 +45,4 @@ export class SymbolEditComponent implements OnInit {
   cancel(): void {
     this.cancelled.emit();
   }
-
-  save(): void {
-    this.cancelled.emit();
-  }
-
 }

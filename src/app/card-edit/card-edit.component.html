@@ -5,26 +5,30 @@
             <div fxLayout="row" fxLayoutAlign="space-around center" [style.color]="success ? 'green' : 'red'">
             {{message}}
             </div>
-            <div fxLayout="row" fxLayoutAlign="stretch" >
-                <mat-form-field>
-                    <mat-label>Наименование</mat-label>
-                    <input matInput type="text" placeholder="Наименование" autocomplete="name" formControlName="name">
-                </mat-form-field>
+            <div fxLayout="column" fxLayoutAlign="stretch" >
+                <div>
+                    <mat-form-field>
+                        <mat-label>Наименование</mat-label>
+                        <input matInput type="text" placeholder="Наименование" autocomplete="name" formControlName="name">
+                    </mat-form-field>
+                </div>
                 <div>
                     <app-component-list [symbol_id]="value.card.symbol_id" class="symbol-selector" (symbolSelected)="onSymbolSelected($event)"></app-component-list>
                 </div>
-                <mat-form-field>
-                    <mat-label>Номинал</mat-label>
-                    <input matInput type="text" placeholder="Номинал" formControlName="nominal">
-                </mat-form-field>
-
-                <ng-container *ngFor="let p of value.properties">
-                    <app-property-value [value]="p"></app-property-value>
-                </ng-container>
-                <ng-container *ngFor="let p of value.packages">
-                    <app-box-qty [value]="p"></app-box-qty>
-                </ng-container>
-            
+                <div>
+                    <mat-form-field>
+                        <mat-label>Номинал</mat-label>
+                        <input matInput type="text" placeholder="Номинал" formControlName="nominal">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <ng-container *ngFor="let p of value.properties">
+                        <app-property-value [value]="p"></app-property-value>
+                    </ng-container>
+                    <ng-container *ngFor="let p of value.packages">
+                        <app-box-qty [value]="p"></app-box-qty>
+                    </ng-container>
+                </div>
                 <div fxLayout="row" fxLayoutAlign="end stretch">
                     <button mat-button type="button" (click)="cancel()">Отменить</button>  
                     <button color="primary" mat-button type="submit">Сохранить</button>  

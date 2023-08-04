@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class PropertyDashboardComponent {
   constructor(
-    public svc: WebappService, 
+    public app: WebappService, 
     private router: Router
   ) { 
   }
@@ -17,5 +17,7 @@ export class PropertyDashboardComponent {
   back() {
     this.router.navigateByUrl('');
   }
+
+
 }
 

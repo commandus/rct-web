@@ -1,0 +1,26 @@
+.stat {
+	padding: 20pt;
+}
+
+.menu {
+    width: 100%;
+    display: flex;
+}
+
+.right-menu {
+    padding-top: 6pt;
+}
+
+.user-table {
+    width: 100%;
+    height: 100%;
+    padding: 20pt;
+}
+
+.paramBox {
+    display: flex;
+}
+
+.back {
+    padding: 4pt;
+}
