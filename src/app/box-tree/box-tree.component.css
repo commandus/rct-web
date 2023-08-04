@@ -1,5 +1,3 @@
-.fill {
-    width: 100%;
-    padding-left: 2pt;
-    padding-right: 2pt;
+mat-form-field {
+    width: 100pt;
 }

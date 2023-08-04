@@ -6,18 +6,16 @@
 
 .symbol-selector {
     padding-left: 2pt;
-    width: 170pt;
 }
 
 .box-tree {
     padding-left: 2pt;
-    width: 170pt;
 }
 
 .query-input {
     padding-left: 2pt;
     padding-right: 2pt;
-    width: calc(100% - 390pt);
+    width: calc(100% - 190pt);
 }
 
 .package-list {
@@ -43,4 +41,3 @@
     margin: 0 auto;
     display: flex;
 }
-

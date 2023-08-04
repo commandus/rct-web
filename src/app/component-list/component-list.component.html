@@ -1,4 +1,4 @@
-<mat-form-field class="fill">
+<mat-form-field>
   <mat-label>Компоненты</mat-label>
   <mat-select [(value)]="selectedSymbol" (selectionChange)="onSelectionChanged($event)">
     <mat-option *ngFor="let c of svc.dictionaries.symbol" [value]="c">
