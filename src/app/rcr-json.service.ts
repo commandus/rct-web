@@ -23,6 +23,8 @@ import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { GetItemRequest } from './model/get-item-request.model';
 import { User } from './model/user.model';
 import { UserResponse } from './model/user-response.model';
+import { JournalRequest } from './model/journal-request.model';
+import { JournalResponse } from './model/journal-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +76,9 @@ export class RcrJsonService {
   }
   importExcel(request: ImportExcelRequest): Observable<OperationResponse> {
     return this.httpClient.post<OperationResponse>(Config.endpoint + "/importExcel", request);
+  }
+  lsJournal(request: JournalRequest): Observable<JournalResponse> {
+    return this.httpClient.post<JournalResponse>(Config.endpoint + "/lsJournal", request);
   }
 
 }

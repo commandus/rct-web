@@ -1,11 +1,13 @@
-<div class="user-table">
+<div class="stat">
     <div class="menu">
         <app-top-menu class="top-menu"></app-top-menu>
         <div class="right-menu">
             Сводка
         </div>
     </div>
-    <div class="stat">
+    <p></p>
+    <p></p>
+    <div>
         <mat-progress-bar class="progressbar" *ngIf="progress" mode="indeterminate"></mat-progress-bar>
         <div *ngIf="!this.progress">
             <form #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="refresh()">
@@ -34,6 +36,8 @@
         </div>
     </div>    
     <div fxLayout="column" fxLayoutAlign="stretch" >
+        <p></p>
+        <p></p>
         <div>
             Репозитории:
         </div>

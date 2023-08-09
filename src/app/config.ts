@@ -1,3 +1,3 @@
 export class Config {
-  static endpoint = "http://84.237.104.120:8050";
+  static endpoint = "http://kb-srv.ysn.ru:8050";
 }

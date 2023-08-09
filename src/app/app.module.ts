@@ -67,6 +67,9 @@ import { PropertytypeEditComponent } from './propertytype-edit/propertytype-edit
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 import { StatComponent } from './stat/stat.component';
+import { LogDashboardComponent } from './log-dashboard/log-dashboard.component';
+import { LogTableComponent } from './log-table/log-table.component';
+import { DateTimePipe } from './pipe-sdate';
 
 @NgModule({
   declarations: [
@@ -83,6 +86,7 @@ import { StatComponent } from './stat/stat.component';
     QtyColorPipe,
     CardNominalPipe,
     CardNamePipe,
+    DateTimePipe,
     ImportExcelComponent,
     TopMenuComponent,
     BoxAutocompleteComponent,
@@ -113,7 +117,9 @@ import { StatComponent } from './stat/stat.component';
     PropertytypeEditComponent,
     UserEditComponent,
     UserEditDialogComponent,
-    StatComponent
+    StatComponent,
+    LogDashboardComponent,
+    LogTableComponent
   ],
   imports: [
     BrowserModule,

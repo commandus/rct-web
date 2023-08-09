@@ -7,6 +7,7 @@
   <hr/>
   <button mat-menu-item (click)="nav2('import-excel')">Импорт</button>
   <button mat-menu-item (click)="nav2('stat')">Сводка</button>
+  <button mat-menu-item (click)="nav2('log')">Журнал</button>
   <hr/>
   <button *ngIf="!env.hasAccount()" mat-menu-item (click)="env.login()">Войти</button>
   <ng-container *ngIf="env.hasAccount()">

@@ -9,6 +9,7 @@ import { SymbolDashboardComponent } from './symbol-dashboard/symbol-dashboard.co
 import { OperationDashboardComponent } from './operation-dashboard/operation-dashboard.component';
 import { ImportExcelComponent } from './import-excel/import-excel.component';
 import { StatComponent } from './stat/stat.component';
+import { LogDashboardComponent } from './log-dashboard/log-dashboard.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'import-excel', component: ImportExcelComponent},
   { path: 'stat', component: StatComponent},
+  { path: 'log', component: LogDashboardComponent }
 ];
 
 
