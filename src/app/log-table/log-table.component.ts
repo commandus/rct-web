@@ -25,7 +25,7 @@ export class LogTableComponent {
   public ds: LogDataSource;
   public selection = new SelectionModel<number>(true, []);
   public selectionMode = 0; // 0- manually selected, 1- select all, 2- unselect all
-  public displayedColumns: string[] = ['id', 'dt', 'user', 'operation', 'package', 'qty'];
+  public displayedColumns: string[] = ['id', 'dt', 'user', 'card', 'operation', 'package', 'qty'];
   
   constructor(
       public rcr: RcrJsonService,
@@ -65,7 +65,6 @@ export class LogTableComponent {
   }
 
   show(row: Symbol) {
-    this.app.showSymbol(row);
   }
 
   refresh(): void {

@@ -5,37 +5,43 @@
   <table mat-table [dataSource]="ds" matSort>
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> № </th>
-        <td mat-cell *matCellDef="let v" matTooltip="Идентификатор ">
+        <td mat-cell *matCellDef="let v" matTooltip="Идентификатор {{v.id}}">
           {{v.id}}
         </td>
     </ng-container>
     <ng-container matColumnDef="dt">
         <th mat-header-cell *matHeaderCellDef> Время </th>
-        <td mat-cell *matCellDef="let v" matTooltip="Время изменения">
+        <td mat-cell *matCellDef="let v" matTooltip="Время изменения {{v.dt | sdate }}">
           {{v.dt | sdate }}
         </td>
     </ng-container>
     <ng-container matColumnDef="user">
         <th mat-header-cell *matHeaderCellDef> Пользователь </th>
-        <td mat-cell *matCellDef="let v" matTooltip="Пользователь">
+        <td mat-cell *matCellDef="let v" matTooltip="Пользователь {{v.user.name}}">
           {{v.user.name}}
         </td>
     </ng-container>
     <ng-container matColumnDef="operation">
         <th mat-header-cell *matHeaderCellDef> Действие </th>
-        <td mat-cell *matCellDef="let v" matTooltip="Манипуляция">
+        <td mat-cell *matCellDef="let v" matTooltip="{{v.operation | operationname}}">
           {{v.operation.symbol}}
         </td>
     </ng-container>
-    <ng-container matColumnDef="package">
+    <ng-container matColumnDef="card">
+      <th mat-header-cell *matHeaderCellDef> Компонент </th>
+      <td mat-cell *matCellDef="let v" matTooltip="Компонент {{v.card | nameNominal}}">
+        {{v.card | nameNominal}}
+      </td>
+  </ng-container>
+  <ng-container matColumnDef="package">
         <th mat-header-cell *matHeaderCellDef> Коробка </th>
-        <td mat-cell *matCellDef="let v" matTooltip="Коробка">
+        <td mat-cell *matCellDef="let v" matTooltip="Коробка {{v.package.box | box }}">
           {{v.package.box | box }}
         </td>
     </ng-container>
     <ng-container matColumnDef="qty">
         <th mat-header-cell *matHeaderCellDef> Количество </th>
-        <td mat-cell *matCellDef="let v" matTooltip="Количество">
+        <td mat-cell *matCellDef="let v" matTooltip="Количество {{v.value}}">
           {{v.value}}
         </td>
     </ng-container>

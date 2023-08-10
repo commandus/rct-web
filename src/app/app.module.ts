@@ -28,6 +28,8 @@ import { MatPaginatorIntlRu } from './mat-paginator-ru';
 import { FileNamePipe } from './pipe-file-name';
 import { BoxPipe } from './pipe-box';
 import { QtyColorPipe } from './pipe-qty-color';
+import { CardNameNominalPipe } from './pipe-card-name-nominal';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QueryComponentComponent } from './query-component/query-component.component';
 import { BoxTreeComponent } from './box-tree/box-tree.component';
@@ -70,6 +72,7 @@ import { StatComponent } from './stat/stat.component';
 import { LogDashboardComponent } from './log-dashboard/log-dashboard.component';
 import { LogTableComponent } from './log-table/log-table.component';
 import { DateTimePipe } from './pipe-sdate';
+import { OperationPipe } from './pipe-operation';
 
 @NgModule({
   declarations: [
@@ -87,6 +90,8 @@ import { DateTimePipe } from './pipe-sdate';
     CardNominalPipe,
     CardNamePipe,
     DateTimePipe,
+    OperationPipe,
+    CardNameNominalPipe,
     ImportExcelComponent,
     TopMenuComponent,
     BoxAutocompleteComponent,
