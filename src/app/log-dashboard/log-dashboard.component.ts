@@ -12,6 +12,7 @@ export class LogDashboardComponent {
     public svc: WebappService, 
     private router: Router
   ) { 
+    svc.load().subscribe(v=>{});
   }
 
   back() {

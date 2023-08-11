@@ -12,6 +12,7 @@ export class OperationDashboardComponent {
     public svc: WebappService, 
     private router: Router
   ) { 
+    svc.load().subscribe(v=>{});
   }
 
   back() {

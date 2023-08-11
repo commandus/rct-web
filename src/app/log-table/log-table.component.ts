@@ -8,6 +8,8 @@ import { Observable, delay, startWith, tap } from 'rxjs';
 import { WebappService } from '../webapp.service';
 import { Symbol } from '../model/symbol.model';
 import { LogDataSource } from '../log.ds.service';
+import { Log } from '../model/log';
+import { GetItemRequest } from '../model/get-item-request.model';
 
 class dumbCollectionViewer implements CollectionViewer {
   viewChange!: Observable<ListRange>;
@@ -64,7 +66,14 @@ export class LogTableComponent {
     this.ds.load(ofs, this.paginator.pageSize);
   }
 
-  show(row: Symbol) {
+  show(row: Log) {
+    const request = new GetItemRequest;
+    request.user = this.app.user;
+    request.id = row.card.id;
+    this.rcr.getCard(request).subscribe( v => {
+      this.app.showCard(v).then(v=>{this.refresh();});
+    });
+
   }
 
   refresh(): void {

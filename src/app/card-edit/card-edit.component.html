@@ -25,10 +25,18 @@
                     <ng-container *ngFor="let p of value.properties">
                         <app-property-value [value]="p"></app-property-value>
                     </ng-container>
+                </div>
+
+                <cdk-virtual-scroll-viewport *ngIf="enableScroll" itemSize="50" class="box-scroll">
+                    <ng-container *cdkVirtualFor="let p of value.packages">
+                        <app-box-qty [value]="p"></app-box-qty>
+                    </ng-container>
+                </cdk-virtual-scroll-viewport>
+                <ng-container *ngIf="!enableScroll">
                     <ng-container *ngFor="let p of value.packages">
                         <app-box-qty [value]="p"></app-box-qty>
                     </ng-container>
-                </div>
+                </ng-container>
                 <div fxLayout="row" fxLayoutAlign="end stretch">
                     <button mat-button type="button" (click)="cancel()">Отменить</button>  
                     <button color="primary" mat-button type="submit">Сохранить</button>  

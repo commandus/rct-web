@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebappService } from '../webapp.service';
 import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model';
 import { ChCardRequest } from '../model/ch-card-request.model';
 import { Symbol } from '../model/symbol.model';
 import { Property } from '../model/property.model';
+import { RcrJsonService } from '../rcr-json.service';
 
 @Component({
   selector: 'app-card-edit',
@@ -13,16 +15,21 @@ import { Property } from '../model/property.model';
 })
 export class CardEditComponent implements OnInit {
   @Input() value: CardNPropetiesPackages = new CardNPropetiesPackages;
+  @Input() enableScroll = true;
   @Output() changed = new EventEmitter<ChCardRequest>();
   @Output() cancelled = new EventEmitter<void>();
+  
   public formGroup: FormGroup = new FormGroup({});
   public progress = false;
+  
+
   message = '';
   success: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
-    private env: WebappService
+    private env: WebappService,
+    private svc: RcrJsonService
   ) {
     this.success = env.hasAccount();
   }
@@ -34,10 +41,10 @@ export class CardEditComponent implements OnInit {
   private initForm() {
     this.formGroup = this.formBuilder.group({
       name: [this.value ? this.value.card.name : '',
-        [ Validators.required ]
+        [ ]
       ],
       nominal: [this.value ? Symbol.nominal2string(String.fromCharCode(+this.value.card.symbol_id + 0x40), this.value.card.nominal) : 0,
-        [ Validators.required ]
+        []
       ]
     });
    }

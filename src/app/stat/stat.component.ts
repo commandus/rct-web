@@ -26,6 +26,7 @@ export class StatComponent implements OnInit {
     private svc: RcrJsonService
   ) {
     this.success = true;
+    app.load().subscribe(v=>{});
   }
 
   ngOnInit(): void {

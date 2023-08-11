@@ -21,9 +21,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private env: WebappService
+    private svc: WebappService
   ) {
-    this.success = env.hasAccount();
+    this.success = svc.hasAccount();
+    svc.load().subscribe(v=>{});
   }
 
   ngOnInit(): void {
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
     r.user.name = this.formGroup.getRawValue().login;
     r.user.password = this.formGroup.getRawValue().password;
 
-    this.env.rcr.login(r).subscribe(
+    this.svc.rcr.login(r).subscribe(
       value => {
         this.progress = false;
         if (value && value.success) {

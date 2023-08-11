@@ -10,6 +10,7 @@ import { OperationDashboardComponent } from './operation-dashboard/operation-das
 import { ImportExcelComponent } from './import-excel/import-excel.component';
 import { StatComponent } from './stat/stat.component';
 import { LogDashboardComponent } from './log-dashboard/log-dashboard.component';
+import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent},
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'import-excel', component: ImportExcelComponent},
   { path: 'stat', component: StatComponent},
-  { path: 'log', component: LogDashboardComponent }
+  { path: 'log', component: LogDashboardComponent },
+  { path: 'card/:id', component: CardByIdEditComponent}
 ];
 
 

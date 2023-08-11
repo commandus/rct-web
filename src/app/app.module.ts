@@ -8,6 +8,8 @@ import { ComponentListComponent } from './component-list/component-list.componen
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
@@ -73,6 +75,7 @@ import { LogDashboardComponent } from './log-dashboard/log-dashboard.component';
 import { LogTableComponent } from './log-table/log-table.component';
 import { DateTimePipe } from './pipe-sdate';
 import { OperationPipe } from './pipe-operation';
+import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +127,8 @@ import { OperationPipe } from './pipe-operation';
     UserEditDialogComponent,
     StatComponent,
     LogDashboardComponent,
-    LogTableComponent
+    LogTableComponent,
+    CardByIdEditComponent
   ],
   imports: [
     BrowserModule,
@@ -147,7 +151,8 @@ import { OperationPipe } from './pipe-operation';
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatBadgeModule
+    MatBadgeModule,
+    ScrollingModule
   ],
   providers: [
     {

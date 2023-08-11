@@ -29,6 +29,7 @@ import { PropertytypeEditDialogComponent } from './propertytype-edit-dialog/prop
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 import { UserRequest } from './model/user-request.model';
 import { List } from './model/list.model';
+import { DictionariesNBoxes } from './model/dictionaries-n-boxes';
 
 @Injectable({
   providedIn: 'root'
@@ -53,9 +54,18 @@ export class WebappService {
     return this.user && (this.user.token != 0);
   }
 
-  load(): void {
-    this.loadDictionaries();
-    this.loadBoxes();
+  load(): Observable<DictionariesNBoxes> {
+    const obs = new Observable<DictionariesNBoxes>((observer) => {
+      this.loadDictionaries().subscribe(d => {
+        this.loadBoxes().subscribe(b => {
+          const r = new DictionariesNBoxes;
+          r.dictionaries = d;
+          r.boxes = b;
+          observer.next(r);
+        });
+      });
+    });
+    return obs;
   }
 
   constructor(
@@ -86,35 +96,46 @@ export class WebappService {
     });
   }
 
-  private loadDictionaries() {
-    const r = new DictionariesRequest;
-    this.rcr.getDictionaries(r).subscribe(v => { 
-      this.symbol = new Symbol;
-      this.symbol.id = 0;
-      this.symbol.description = "Все";
-      v.symbol.unshift(this.symbol);
-      this.dictionaries = v;
+  private loadDictionaries() : Observable<DictionariesResponse> {
+    const obs = new Observable<DictionariesResponse>((observer) => {
+      const r = new DictionariesRequest;
+      this.rcr.getDictionaries(r).subscribe(v => { 
+        this.symbol = new Symbol;
+        this.symbol.id = 0;
+        this.symbol.description = "Все";
+        v.symbol.unshift(this.symbol);
+        this.dictionaries = v;
+        observer.next(v);
+      });
+  
     });
+
+    return obs;
   }
 
-  private loadBoxes() {
-    const r = new BoxRequest;
-    r.user = this.user;
-    this.rcr.getBox(r)
-    .pipe(map(v => {
-      // add helper property
-      v.box.forEach(b => {
-        b.box_id_name = Box.box2string(b.box_id);
+  private loadBoxes() : Observable<BoxResponse> {
+    const obs = new Observable<BoxResponse>((observer) => {
+      const r = new BoxRequest;
+      r.user = this.user;
+      this.rcr.getBox(r)
+      .pipe(map(v => {
+        // add helper property
+        v.box.forEach(b => {
+          b.box_id_name = Box.box2string(b.box_id);
+        });
+        return v;
+      }))
+      .subscribe(v => { 
+        this.boxes = v;
+        const b = new Box;
+        b.name = "Все";
+        b.box_id_name = "Все";
+        this.boxes.box.unshift(b);
+        observer.next(v);
       });
-      return v;
-    }))
-    .subscribe(v => { 
-      this.boxes = v;
-      const b = new Box;
-      b.name = "Все";
-      b.box_id_name = "Все";
-      this.boxes.box.unshift(b);
     });
+
+    return obs;
   }
 
   loadExcelFile(

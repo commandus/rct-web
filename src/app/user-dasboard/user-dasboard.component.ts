@@ -11,7 +11,8 @@ export class UserDasboardComponent {
   constructor(
     public svc: WebappService, 
     private router: Router
-  ) { 
+  ) {
+    svc.load().subscribe(v=>{}); 
   }
 
   back() {

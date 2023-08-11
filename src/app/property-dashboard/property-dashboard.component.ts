@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class PropertyDashboardComponent {
   constructor(
-    public app: WebappService, 
+    public svc: WebappService, 
     private router: Router
   ) { 
+    svc.load().subscribe(v=>{});
   }
 
   back() {
@@ -20,4 +21,3 @@ export class PropertyDashboardComponent {
 
 
 }
-
