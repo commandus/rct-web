@@ -24,19 +24,21 @@ export class CardByIdEditComponent implements OnInit {
     private app: WebappService,
     private svc: RcrJsonService
   ) {
-    app.load().subscribe(v=>{});
+    
   }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      switchMap(params => {
-          const r = new GetItemRequest;
-          r.id = Number(params.get('id'));
-          return this.svc.getCard(r);
-        }
-    )
-    ).subscribe(v => { 
-      this.value = v;
+    this.app.load().subscribe(v=>{
+      this.route.paramMap.pipe(
+        switchMap(params => {
+            const r = new GetItemRequest;
+            r.id = Number(params.get('id'));
+            return this.svc.getCard(r);
+          }
+      )
+      ).subscribe(v => { 
+        this.value = v;
+      });
     });
   }
 
