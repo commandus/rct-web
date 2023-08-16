@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   @Output() cancelled = new EventEmitter<void>();
   public formGroup: FormGroup = new FormGroup({});
   public progress = false;
-  message = 'Попробуйте SYSDBA/masterkey';
+  message = 'Попробуйте ваш ЛОГИН@ikfia.ysn.ru';
   success: boolean;
 
   constructor(
@@ -61,14 +61,14 @@ export class LoginComponent implements OnInit {
         } else {
           this.success = false;
           this.message = 'Неуспешный вход, повторите';
-          this.cancelled.emit();
+          // this.cancelled.emit();
         }
       },
       error => {
         this.progress = false;
         this.success = false;
         this.message = 'Неуспешный вход, повторите позже';
-        this.cancelled.emit();
+        // this.cancelled.emit();
       });
   }
 
