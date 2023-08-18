@@ -21,7 +21,6 @@ import { GroupUserRequest } from './model/group-user-request.model';
 import { ImportExcelRequest } from './model/import-excel-request.model';
 import { CardNPropetiesPackages } from './model/card-npropeties-packages.model';
 import { GetItemRequest } from './model/get-item-request.model';
-import { User } from './model/user.model';
 import { UserResponse } from './model/user-response.model';
 import { JournalRequest } from './model/journal-request.model';
 import { JournalResponse } from './model/journal-response.model';

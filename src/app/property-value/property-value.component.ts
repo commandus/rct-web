@@ -2,6 +2,7 @@ import { Component, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebappService } from '../webapp.service';
 import { PropertyWithName } from '../model/property-with-name.model';
+import { PropertyType } from '../model/property-type.model';
 
 @Component({
   selector: 'app-property-value',
@@ -24,21 +25,19 @@ export class PropertyValueComponent {
     if (!this.value)
       this.value = new PropertyWithName;
     this.formGroup = this.formBuilder.group({
-      property_type: [this.value ? this.value.property_type : '',
-        [ Validators.required ]
+      property_type: [this.value ? this.value.property_type : '', [Validators.required]
       ],
-      value: [this.value ? this.value.value : '',
-        [ Validators.required ]
+      value: [this.value ? this.value.value : '', []
       ]
     });
    }
 
-   onPropertyChanged($event: any) {
-    this.value.property_type = this.formGroup.getRawValue().property_type;
-   }
+   onPropertyTypeSelected(value: PropertyType) {
+    this.value.property_type = value.key;
+  }
 
-   onValueChanged($event: any) {
+  onValueChanged($event: any) {
     this.value.value = this.formGroup.getRawValue().value;
-   }
+  }
 
 }

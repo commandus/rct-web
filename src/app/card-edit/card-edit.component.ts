@@ -1,12 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { WebappService } from '../webapp.service';
 import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model';
 import { ChCardRequest } from '../model/ch-card-request.model';
 import { Symbol } from '../model/symbol.model';
 import { Property } from '../model/property.model';
 import { RcrJsonService } from '../rcr-json.service';
+import { PropertyWithName } from '../model/property-with-name.model';
+import { Package } from '../model/package.model';
 
 @Component({
   selector: 'app-card-edit',
@@ -22,7 +24,6 @@ export class CardEditComponent implements OnInit {
   public formGroup: FormGroup = new FormGroup({});
   public progress = false;
   
-
   message = '';
   success: boolean;
 
@@ -40,12 +41,8 @@ export class CardEditComponent implements OnInit {
 
   private initForm() {
     this.formGroup = this.formBuilder.group({
-      name: [this.value ? this.value.card.name : '',
-        [ ]
-      ],
-      nominal: [this.value ? Symbol.nominal2string(String.fromCharCode(+this.value.card.symbol_id + 0x40), this.value.card.nominal) : 0,
-        []
-      ]
+      name: [this.value ? this.value.card.name : '', []],
+      nominal: [this.value ? Symbol.nominal2string(String.fromCharCode(+this.value.card.symbol_id + 0x40), this.value.card.nominal) : 0, []]
     });
    }
 
@@ -66,8 +63,9 @@ export class CardEditComponent implements OnInit {
 
     this.value.properties.forEach(pn => {
       const p = new Property;
-      p.card_id = 0;
-      p.value = '';
+      p.card_id = this.value.card.id;
+      p.value = pn.value;
+      p.property_type_id = this.env.getPropertyTypeByKey(pn.property_type).id;
       r.properties.push(p);
     });
 
@@ -76,6 +74,19 @@ export class CardEditComponent implements OnInit {
 
   onSymbolSelected(value: Symbol) {
     this.value.card.symbol_id = value.id;
+  }
+
+  addProperty(): void 
+  {
+    const p = new PropertyWithName;
+    this.value.properties.push(p); 
+  }
+
+  addBox(): void 
+  {
+    const p = new Package;
+    p.card_id = this.value.card.id;
+    this.value.packages.push(p); 
   }
 
 }

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebappService } from '../webapp.service';
 import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model';
 import { ChCardRequest } from '../model/ch-card-request.model';

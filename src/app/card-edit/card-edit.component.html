@@ -22,13 +22,22 @@
                     </mat-form-field>
                 </div>
                 <div>
+                    <div fxLayout="row" fxLayoutAlign="end stretch">
+                        <mat-label>Свойства</mat-label>
+                        <button mat-button type="button" (click)="addProperty()"><mat-icon>add</mat-icon></button>  
+                    </div>
                     <ng-container *ngFor="let p of value.properties">
                         <app-property-value [value]="p"></app-property-value>
                     </ng-container>
                 </div>
-
+        
+                <div fxLayout="row" fxLayoutAlign="end stretch">
+                    <mat-label>Коробки</mat-label>
+                    <button mat-button type="button" (click)="addBox()"><mat-icon>add</mat-icon></button>  
+                </div>
+                
                 <cdk-virtual-scroll-viewport *ngIf="enableScroll" itemSize="50" class="box-scroll">
-                    <ng-container *cdkVirtualFor="let p of value.packages">
+                    <ng-container *ngFor="let p of value.packages"><!-- cdkVirtualFor does not wotk addBox()-->
                         <app-box-qty [value]="p"></app-box-qty>
                     </ng-container>
                 </cdk-virtual-scroll-viewport>
