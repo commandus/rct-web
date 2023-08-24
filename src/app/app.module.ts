@@ -48,6 +48,7 @@ import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component';
 import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
+import { BoxEditDialogComponent } from './box-edit-dialog/box-edit-dialog.component';
 import { SymbolEditComponent } from './symbol-edit/symbol-edit.component';
 import { SymbolEditDialogComponent } from './symbol-edit-dialog/symbol-edit-dialog.component';
 import { SymbolTableComponent } from './symbol-table/symbol-table.component';
@@ -76,6 +77,7 @@ import { LogTableComponent } from './log-table/log-table.component';
 import { DateTimePipe } from './pipe-sdate';
 import { OperationPipe } from './pipe-operation';
 import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.component';
+import { BoxEditComponent } from './box-edit/box-edit.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,9 @@ import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.compone
     DialogLoginComponent,
     DialogConfirmComponent,
     CardEditComponent,
+    BoxEditComponent,
     CardEditDialogComponent,
+    BoxEditDialogComponent,
     SymbolEditComponent,
     SymbolEditDialogComponent,
     BoxQtyComponent,

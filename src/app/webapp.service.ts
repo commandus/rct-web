@@ -30,6 +30,10 @@ import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.com
 import { UserRequest } from './model/user-request.model';
 import { List } from './model/list.model';
 import { DictionariesNBoxes } from './model/dictionaries-n-boxes';
+import { BoxEditDialogComponent } from './box-edit-dialog/box-edit-dialog.component';
+import { ChBoxRequest } from './model/ch-box-request.model';
+import { ExportExcelRequest } from './model/export-excel-request.model';
+import { ExportExcelResponse } from './model/export-excel-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -303,8 +307,33 @@ export class WebappService {
       message: '',
       value: v
     };
-
     const dialogRef = this.dialog.open(SymbolEditDialogComponent, d);
+  }
+
+  public showBox(
+    v: Box
+  ) {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: 'Коробка ' + v.id,
+      message: '',
+      value: v
+    };
+    const dialogRef = this.dialog.open(BoxEditDialogComponent, d);
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.componentInstance.changed.subscribe((v: ChBoxRequest) => {
+        this.rcr.chBox(v).subscribe(
+          resp => {
+            if (resp && resp.code == 0) {
+              resolve("ok");
+            }
+          },
+          error => {
+            reject('fail');
+        });    
+      });
+    });
   }
 
   public getComponentById(id: number): Symbol {
@@ -329,6 +358,14 @@ export class WebappService {
         return this.dictionaries.property_type[i];
     };
     return this.dictionaries.property_type.length ? this.dictionaries.property_type[0] : new PropertyType;
+  }
+
+  exportExcel(lastQuery: string, symbolName: string): Observable<ExportExcelResponse> {
+    const request = new ExportExcelRequest;
+    request.user = this.user;
+    request.query = lastQuery;
+    request.symbol_name = symbolName;
+    return this.rcr.exportExcel(request);
   }
 
 }

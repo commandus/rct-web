@@ -24,6 +24,8 @@ import { GetItemRequest } from './model/get-item-request.model';
 import { UserResponse } from './model/user-response.model';
 import { JournalRequest } from './model/journal-request.model';
 import { JournalResponse } from './model/journal-response.model';
+import { ExportExcelRequest } from './model/export-excel-request.model';
+import { ExportExcelResponse } from './model/export-excel-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -79,5 +81,7 @@ export class RcrJsonService {
   lsJournal(request: JournalRequest): Observable<JournalResponse> {
     return this.httpClient.post<JournalResponse>(Config.endpoint + "/lsJournal", request);
   }
-
+  exportExcel(request: ExportExcelRequest): Observable<ExportExcelResponse> {
+    return this.httpClient.post<ExportExcelResponse>(Config.endpoint + "/exportExcel", request);
+  }
 }

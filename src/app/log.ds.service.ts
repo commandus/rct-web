@@ -43,7 +43,10 @@ export class LogDataSource implements DataSource<Log> {
     this.service.lsJournal(r)
     .subscribe(
       value => {
-        this.count = value.rslt.count;
+        if (value.rslt) 
+          this.count = value.rslt.count;
+        else
+          this.count = 0;
         this.subject.next(value.log);
         this.loadingSubject.next(false);
       });

@@ -10,6 +10,7 @@ import { Symbol } from '../model/symbol.model';
 import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model';
 import { WebappService } from '../webapp.service';
 import { GetItemRequest } from '../model/get-item-request.model';
+import { ExcelHelper } from '../model/excel-helper.model';
 
 class dumbCollectionViewer implements CollectionViewer {
   viewChange!: Observable<ListRange>;
@@ -89,6 +90,19 @@ export class CardTableComponent {
 
   refresh(): void {
     this.load(this.lastSymbol, this.lastBox, this.lastQuery);
+  }
+
+  export2excel(): void {
+    this.app.exportExcel(this.lastQuery, this.lastSymbol.sym).subscribe( v => {
+      v.file.forEach(f => {
+        const downloadURL = window.URL.createObjectURL(ExcelHelper.b64toBlob(f.content));
+        const link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = f.name;
+        link.click();
+      });
+
+    });
   }
 
 }

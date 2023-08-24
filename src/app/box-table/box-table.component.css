@@ -2,26 +2,3 @@
 	padding-left: 5pt;
 	padding-right: 5pt;
 }
-
-.filter {
-	padding-left: 15pt;
-	padding-right: 5pt;
-}
-
-.box-qty {
-	margin-right: 32pt;
-	margin-top: 10pt;
-	margin-bottom: 10pt;
-}
-
-::ng-deep .mat-badge-content {
-    width: auto;
-    display: grid;
-    min-width: 22px;
-    min-height: 22px;
-    text-align: center;
-    align-items: center;
-    padding: 5px 3px;
-    top: -20px;
-    right: -22px;
-}

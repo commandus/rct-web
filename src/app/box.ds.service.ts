@@ -3,8 +3,6 @@ import { BehaviorSubject, of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { RcrJsonService } from './rcr-json.service';
 import { WebappService } from './webapp.service';
-import { User } from './model/user.model';
-import { UserRequest } from './model/user-request.model';
 import { Box } from './model/box.model';
 import { BoxRequest } from './model/box-request.model';
 
@@ -44,7 +42,10 @@ export class BoxDataSource implements DataSource<Box> {
     this.service.getBox(r)
     .subscribe(
       value => {
-        this.count = value.box.length;
+        if (value.rslt) 
+          this.count = value.rslt.count;
+        else
+          this.count = 0;
         this.subject.next(value.box);
         this.loadingSubject.next(false);
       });

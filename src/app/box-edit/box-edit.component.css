@@ -1,0 +1,9 @@
+.dlg {
+	padding: 20pt;
+}
+
+.box-scroll {
+	width: 180pt;
+	min-height: 100pt;
+	max-height: 300pt;
+}
