@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
 import { Symbol } from '../model/symbol.model';
 import { Box } from '../model/box.model';
 import { WebappService } from '../webapp.service';
@@ -18,6 +19,7 @@ export class ImportExcelComponent {
   numbersInFilename: boolean = true;
 
   public loadedFiles: OperationResponse[] = [];
+  public importOperation = '+';
 
   constructor(
     public svc: WebappService, 
@@ -50,6 +52,7 @@ export class ImportExcelComponent {
             self.symbol.sym,
             self.box.box_id,
             self.numbersInFilename,
+            self.importOperation,
             files.target.files.item(0).name,
             new String(evt.target.result).toString()
           ).subscribe(v => {
@@ -64,4 +67,5 @@ export class ImportExcelComponent {
   back() {
     this.router.navigateByUrl('');
   }
+
 }

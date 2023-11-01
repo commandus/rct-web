@@ -146,6 +146,7 @@ export class WebappService {
     symbol: string,
     prefixBox: string,
     numberInFilename: boolean,
+    operation: string,
     fileName: string,
     content: string
   ) : Observable<OperationResponse>
@@ -154,6 +155,7 @@ export class WebappService {
     r.number_in_filename = numberInFilename;
     r.prefix_box = prefixBox;
     r.symbol = symbol;
+    r.operation = operation;
     r.user = this.user;
     const file = new ExcelFile;
     file.name = fileName;

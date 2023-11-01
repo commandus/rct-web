@@ -6,5 +6,6 @@ export class ImportExcelRequest {
     public symbol = "";
     public prefix_box = ''; // first box, e.g. 219
     public number_in_filename = true;
+    public operation = "+";
     public file: ExcelFile[] = [];
 }
