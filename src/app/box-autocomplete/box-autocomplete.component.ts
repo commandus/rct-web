@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatSelectionList } from '@angular/material/list';
 import { WebappService } from '../webapp.service';
 import { Box } from '../model/box.model';
 import { MatSelectChange } from '@angular/material/select';
 import { FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
-import { BoxResponse } from '../model/box-response.model';
 
 
 @Component({
@@ -14,8 +13,9 @@ import { BoxResponse } from '../model/box-response.model';
   styleUrls: ['./box-autocomplete.component.css']
 })
 export class BoxAutocompleteComponent {
-  @ViewChild('boxlist') boxlist: MatSelectionList | undefined;
+  @ViewChild('boxinput') boxinput: ElementRef | undefined;
   @Output() boxSelected = new EventEmitter<Box>();
+  @Input() focus = false;
   cntrl = new FormControl('');
 
   filteredOptions!: Observable<Box[]>;
@@ -39,6 +39,14 @@ export class BoxAutocompleteComponent {
       }
       )
     );
+  }
+
+  ngAfterViewInit() {
+    if (this.focus) {
+      setTimeout(()=>{ // this will make the execution after the above boolean has changed
+        this.boxinput?.nativeElement.focus();
+      }, 0);
+    }
   }
 
   private filter(value: string): Box[] {

@@ -46,7 +46,7 @@ export class WebappService {
   symbol: Symbol = new Symbol;
 
   // user query input value
-  query = "";
+  query = '';
   // selected box
   box: Box = new Box;
   // query result
@@ -79,6 +79,7 @@ export class WebappService {
   ) { 
     this.rcr = arcr;
     this.user = new User(localStorage.getItem('user'));
+    this.rcr.endpoints.select(localStorage.getItem('db'));
   }
 
   cardQuery(
@@ -371,4 +372,3 @@ export class WebappService {
   }
 
 }
-

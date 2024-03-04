@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
 import { Symbol } from '../model/symbol.model';
 import { Box } from '../model/box.model';
 import { WebappService } from '../webapp.service';

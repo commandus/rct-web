@@ -1,7 +1,6 @@
 import { CollectionViewer, DataSource} from '@angular/cdk/collections';
 import { BehaviorSubject, of } from 'rxjs';
 import { Observable } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
 import { RcrJsonService } from './rcr-json.service';
 import { Box } from './model/box.model';
 import { Symbol } from './model/symbol.model';

@@ -6,6 +6,10 @@ export class Box {
     // angular
     public box_id_name = "";
 
+    public empty() {
+        return this.box_id.length == 0;
+    }
+
     private static getBoxDepth(boxes: bigint) {
         let boxCnt = 0;
         if (boxes & 0xffffn)

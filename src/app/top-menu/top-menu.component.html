@@ -5,15 +5,25 @@
   <button mat-menu-item (click)="nav2('')">Список компонентов</button>
   <button mat-menu-item (click)="nav2('boxes')">Коробки</button>
   <hr/>
+  <button mat-menu-item (click)="nav2('add-into-box')">Опись коробки</button>
   <button mat-menu-item (click)="nav2('import-excel')">Импорт</button>
   <button mat-menu-item (click)="nav2('stat')">Сводка</button>
   <button mat-menu-item (click)="nav2('log')">Журнал</button>
   <hr/>
   <button *ngIf="!env.hasAccount()" mat-menu-item (click)="env.login()">Войти</button>
+
   <ng-container *ngIf="env.hasAccount()">
     <button mat-menu-item (click)="env.login()">Войти с другим именем</button>
     <button mat-menu-item (click)="env.logout()">Выйти ({{env.user.name}})</button>
     <hr/>
+    <button mat-menu-item [matMenuTriggerFor]="db">
+      База данных
+    </button>
+    <mat-menu #db="matMenu">
+      <button mat-menu-item (click)="selectDb(e.name)" *ngFor="let e of env.rcr.endpoints.endpoints" value="e.url">
+        {{e.name}} <mat-icon>{{e.selected ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
+      </button>
+    </mat-menu>
     <button mat-menu-item [matMenuTriggerFor]="settings">
       Настройки
     </button>

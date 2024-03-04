@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CollectionViewer, ListRange, SelectionModel } from '@angular/cdk/collections';
 import { Observable, delay, startWith, tap } from 'rxjs';
 import { CardsDataSource } from '../card.ds.service';
@@ -22,6 +22,7 @@ class dumbCollectionViewer implements CollectionViewer {
   styleUrls: ['./card-table.component.css']
 })
 export class CardTableComponent {
+  @Input() autoload = true;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -41,6 +42,10 @@ export class CardTableComponent {
   }
 
   ngAfterViewInit() {
+    if (!this.autoload) {
+      this.lastQuery = 'Do-not-load';
+    }
+
     this.paginator.page
       .pipe(
         startWith(null),
@@ -77,6 +82,12 @@ export class CardTableComponent {
     this.lastQuery = query;
     const ofs = this.paginator.pageIndex * this.paginator.pageSize;
     this.ds.load(symbol, box, query, ofs, this.paginator.pageSize);
+  }
+
+  clear(): void {
+    let box = new Box;
+    box.box_id = '42-42-42-42';
+    this.ds.load(new Symbol, box, '', 0, 0);
   }
 
   edit(row: CardNPropetiesPackages) {

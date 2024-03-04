@@ -1,0 +1,20 @@
+.menu {
+    width: 100%;
+    display: flex;
+}
+
+.right-menu {
+    padding-top: 6pt;
+}
+
+.paramBox {
+    display: flex;
+}
+
+.back {
+    padding: 4pt;
+}
+
+.addIntoBox {
+    padding: 20pt;
+}

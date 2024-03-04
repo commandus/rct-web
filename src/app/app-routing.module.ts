@@ -11,6 +11,7 @@ import { ImportExcelComponent } from './import-excel/import-excel.component';
 import { StatComponent } from './stat/stat.component';
 import { LogDashboardComponent } from './log-dashboard/log-dashboard.component';
 import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.component';
+import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent},
@@ -23,12 +24,13 @@ const routes: Routes = [
   { path: 'import-excel', component: ImportExcelComponent},
   { path: 'stat', component: StatComponent},
   { path: 'log', component: LogDashboardComponent },
-  { path: 'card/:id', component: CardByIdEditComponent}
+  { path: 'card/:id', component: CardByIdEditComponent},
+  { path: 'add-into-box', component: AddIntoBoxComponent }
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes, { useHash: true, onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

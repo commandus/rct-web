@@ -78,6 +78,7 @@ import { DateTimePipe } from './pipe-sdate';
 import { OperationPipe } from './pipe-operation';
 import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.component';
 import { BoxEditComponent } from './box-edit/box-edit.component';
+import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { BoxEditComponent } from './box-edit/box-edit.component';
     StatComponent,
     LogDashboardComponent,
     LogTableComponent,
-    CardByIdEditComponent
+    CardByIdEditComponent,
+    AddIntoBoxComponent
   ],
   imports: [
     BrowserModule,

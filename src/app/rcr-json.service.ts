@@ -27,61 +27,89 @@ import { JournalResponse } from './model/journal-response.model';
 import { ExportExcelRequest } from './model/export-excel-request.model';
 import { ExportExcelResponse } from './model/export-excel-response.model';
 
+class EndPoint {
+  public url = "";
+  public name = "";
+  public selected = false;
+}
+
+export class EndPointList {
+  public endpoints: EndPoint[] = [
+    { url: "http://kb-srv.ysn.ru:8050", name: "КБ", selected: true },
+    { url: "http://kb-srv.ysn.ru:8052", name: "ЛМИИ", selected: false },
+    { url: "http://localhost:8050", name: "Тест(локальный)", selected: false }
+  ];
+  public current = this.endpoints[0];
+
+  public select(name: string | null) : void {
+    if (name == null) {
+      this.current = this.endpoints[0];
+      return;
+    }
+    this.endpoints.forEach(e => {
+      e.selected = e.name == name;
+      if (e.selected)
+        this.current = e;
+    });
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class RcrJsonService {
+  public endpoints = new EndPointList;
 
   constructor(private httpClient: HttpClient) { }
   login(request: LoginRequest): Observable<LoginResponse> {
-    return this.httpClient.post<LoginResponse>(Config.endpoint + "/login", request);
+    return this.httpClient.post<LoginResponse>(this.endpoints.current.url + "/login", request);
   }
   getDictionaries(request: DictionariesRequest): Observable<DictionariesResponse> {
-    return this.httpClient.post<DictionariesResponse>(Config.endpoint + "/getDictionaries", request);
+    return this.httpClient.post<DictionariesResponse>(this.endpoints.current.url + "/getDictionaries", request);
   }
   getSettings(request: Settings): Observable<Settings> {
-    return this.httpClient.post<Settings>(Config.endpoint + "/getSettings", request);
+    return this.httpClient.post<Settings>(this.endpoints.current.url + "/getSettings", request);
   }
   setSettings(request: Settings): Observable<Settings> {
-    return this.httpClient.post<Settings>(Config.endpoint + "/setSettings", request);
+    return this.httpClient.post<Settings>(this.endpoints.current.url + "/setSettings", request);
   }
   chPropertyType(request: ChPropertyTypeRequest): Observable<OperationResponse> {
-    return this.httpClient.post<OperationResponse>(Config.endpoint + "/chPropertyType", request);
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/chPropertyType", request);
   }
   getCard(request: GetItemRequest): Observable<CardNPropetiesPackages> {
-    return this.httpClient.post<CardNPropetiesPackages>(Config.endpoint + "/getCard", request);
+    return this.httpClient.post<CardNPropetiesPackages>(this.endpoints.current.url + "/getCard", request);
   }
   chCard(request: ChCardRequest): Observable<OperationResponse> {
-    return this.httpClient.post<OperationResponse>(Config.endpoint + "/chCard", request);
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/chCard", request);
   }
   chBox(request: ChBoxRequest): Observable<OperationResponse> {
-    return this.httpClient.post<OperationResponse>(Config.endpoint + "/chBox", request);
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/chBox", request);
   }
   cardQuery(request: CardQueryRequest): Observable<CardQueryResponse> {
-    return this.httpClient.post<CardQueryResponse>(Config.endpoint + "/cardQuery", request);
+    return this.httpClient.post<CardQueryResponse>(this.endpoints.current.url + "/cardQuery", request);
   }
   getBox(request: BoxRequest): Observable<BoxResponse> {
-    return this.httpClient.post<BoxResponse>(Config.endpoint + "/getBox", request);
+    return this.httpClient.post<BoxResponse>(this.endpoints.current.url + "/getBox", request);
   }
   lsUser(request: UserRequest): Observable<UserResponse> {
-    return this.httpClient.post<UserResponse>(Config.endpoint + "/lsUser", request);
+    return this.httpClient.post<UserResponse>(this.endpoints.current.url + "/lsUser", request);
   }
   chUser(request: UserRequest): Observable<OperationResponse> {
-    return this.httpClient.post<OperationResponse>(Config.endpoint + "/chUser", request);
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/chUser", request);
   }
   chGroup(request: GroupRequest): Observable<OperationResponse> {
-    return this.httpClient.post<OperationResponse>(Config.endpoint + "/chGroup", request);
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/chGroup", request);
   }
   chGroupUser(request: GroupUserRequest): Observable<OperationResponse> {
-    return this.httpClient.post<OperationResponse>(Config.endpoint + "/chGroupUser", request);
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/chGroupUser", request);
   }
   importExcel(request: ImportExcelRequest): Observable<OperationResponse> {
-    return this.httpClient.post<OperationResponse>(Config.endpoint + "/importExcel", request);
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/importExcel", request);
   }
   lsJournal(request: JournalRequest): Observable<JournalResponse> {
-    return this.httpClient.post<JournalResponse>(Config.endpoint + "/lsJournal", request);
+    return this.httpClient.post<JournalResponse>(this.endpoints.current.url + "/lsJournal", request);
   }
   exportExcel(request: ExportExcelRequest): Observable<ExportExcelResponse> {
-    return this.httpClient.post<ExportExcelResponse>(Config.endpoint + "/exportExcel", request);
+    return this.httpClient.post<ExportExcelResponse>(this.endpoints.current.url + "/exportExcel", request);
   }
 }
