@@ -23,6 +23,7 @@ class dumbCollectionViewer implements CollectionViewer {
 })
 export class CardTableComponent {
   @Input() autoload = true;
+  @Input() editcountonly = false;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -91,12 +92,16 @@ export class CardTableComponent {
   }
 
   edit(row: CardNPropetiesPackages) {
-    const request = new GetItemRequest;
-    request.user = this.app.user;
-    request.id = row.card.id;
-    this.rcr.getCard(request).subscribe( v => {
-      this.app.showCard(v).then(v=>{this.refresh();});
-    });
+    if (this.editcountonly) {
+      this.app.showCount(row).then(v=>{this.refresh();});
+    } else {
+      const request = new GetItemRequest;
+      request.user = this.app.user;
+      request.id = row.card.id;
+      this.rcr.getCard(request).subscribe( v => {
+        this.app.showCard(v).then(v=>{this.refresh();});
+      });
+    }
   }
 
   refresh(): void {

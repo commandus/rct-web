@@ -48,6 +48,7 @@ import { DialogLoginComponent } from './dialog-login/dialog-login.component';
 import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component';
 import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
+import { CountEditDialogComponent } from './count-edit-dialog/count-edit-dialog.component';
 import { BoxEditDialogComponent } from './box-edit-dialog/box-edit-dialog.component';
 import { SymbolEditComponent } from './symbol-edit/symbol-edit.component';
 import { SymbolEditDialogComponent } from './symbol-edit-dialog/symbol-edit-dialog.component';
@@ -107,6 +108,7 @@ import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
     CardEditComponent,
     BoxEditComponent,
     CardEditDialogComponent,
+    CountEditDialogComponent,
     BoxEditDialogComponent,
     SymbolEditComponent,
     SymbolEditDialogComponent,

@@ -46,8 +46,6 @@ export class AddIntoBoxComponent implements OnInit {
   
     private loadBox() : void {
       const symbol = new Symbol;
-      console.log(this.box);
-      console.log(this.box.empty());
       if (this.box.empty())
         this.cardTable.clear();
       else

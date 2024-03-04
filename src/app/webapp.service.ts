@@ -34,6 +34,7 @@ import { BoxEditDialogComponent } from './box-edit-dialog/box-edit-dialog.compon
 import { ChBoxRequest } from './model/ch-box-request.model';
 import { ExportExcelRequest } from './model/export-excel-request.model';
 import { ExportExcelResponse } from './model/export-excel-response.model';
+import { CountEditDialogComponent } from './count-edit-dialog/count-edit-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -187,6 +188,31 @@ export class WebappService {
 
   public logout(self?: Reload) {
     this.user.logout();
+  }
+
+  public showCount(
+    c: CardNPropetiesPackages
+  ): Promise<string> {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      value: c
+    };
+    const dialogRef = this.dialog.open(CountEditDialogComponent, d);
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.componentInstance.changed.subscribe((request: ChCardRequest) => {
+        this.rcr.chCard(request).subscribe(
+          resp => {
+            if (resp && resp.code == 0) {
+              resolve("ok");
+            }
+          },
+          error => {
+            reject('fail');
+        });    
+      });
+        
+    });
   }
 
   public showCard(
