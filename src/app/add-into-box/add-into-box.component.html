@@ -7,41 +7,16 @@
     </div>
     <form #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()">
         <div fxLayout="column" fxLayoutAlign="stretch" >
-            1. Введите номер коробки<sup>*</sup>
             <div class="paramBox">
                 <app-box-autocomplete class="box-tree" (boxSelected)="onBoxChanged($event)" [focus]="true"></app-box-autocomplete>
             </div>
-            <sup>*</sup>Если коробки еще нет, она будет создана, если уже существует- будет пополнена.
-            
-            <p></p>
-
-            <div>
-                <app-component-list [symbol_id]="symbol.id" class="symbol-selector" (symbolSelected)="onSymbolSelected($event)"></app-component-list>
-            </div>
-
-            <div>
-                <mat-form-field>
-                    <mat-label>Наименование</mat-label>
-                    <input matInput type="text" placeholder="Наименование" autocomplete="name" formControlName="name">
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field>
-                    <mat-label>Номинал</mat-label>
-                    <input matInput type="text" placeholder="Номинал" formControlName="nominal">
-                </mat-form-field>
-            </div>
-<!--
-            <div>
-                <div fxLayout="row" fxLayoutAlign="end stretch">
-                    <mat-label>Свойства</mat-label>
-                    <button mat-button type="button" (click)="addProperty()"><mat-icon>add</mat-icon></button>  
-                </div>
-                <ng-container *ngFor="let p of value.properties">
-                    <app-property-value [value]="p"></app-property-value>
-                </ng-container>
-            </div>
--->            
+            <small>
+                <sup>*</sup>Если коробки еще нет, она будет создана, если уже существует- будет пополнена.
+            </small>
+            <div *ngIf="true || !box.empty()" class="new-item">
+                Новый <small>Нажимайте Tab для перемещения по полям</small>
+                <app-add-new-item-into-box [box]="box"></app-add-new-item-into-box>
+            </div> 
             <app-card-table [autoload]=false [editcountonly]="true"></app-card-table>
             <br/>
             <div fxLayout="row" fxLayoutAlign="end stretch">

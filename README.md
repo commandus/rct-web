@@ -31,8 +31,7 @@ ng serve
 ## Deploy
 
 ```
-cd ~/src/rct-web/dist/rcr
-scp * nocmicroadmin@micro.ikfia.ysn.ru:/var/www/clients/client2/web48/web
+cd ~/src/rct-web/dist/rcr;scp * user@kb-srv.ysn.ru:/var/www/html
 ```
 
 

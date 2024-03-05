@@ -36,16 +36,88 @@ export class Symbol {
     private static unitNames: string[] = [
         "Ф",    // C Емкость -12
         "Гн",   // L Индуктивность -12
-        "Ом",   // R Сопроствление 0
+        "Ом",   // R Сопротивление 0
         "А",    // Ток 0
         "В",    // Напряжение 0
         "Вт"    // Мощность 0
     ];
 
+    public static componentUnitNameS(component: string): string
+    {
+        const c = component.charAt(0);
+        switch (c) {
+            case 'C':
+                return Symbol.unitNames[0];
+            case 'F':
+            case 'Q':
+            case 'S':
+                return Symbol.unitNames[3];
+            case 'G':
+                return Symbol.unitNames[4];
+            case 'L':
+                return Symbol.unitNames[1];
+            case 'M':
+            case 'T':
+                return Symbol.unitNames[5];
+            case 'R':
+                return Symbol.unitNames[2];
+        }
+        return '';
+    };
+
+    private static addUnitName(unit: string, value: string[]) : string[] {
+        let r: string[] = [];
+        value.forEach(e => {
+            r.push(e + unit);
+        });
+        return r;
+    }
+
+    public static componentPrefix(componentNumber: number): string[]
+    {
+        const u = Symbol.componentUnitName(componentNumber);
+        if (componentNumber == 18)
+            return Symbol.addUnitName(u, this.prefixes);
+        else
+            if ((componentNumber == 3) || (componentNumber == 12) || (componentNumber == 19))
+                return Symbol.addUnitName(u, this.prefixesPart);
+            else
+                return [u];
+
+    }
+
+    public static componentUnitName(componentNumber: number): string
+    {
+        // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        // 12345678901234567890123456
+        //          1         2
+        let idx = -1;
+        if (componentNumber == 3)
+            idx = 0;
+        else
+            if ((componentNumber == 6) || (componentNumber == 17) || (componentNumber == 19))
+                idx = 3;
+            else
+                if (componentNumber == 7)
+                    idx = 14;
+                else
+                    if (componentNumber == 12)
+                        idx = 1;
+                    else
+                        if ((componentNumber == 13) || (componentNumber == 20))
+                            idx = 5;
+                        else
+                            if (componentNumber == 18)
+                                idx = 2;
+        if (idx < 0)
+            return '';
+        return Symbol.unitNames[idx];
+    };
+
     private static measurePow10 = [
         -12,    // C Емкость -12
         -12,    // L Индуктивность -12
-        0,      // R Сопроствление 0
+        0,      // R Сопротивление 0
         0,      // Ток 0
         0,      // Напряжение 0
         0       // Мощность 0

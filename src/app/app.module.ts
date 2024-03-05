@@ -80,6 +80,8 @@ import { OperationPipe } from './pipe-operation';
 import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.component';
 import { BoxEditComponent } from './box-edit/box-edit.component';
 import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
+import { AddNewItemIntoBoxComponent } from './add-new-item-into-box/add-new-item-into-box';
+import { PrefixMeasureListComponent } from './prefix-measure-list/prefix-measure-list';
 
 @NgModule({
   declarations: [
@@ -136,7 +138,9 @@ import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
     LogDashboardComponent,
     LogTableComponent,
     CardByIdEditComponent,
-    AddIntoBoxComponent
+    AddIntoBoxComponent,
+    AddNewItemIntoBoxComponent,
+    PrefixMeasureListComponent
   ],
   imports: [
     BrowserModule,

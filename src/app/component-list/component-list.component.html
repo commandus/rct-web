@@ -1,8 +1,9 @@
 <mat-form-field>
-  <mat-label>Компоненты</mat-label>
+  <mat-label>Компонент</mat-label>
   <mat-select [(value)]="selectedSymbol" (selectionChange)="onSelectionChanged($event)">
     <mat-option *ngFor="let c of svc.dictionaries.symbol" [value]="c">
       {{c.sym}} <small>{{c.description}}</small>
     </mat-option>
   </mat-select>
+  <mat-hint>Нажмите D- ИС</mat-hint>
 </mat-form-field>

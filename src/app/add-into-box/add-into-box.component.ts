@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { PropertyWithName } from '../model/property-with-name.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { RcrJsonService } from '../rcr-json.service';
-import { CardQueryRequest } from '../model/card-query-request.model';
 import { CardQueryResponse } from '../model/card-query-response.model';
 import { CardTableComponent } from '../card-table/card-table.component';
 
@@ -50,16 +49,6 @@ export class AddIntoBoxComponent implements OnInit {
         this.cardTable.clear();
       else
         this.cardTable.load(symbol, this.box, '');
-      /*
-      let r = new CardQueryRequest;
-      r.user = this.svc.user;
-      r.measure_symbol = '';
-      r.query = '* ' + this.box.box_id_name;
-      console.log(r.query);
-      this.rcr.cardQuery(r).subscribe( v => {
-        console.log(v);
-      });
-      */
     }
 
     onBoxChanged(

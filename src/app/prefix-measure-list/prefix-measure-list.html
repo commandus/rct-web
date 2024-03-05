@@ -1,0 +1,11 @@
+<ng-container *ngIf="hasUnit()">
+<mat-form-field>
+  <mat-label>Ед. изм.</mat-label>
+  <mat-select (selectionChange)="onSelectionChanged($event)">
+    <mat-option *ngFor="let c of prefixes()" [value]="c">
+      {{c}}
+    </mat-option>
+  </mat-select>
+  <mat-hint></mat-hint>
+</mat-form-field>
+</ng-container>
