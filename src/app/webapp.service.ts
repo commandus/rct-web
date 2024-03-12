@@ -76,9 +76,9 @@ export class WebappService {
   constructor(
     private dialog: MatDialog,
     private authenticationService: AuthenticationService,
-    private arcr: RcrJsonService
+    private aRcr: RcrJsonService
   ) { 
-    this.rcr = arcr;
+    this.rcr = aRcr;
     this.user = new User(localStorage.getItem('user'));
     this.rcr.endpoints.select(localStorage.getItem('db'));
   }

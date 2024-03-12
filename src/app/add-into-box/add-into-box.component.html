@@ -5,8 +5,8 @@
             Опись коробки
         </div>
     </div>
-    <form #cardForm="ngForm" [formGroup]="formGroup" (ngSubmit)="save()">
-        <div fxLayout="column" fxLayoutAlign="stretch" >
+    <form>
+        <div fxLayout="column" fxLayoutAlign="stretch" class="add-new">
             <div class="paramBox">
                 <app-box-autocomplete class="box-tree" (boxSelected)="onBoxChanged($event)" [focus]="true"></app-box-autocomplete>
             </div>
@@ -14,15 +14,10 @@
                 <sup>*</sup>Если коробки еще нет, она будет создана, если уже существует- будет пополнена.
             </small>
             <div *ngIf="true || !box.empty()" class="new-item">
-                Новый <small>Нажимайте Tab для перемещения по полям</small>
-                <app-add-new-item-into-box [box]="box"></app-add-new-item-into-box>
+                Новый компонент <small>Нажимайте Tab для перемещения по полям</small>
+                <app-add-new-item-into-box [box]="box" (added)="onAdd($event)"></app-add-new-item-into-box>
             </div> 
             <app-card-table [autoload]=false [editcountonly]="true"></app-card-table>
-            <br/>
-            <div fxLayout="row" fxLayoutAlign="end stretch">
-                <button mat-button type="button" matTooltip="Вернуться назад" (click)="back()">Отмена</button>  
-                <button color="primary" mat-button type="submit">Сохранить</button>  
-            </div>
         </div>
     </form>
 </div>

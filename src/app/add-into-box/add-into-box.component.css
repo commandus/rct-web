@@ -18,6 +18,10 @@
 .addIntoBox {
     padding: 20pt;
 }
+
 .new-item {
     padding-top: 10pt;
+    border-style: dotted;
+    border-color: black;
+    border-width: 1px;
 }

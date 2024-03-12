@@ -180,7 +180,6 @@ export class Symbol {
         const eolp = value.length;
         let start = 0;
         let finish = eolp;
-
         // skip spaces if exists
         for (let p = start; p < eolp; p++) {
             if (!(value[p] == ' ')) {
@@ -195,7 +194,6 @@ export class Symbol {
                 break;
             }
         }
-
         if (!(finish > start))
             return 0n;
         let nominal = BigInt.asUintN(64, BigInt(value.substring(start, finish)));
@@ -209,7 +207,6 @@ export class Symbol {
                 break;
             }
         }
-
         // try find out measure unit and prefixes
         // try to find out prefix
         start = finish;

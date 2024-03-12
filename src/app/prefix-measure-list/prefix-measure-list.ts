@@ -9,7 +9,7 @@ import { Symbol } from '../model/symbol.model';
 })
 export class PrefixMeasureListComponent {
   @Input() @Output() symbol_id: number = 0;
-  @Output() prefixSelected = new EventEmitter<number>();
+  @Output() prefixSelected = new EventEmitter<string>();
   
   public hasUnit() : boolean
   {
@@ -26,10 +26,7 @@ export class PrefixMeasureListComponent {
   }
 
   public onSelectionChanged(event: MatSelectChange) {
-    this.prefixSelected.emit(0);
+    this.prefixSelected.emit(event.value);
   }
 
-  ngOnInit(): void {
-  }
-  
 }
