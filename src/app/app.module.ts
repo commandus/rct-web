@@ -26,6 +26,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorIntlRu } from './mat-paginator-ru';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { FileNamePipe } from './pipe-file-name';
 import { BoxPipe } from './pipe-box';
@@ -155,6 +156,7 @@ import { PrefixMeasureListComponent } from './prefix-measure-list/prefix-measure
     MatButtonModule,
     MatProgressBarModule,
     MatPaginatorModule,
+    MatSnackBarModule,
     MatTableModule,
     MatSortModule,
     MatTooltipModule,

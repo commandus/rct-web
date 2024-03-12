@@ -74,7 +74,8 @@ export class AddNewItemIntoBoxComponent implements OnInit {
 
     this.name.nativeElement.value = '';
     this.qty.nativeElement.value = 0;
-    this.nominal.nativeElement.value = 0;
+    if (this.nominal)
+      this.nominal.nativeElement.value = 0;
     this.clearProperties();
   } 
 
@@ -84,7 +85,7 @@ export class AddNewItemIntoBoxComponent implements OnInit {
     r.value.id = this.value.card.id;
     r.user = this.env.user;
     // save card
-    r.operationSymbol = '=';
+    r.operationSymbol = '+';
     r.value.name = this.formGroup.getRawValue().name;
     r.value.uname = r.value.name.toUpperCase();
     r.value.symbol_id = this.value.card.symbol_id;

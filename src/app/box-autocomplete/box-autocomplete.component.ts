@@ -1,9 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { MatSelectionList } from '@angular/material/list';
 import { WebappService } from '../webapp.service';
 import { Box } from '../model/box.model';
 import { MatSelectChange } from '@angular/material/select';
-import { FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 
 
