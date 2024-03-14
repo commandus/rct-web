@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Config } from './config';
 import { DictionariesRequest } from './model/dictionaries-request.model';
 import { DictionariesResponse } from './model/dictionaries-response.model';
 import { LoginRequest } from './model/login-request.model';
@@ -65,8 +64,18 @@ export class RcrJsonService {
     return this.httpClient.post<LoginResponse>(this.endpoints.current.url + "/login", request);
   }
   getDictionaries(request: DictionariesRequest): Observable<DictionariesResponse> {
-    return this.httpClient.post<DictionariesResponse>(this.endpoints.current.url + "/getDictionaries", request);
+    return this.httpClient.post<DictionariesResponse>(this.endpoints.current.url + "/getDictionaries", request).pipe(
+    map(v => {
+      v.symbol.forEach(s => {
+        s.id = +s.id;
+      });
+      v.operation.forEach(o => {
+        o.id = +o.id;
+      });
+      return v;
+    }));
   }
+
   getSettings(request: Settings): Observable<Settings> {
     return this.httpClient.post<Settings>(this.endpoints.current.url + "/getSettings", request);
   }

@@ -6,18 +6,16 @@
         </div>
     </div>
     <form>
-        <div fxLayout="column" fxLayoutAlign="stretch" class="add-new">
             <div class="paramBox">
                 <app-box-autocomplete class="box-tree" (boxSelected)="onBoxChanged($event)" [focus]="true"></app-box-autocomplete>
             </div>
             <small>
                 <sup>*</sup>Если коробки еще нет, она будет создана, если уже существует- будет пополнена.
             </small>
-            <div *ngIf="true || !box.empty()" class="new-item">
+            <mat-card *ngIf="true || !box.empty()" class="new-item">
                 Новый компонент <small>Нажимайте Tab для перемещения по полям</small>
                 <app-add-new-item-into-box [box]="box" (added)="onAdd($event)"></app-add-new-item-into-box>
-            </div> 
-            <app-card-table [autoload]=false [editcountonly]="true"></app-card-table>
-        </div>
+            </mat-card>
+        <app-card-table [autoload]=false [editcountonly]="true"></app-card-table>
     </form>
 </div>

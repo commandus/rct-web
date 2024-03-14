@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { WebappService } from '../webapp.service';
 import { Router } from '@angular/router';
 import { CardQueryRequest } from '../model/card-query-request.model';

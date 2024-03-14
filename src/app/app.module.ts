@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { FlexLayoutModule} from '@angular/flex-layout';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -22,6 +23,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -154,6 +156,7 @@ import { PrefixMeasureListComponent } from './prefix-measure-list/prefix-measure
     MatInputModule,
     MatListModule,
     MatButtonModule,
+    MatCardModule,
     MatProgressBarModule,
     MatPaginatorModule,
     MatSnackBarModule,
@@ -166,7 +169,8 @@ import { PrefixMeasureListComponent } from './prefix-measure-list/prefix-measure
     MatCheckboxModule,
     MatDialogModule,
     MatBadgeModule,
-    ScrollingModule
+    ScrollingModule,
+    FlexLayoutModule
   ],
   providers: [
     {

@@ -10,6 +10,7 @@ import { PropertyWithName } from '../model/property-with-name.model';
 import { Package } from '../model/package.model';
 import { Box } from '../model/box.model';
 import { DictionariesResponse } from '../model/dictionaries-response.model';
+import { ComponentListComponent } from '../component-list/component-list.component';
 
 @Component({
   selector: 'app-add-new-item-into-box',
@@ -20,15 +21,18 @@ export class AddNewItemIntoBoxComponent implements OnInit {
   @Input() box: Box = new Box;
   @Input() enableScroll = true;
   @Output() added = new EventEmitter<ChCardRequest>();
+  @ViewChild(ComponentListComponent) componentList!: ComponentListComponent;
   @ViewChild('name') name!: ElementRef;
   @ViewChild('qty') qty!: ElementRef;
   @ViewChild('nominal') nominal!: ElementRef;
 
   value: CardNPropetiesPackages = new CardNPropetiesPackages;
   private prefix = '';
+  // save previous request to fill up 20240913
+  public previousRequest = new ChCardRequest;
+  private lastSymbol = new Symbol;
 
   public formGroup: FormGroup = new FormGroup({});
-  public progress = false;
   
   message = '';
   success: boolean;
@@ -62,16 +66,13 @@ export class AddNewItemIntoBoxComponent implements OnInit {
 
   private clearProperties() {
     this.value.properties.splice(0);
-   
     this.dictionaries.property_type.forEach(pt => {
       const pn : PropertyWithName = { id: pt.id, property_type: pt.key, value: '' };
       this.value.properties.push(pn);
-
     });
   }
 
   private clearNew() {
-
     this.name.nativeElement.value = '';
     this.qty.nativeElement.value = 0;
     if (this.nominal)
@@ -96,7 +97,9 @@ export class AddNewItemIntoBoxComponent implements OnInit {
     this.value.packages[0].box = this.box.box_id;
     this.value.packages[0].box_name = this.box.name;
 
-    r.packages = this.value.packages;
+    // clone
+    r.packages = [];
+    this.value.packages.forEach(val => r.packages.push(Object.assign({}, val)));
 
     this.value.properties.forEach(pn => {
       if (pn.value.length > 0) {
@@ -107,7 +110,10 @@ export class AddNewItemIntoBoxComponent implements OnInit {
         r.properties.push(p);
       }
     });
+    // save as previous
+    this.previousRequest = r;
     this.added.emit(r);
+    // Clear form
     this.clearNew();
   }
 
@@ -144,5 +150,38 @@ export class AddNewItemIntoBoxComponent implements OnInit {
   {
     return Symbol.componentUnitName(this.value.card.symbol_id).length > 0;
   }
-  
+
+  public hasPreviousRequestSaved() {
+    return this.previousRequest.operationSymbol.length > 0;
+  }
+
+  public fillForm(v: ChCardRequest) : void {
+    this.componentList.setSymbolId(v.value.symbol_id);
+    this.name.nativeElement.value = v.value.name;
+    if (v.packages.length > 0)
+      this.qty.nativeElement.value = v.packages[0].qty;
+    if (this.nominal)
+      this.nominal.nativeElement.value = v.value.nominal;
+    
+    this.value.properties.slice(0);
+    let i = 0;
+    this.dictionaries.property_type.forEach(pt => {
+      let pv = '';
+      
+      v.properties.forEach(v => {
+          if (v.property_type_id == pt.id)
+            pv = v.value;
+        }
+      );
+
+      const pn : PropertyWithName = { id: pt.id, property_type: pt.key, value: pv };
+      this.value.properties[i] = pn;
+      i++;
+    });
+
+    v.properties.forEach(v => {
+
+    });
+  }
+
 }

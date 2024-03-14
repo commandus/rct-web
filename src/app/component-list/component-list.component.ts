@@ -13,7 +13,7 @@ export class ComponentListComponent implements OnChanges {
   @Input() @Output() symbol: Symbol = new Symbol;
   @Output() symbolSelected = new EventEmitter<Symbol>();
   
-  selectedSymbol: Symbol = new Symbol;
+  public selectedSymbol: Symbol = new Symbol;
 
   constructor(public svc: WebappService) { 
   }
@@ -35,11 +35,17 @@ export class ComponentListComponent implements OnChanges {
 
   private update(): void {
     if (this.symbol_id) {
+      console.log(this.symbol_id);
       this.selectedSymbol = this.svc.getComponentById(this.symbol_id);
+      console.log(this.selectedSymbol);
     } else {
       if (this.symbol) {
         this.selectedSymbol = this.symbol;
       }
     }
+  }
+
+  public setSymbolId(v: number) : void {
+    this.selectedSymbol = this.svc.getComponentById(v);
   }
 }
