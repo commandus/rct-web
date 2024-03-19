@@ -25,6 +25,7 @@ import { JournalRequest } from './model/journal-request.model';
 import { JournalResponse } from './model/journal-response.model';
 import { ExportExcelRequest } from './model/export-excel-request.model';
 import { ExportExcelResponse } from './model/export-excel-response.model';
+import { RmSymbolPropertyRequest } from './model/rm-symbol-property-request.model';
 
 class EndPoint {
   public url = "";
@@ -72,15 +73,39 @@ export class RcrJsonService {
       v.operation.forEach(o => {
         o.id = +o.id;
       });
+      v.property_type.forEach(pt => {
+        pt.id = +pt.id;
+      });
       return v;
-    }));
+    })
+    );
   }
 
   getSettings(request: Settings): Observable<Settings> {
-    return this.httpClient.post<Settings>(this.endpoints.current.url + "/getSettings", request);
+    return this.httpClient.post<Settings>(this.endpoints.current.url + "/getSettings", request).pipe(
+      map(v => {
+        v.service.forEach(s => {
+          s.id = +s.id;
+        });
+        v.symbol_property.forEach(o => {
+          o.id = +o.id;
+          o.property_type_id = +o.property_type_id;
+          o.symbol_id = +o.symbol_id;
+        });
+        return v;
+      })
+    );
   }
   setSettings(request: Settings): Observable<Settings> {
     return this.httpClient.post<Settings>(this.endpoints.current.url + "/setSettings", request);
+  }
+  rmSymbolProperty(request: RmSymbolPropertyRequest): Observable<OperationResponse> {
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/rmSymbolProperty", request).pipe(
+      map(v => {
+        v.id = +v.id;
+        return v;
+      })
+    );
   }
   chPropertyType(request: ChPropertyTypeRequest): Observable<OperationResponse> {
     return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/chPropertyType", request);
@@ -122,3 +147,4 @@ export class RcrJsonService {
     return this.httpClient.post<ExportExcelResponse>(this.endpoints.current.url + "/exportExcel", request);
   }
 }
+

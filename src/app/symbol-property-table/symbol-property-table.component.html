@@ -1,0 +1,35 @@
+<div style="height: 10pt;">
+	<mat-progress-bar *ngIf="ds.loading | async" mode="indeterminate"></mat-progress-bar>
+</div>
+<div>
+  <table mat-table [dataSource]="ds" matSort>
+    <ng-container matColumnDef="symbol_id">
+        <th mat-header-cell *matHeaderCellDef> Компонент (символ) </th>
+        <td mat-cell *matCellDef="let v" matTooltip="Символьное обозначение на схемах (1 буква)">
+          <app-component-list [symbol_id]="v.symbol_id"></app-component-list>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="property_type_id">
+        <th mat-header-cell *matHeaderCellDef> Свойство </th>
+        <td mat-cell *matCellDef="let v" matTooltip="Свойство">
+          <app-property-type-select [id]="v.property_type_id"></app-property-type-select>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Редактировать </th>
+      <td mat-cell *matCellDef="let v">
+        <!--
+        <button mat-button color="primary" type="button" matTooltip="Редактировать" (click)="show(v)"><mat-icon>edit</mat-icon></button>
+        -->
+        <button mat-button type="button" matTooltip="Удалить" (click)="rm(v)"><mat-icon>delete</mat-icon></button>
+      </td>
+  </ng-container>
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button color="primary" type="button" matTooltip="Добавить" (click)="add()">Добавить <mat-icon>add</mat-icon></button>
+    <button mat-button color="accent" mat-flat-button type="button" matTooltip="Сохранить изменения" (click)="save()">Сохранить</button>
+    <button mat-button color="primary" type="button" matTooltip="Обновить" (click)="refresh()">Обновить</button>
+  </div>
+</div>

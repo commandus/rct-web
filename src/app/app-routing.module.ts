@@ -12,22 +12,23 @@ import { StatComponent } from './stat/stat.component';
 import { LogDashboardComponent } from './log-dashboard/log-dashboard.component';
 import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.component';
 import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
+import { SymbolPropertyDashboardComponent } from './symbol-property-dashboard/symbol-property-dashboard.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent},
-  { path: 'users', component: UserDasboardComponent},
-  { path: 'boxes', component: BoxDashboardComponent},
-  { path: 'properties', component: PropertyDashboardComponent},
-  { path: 'operations', component: OperationDashboardComponent},
-  { path: 'symbols', component: SymbolDashboardComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'import-excel', component: ImportExcelComponent},
-  { path: 'stat', component: StatComponent},
+  { path: '', component: DashboardComponent },
+  { path: 'users', component: UserDasboardComponent },
+  { path: 'boxes', component: BoxDashboardComponent },
+  { path: 'properties', component: PropertyDashboardComponent },
+  { path: 'operations', component: OperationDashboardComponent },
+  { path: 'symbols', component: SymbolDashboardComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'import-excel', component: ImportExcelComponent },
+  { path: 'stat', component: StatComponent },
   { path: 'log', component: LogDashboardComponent },
-  { path: 'card/:id', component: CardByIdEditComponent},
-  { path: 'add-into-box', component: AddIntoBoxComponent }
+  { path: 'card/:id', component: CardByIdEditComponent },
+  { path: 'add-into-box', component: AddIntoBoxComponent },
+  { path: 'symbol-property', component: SymbolPropertyDashboardComponent }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true, onSameUrlNavigation: 'reload' })],

@@ -28,15 +28,15 @@
     <div *ngIf="value.card.symbol_id > 0">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-label>Свойства</mat-label>
-            <button mat-button type="button" (click)="addProperty()"><mat-icon>add</mat-icon></button>  
+            <button mat-button type="button" (click)="addProperty()">Добавить <mat-icon>add</mat-icon></button>  
         </div>
         <ng-container *ngFor="let p of value.properties">
             <app-property-value [value]="p"></app-property-value>
         </ng-container>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center">
-        <ng-container *ngIf="value.card.symbol_id > 0" class="new-item">
-            <button color="accent" mat-flat-button type="submit">Добавить</button>  
+        <ng-container *ngIf="value.card.symbol_id > 0 && this.value.packages[0].qty > 0" class="new-item">
+            <button color="accent" mat-flat-button type="submit">Выполнить</button>  
         </ng-container>
         <button *ngIf="hasPreviousRequestSaved()" type="button" color="primary" mat-button (click)="fillForm(previousRequest)">Заполнить предыдущим</button>  
     </div>

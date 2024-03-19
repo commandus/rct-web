@@ -29,12 +29,15 @@ import { PropertytypeEditDialogComponent } from './propertytype-edit-dialog/prop
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
 import { UserRequest } from './model/user-request.model';
 import { List } from './model/list.model';
-import { DictionariesNBoxes } from './model/dictionaries-n-boxes';
+import { DictionariesSettingsBoxes } from './model/dictionaries-settings-boxes';
 import { BoxEditDialogComponent } from './box-edit-dialog/box-edit-dialog.component';
 import { ChBoxRequest } from './model/ch-box-request.model';
 import { ExportExcelRequest } from './model/export-excel-request.model';
 import { ExportExcelResponse } from './model/export-excel-response.model';
 import { CountEditDialogComponent } from './count-edit-dialog/count-edit-dialog.component';
+import { Settings } from './model/settings.model';
+import { SymbolProperty } from './model/symbol-property.model';
+import { SymbolPropertyEditDialogComponent } from './symbol-property-edit-dialog/symbol-property-edit-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +45,7 @@ import { CountEditDialogComponent } from './count-edit-dialog/count-edit-dialog.
 export class WebappService {
   rcr: RcrJsonService;
   dictionaries: DictionariesResponse = new DictionariesResponse;
+  settings: Settings = new Settings;
   boxes: BoxResponse = new BoxResponse;
   // selected symbol id
   symbol: Symbol = new Symbol;
@@ -59,14 +63,17 @@ export class WebappService {
     return this.user && (this.user.token != 0);
   }
 
-  load(): Observable<DictionariesNBoxes> {
-    const obs = new Observable<DictionariesNBoxes>((observer) => {
+  load(): Observable<DictionariesSettingsBoxes> {
+    const obs = new Observable<DictionariesSettingsBoxes>((observer) => {
       this.loadDictionaries().subscribe(d => {
-        this.loadBoxes().subscribe(b => {
-          const r = new DictionariesNBoxes;
-          r.dictionaries = d;
-          r.boxes = b;
-          observer.next(r);
+        this.loadSettings().subscribe(settings => {
+          this.loadBoxes().subscribe(b => {
+            const r = new DictionariesSettingsBoxes;
+            r.settings = settings;
+            r.dictionaries = d;
+            r.boxes = b;
+            observer.next(r);
+          });
         });
       });
     });
@@ -115,6 +122,27 @@ export class WebappService {
       });
   
     });
+    return obs;
+  }
+
+  private loadSettings() : Observable<Settings> {
+    const obs = new Observable<Settings>((observer) => {
+      const r = new Settings;
+      r.user = this.user;
+      this.rcr.getSettings(r)
+      .pipe(map(v => {
+        v.symbol_property.forEach(sp => {
+          sp.id = +sp.id;
+          sp.property_type_id = +sp.property_type_id;
+          sp.symbol_id = +sp.symbol_id;
+        });
+        return v;
+      }))
+      .subscribe(v => { 
+        this.settings = v;
+        observer.next(v);
+      });
+    });
 
     return obs;
   }
@@ -140,7 +168,6 @@ export class WebappService {
         observer.next(v);
       });
     });
-
     return obs;
   }
 
@@ -279,10 +306,9 @@ export class WebappService {
   ) {
     const d = new MatDialogConfig();
     const isNew = !(v.id > 0);
-    console.log(isNew);
     d.autoFocus = true;
     d.data = {
-      title: isNew ? 'Пользователь ' + v.id : 'Новый пользователь',
+      title: isNew ? 'Новый пользователь' : 'Пользователь ' + v.id,
       message: '',
       value: v
     };
@@ -355,6 +381,37 @@ export class WebappService {
         this.rcr.chBox(v).subscribe(
           resp => {
             if (resp && resp.code == 0) {
+              resolve("ok");
+            }
+          },
+          error => {
+            reject('fail');
+        });    
+      });
+    });
+  }
+
+  public showSymbolProperty(
+    v: SymbolProperty
+  ) {
+    const d = new MatDialogConfig();
+    const isNew = !(v.id > 0);
+    d.autoFocus = true;
+    d.data = {
+      title: isNew ? 'Новое свойство компонента' : 'Свойство компонента ' + v.id,
+      message: '',
+      value: v
+    };
+
+    const dialogRef = this.dialog.open(SymbolPropertyEditDialogComponent, d);
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.componentInstance.changed.subscribe((v: SymbolProperty) => {
+        let request = this.settings;
+        request.user = this.user;
+        request.symbol_property.push(v);
+        this.rcr.setSettings(request).subscribe(
+          resp => {
+            if (resp) {
               resolve("ok");
             }
           },

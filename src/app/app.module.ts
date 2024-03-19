@@ -85,6 +85,10 @@ import { BoxEditComponent } from './box-edit/box-edit.component';
 import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
 import { AddNewItemIntoBoxComponent } from './add-new-item-into-box/add-new-item-into-box';
 import { PrefixMeasureListComponent } from './prefix-measure-list/prefix-measure-list';
+import { SymbolPropertyTableComponent } from './symbol-property-table/symbol-property-table.component';
+import { SymbolPropertyDashboardComponent } from './symbol-property-dashboard/symbol-property-dashboard.component';
+import { SymbolPropertyEditDialogComponent } from './symbol-property-edit-dialog/symbol-property-edit-dialog.component';
+import { SymbolPropertyEditComponent } from './symbol-property-edit/symbol-property-edit.component';
 
 @NgModule({
   declarations: [
@@ -143,7 +147,11 @@ import { PrefixMeasureListComponent } from './prefix-measure-list/prefix-measure
     CardByIdEditComponent,
     AddIntoBoxComponent,
     AddNewItemIntoBoxComponent,
-    PrefixMeasureListComponent
+    PrefixMeasureListComponent,
+    SymbolPropertyTableComponent,
+    SymbolPropertyDashboardComponent,
+    SymbolPropertyEditDialogComponent,
+    SymbolPropertyEditComponent
   ],
   imports: [
     BrowserModule,

@@ -14,12 +14,13 @@ export class PropertyTypeSelectComponent {
   @Input() @Output() value: PropertyType = new PropertyType;
   @Output() propertyTypeSelected = new EventEmitter<PropertyType>();
   
-  selectedPropertyType: PropertyType = new PropertyType;
+  public selectedPropertyType: PropertyType = new PropertyType;
 
   constructor(public svc: WebappService) { 
   }
 
   public onSelectionChanged(event: MatSelectChange) {
+    this.value.id = this.selectedPropertyType.id;
     this.propertyTypeSelected.emit(this.selectedPropertyType);
   }
 

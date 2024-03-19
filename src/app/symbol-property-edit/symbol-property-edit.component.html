@@ -1,0 +1,16 @@
+<mat-progress-bar class="progressbar" *ngIf="progress" mode="indeterminate"></mat-progress-bar>
+<ng-container *ngIf="!this.progress">
+    <div class="dlg" fxLayout="column">
+        <div [style.color]="success ? 'green' : 'red'">
+            {{message}}
+        </div>
+        <app-component-list [symbol_id]="value.symbol_id"></app-component-list>
+        <app-property-type-select [id]="value.property_type_id"></app-property-type-select>
+        <div>
+            <div fxLayout="row" fxLayoutAlign="end stretch">
+                <button mat-button type="button" (click)="save()">Сохранить</button>  
+                <button mat-button type="button" (click)="cancel()">Отмена</button>  
+            </div>
+        </div>
+    </div>
+</ng-container>

@@ -35,9 +35,7 @@ export class ComponentListComponent implements OnChanges {
 
   private update(): void {
     if (this.symbol_id) {
-      console.log(this.symbol_id);
       this.selectedSymbol = this.svc.getComponentById(this.symbol_id);
-      console.log(this.selectedSymbol);
     } else {
       if (this.symbol) {
         this.selectedSymbol = this.symbol;
