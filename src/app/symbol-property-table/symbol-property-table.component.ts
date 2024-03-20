@@ -7,8 +7,12 @@ import { Observable, delay, startWith, tap } from 'rxjs';
 import { WebappService } from '../webapp.service';
 import { Symbol } from '../model/symbol.model';
 import { SymbolProperty } from '../model/symbol-property.model';
-import { RmSymbolPropertyRequest } from '../model/rm-symbol-property-request.model';
+import { SymbolPropertyRequest } from '../model/symbol-property-request.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PropertyType } from '../model/property-type.model';
+import { SettingsRequest } from '../model/settings-request.model';
+import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component'
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 class dumbCollectionViewer implements CollectionViewer {
   viewChange!: Observable<ListRange>;
@@ -30,7 +34,8 @@ export class SymbolPropertyTableComponent {
   constructor(
       public rcr: RcrJsonService,
       public app: WebappService,
-      private snackbar: MatSnackBar
+      private snackbar: MatSnackBar,
+      private dialog: MatDialog
   ) {
     this.ds = new SymbolPropertyDataSource(this.rcr, this.app);
   }
@@ -59,33 +64,68 @@ export class SymbolPropertyTableComponent {
 
   add() {
     let v = new SymbolProperty;
-    this.app.showSymbolProperty(v);
-  }
-
-  rm(value: SymbolProperty) {
-    let request = new RmSymbolPropertyRequest;
-    request.user = this.app.user;
-    request.symbol_property = value;
-    this.rcr.rmSymbolProperty(request).subscribe(v => {
-      this.load();
-      const snack = this.snackbar.open('Свойство компонента удалено', '', {duration: 1000});
-      snack.onAction().subscribe(() => {
-        console.log(v);
+    this.app.showSymbolProperty(v).subscribe(v => {
+      this.app.load().subscribe(v => {
+        this.load();
       });
-
     });
   }
 
+  rm(val: SymbolProperty) {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.disableClose = true;
+    d.data = {
+      title: 'Удалить свойство компонента ' + val.id,
+      message: 'Удаленную запись невозможно восстановить',
+      value: val
+    };
+    const dialogRef = this.dialog.open(DialogConfirmComponent, d);
+    dialogRef.afterClosed().subscribe(
+        data => {
+          if (data.yes) {
+            let request = new SymbolPropertyRequest;
+            request.user = this.app.user;
+            request.symbol_property = val;
+            this.rcr.rmSymbolProperty(request).subscribe(v => {
+              this.load();
+              const snack = this.snackbar.open('Свойство компонента удалено', '', {duration: 1000});
+              snack.onAction().subscribe(() => {
+                console.log(v);
+              });
+            });
+          }
+        }
+    );
+
+
+  }
+
   save() {
-    this.load();
-    // reload settings
-    this.app.load().subscribe(v => {
-      console.log('saved & reloaded');
+    this.app.settings.symbol_property = Array.from(this.ds.subject.getValue());
+    let sr = new SettingsRequest;
+    sr.user = this.app.user;
+    sr.settings = this.app.settings;
+
+    this.rcr.setSettings(sr).subscribe(v => {
+      /*
+      this.app.load().subscribe(v => {
+        this.load();
+      });
+      */
     });
   }
 
   refresh(): void {
     this.load();
+  }
+
+  propertyTypeSelected(symbolProperty: SymbolProperty, pt: PropertyType) : void {
+    symbolProperty.property_type_id = pt.id;
+  }
+
+  symbolSelected(symbolProperty: SymbolProperty, sym: Symbol) : void {
+    symbolProperty.symbol_id = sym.id;
   }
 
 }

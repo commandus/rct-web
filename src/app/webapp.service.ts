@@ -38,6 +38,7 @@ import { CountEditDialogComponent } from './count-edit-dialog/count-edit-dialog.
 import { Settings } from './model/settings.model';
 import { SymbolProperty } from './model/symbol-property.model';
 import { SymbolPropertyEditDialogComponent } from './symbol-property-edit-dialog/symbol-property-edit-dialog.component';
+import { SettingsRequest } from './model/settings-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -391,9 +392,7 @@ export class WebappService {
     });
   }
 
-  public showSymbolProperty(
-    v: SymbolProperty
-  ) {
+  public showSymbolProperty(v: SymbolProperty) : Observable<Settings> {
     const d = new MatDialogConfig();
     const isNew = !(v.id > 0);
     d.autoFocus = true;
@@ -404,22 +403,22 @@ export class WebappService {
     };
 
     const dialogRef = this.dialog.open(SymbolPropertyEditDialogComponent, d);
-    return new Promise<string>((resolve, reject) => { 
+
+    let obs = new Observable<Settings>(ob => {
       dialogRef.componentInstance.changed.subscribe((v: SymbolProperty) => {
-        let request = this.settings;
+        let request = new SettingsRequest;
         request.user = this.user;
-        request.symbol_property.push(v);
-        this.rcr.setSettings(request).subscribe(
-          resp => {
-            if (resp) {
-              resolve("ok");
-            }
-          },
-          error => {
-            reject('fail');
-        });    
+        request.settings = this.settings;
+        request.settings.symbol_property.push(v);
+        this.rcr.setSettings(request).subscribe(v => {
+          ob.next(v)
+        });
+      });
+      dialogRef.componentInstance.cancelled.subscribe(() => {
+        ob.next(new Settings);
       });
     });
+    return obs;
   }
 
   public getComponentById(id: number): Symbol {

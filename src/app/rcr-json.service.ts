@@ -25,7 +25,8 @@ import { JournalRequest } from './model/journal-request.model';
 import { JournalResponse } from './model/journal-response.model';
 import { ExportExcelRequest } from './model/export-excel-request.model';
 import { ExportExcelResponse } from './model/export-excel-response.model';
-import { RmSymbolPropertyRequest } from './model/rm-symbol-property-request.model';
+import { SymbolPropertyRequest } from './model/symbol-property-request.model';
+import { SettingsRequest } from './model/settings-request.model';
 
 class EndPoint {
   public url = "";
@@ -96,10 +97,10 @@ export class RcrJsonService {
       })
     );
   }
-  setSettings(request: Settings): Observable<Settings> {
+  setSettings(request: SettingsRequest): Observable<Settings> {
     return this.httpClient.post<Settings>(this.endpoints.current.url + "/setSettings", request);
   }
-  rmSymbolProperty(request: RmSymbolPropertyRequest): Observable<OperationResponse> {
+  rmSymbolProperty(request: SymbolPropertyRequest): Observable<OperationResponse> {
     return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/rmSymbolProperty", request).pipe(
       map(v => {
         v.id = +v.id;
