@@ -12,7 +12,7 @@
         <small>
             <sup>*</sup>Если коробки еще нет, она будет создана, если уже существует- будет пополнена.
         </small>
-        <mat-card *ngIf="true || !box.empty()" class="new-item">
+        <mat-card *ngIf="!box.empty()" class="new-item">
             Новый компонент <small>Нажимайте Tab для перемещения по полям</small>
             <app-add-new-item-into-box [box]="box" (added)="onAdd($event)"></app-add-new-item-into-box>
         </mat-card>

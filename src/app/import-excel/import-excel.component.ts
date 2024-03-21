@@ -24,7 +24,6 @@ export class ImportExcelComponent {
     public svc: WebappService, 
     private router: Router
   ) { 
-    svc.load().subscribe(v=>{});
   }
 
   onParam(

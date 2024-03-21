@@ -1,7 +1,7 @@
 .top-menu {
     padding-top: 10pt;
     padding-left: 2pt;
-    width: 30pt;
+    width: 120pt;
 }
 
 .symbol-selector {
@@ -15,12 +15,11 @@
 .query-input {
     padding-left: 2pt;
     padding-right: 2pt;
-    width: calc(100% - 190pt);
+    width: calc(100% - 392pt);
 }
 
 .package-list {
     padding-left: 2pt;
-    width: calc(100% - 140pt);
 }
 
 .dasboard {

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { WebappService } from '../webapp.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,10 +8,8 @@ import { Router } from '@angular/router';
 })
 export class SymbolDashboardComponent {
   constructor(
-    public svc: WebappService, 
     private router: Router
   ) { 
-    svc.load().subscribe(v=>{});
   }
 
   back() {

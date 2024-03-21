@@ -18,9 +18,9 @@ export class OperationEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private env: WebappService
+    private app: WebappService
   ) {
-    this.success = env.hasAccount();
+    this.success = app.hasAccount();
   }
 
   ngOnInit(): void {

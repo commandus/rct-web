@@ -6,7 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, delay, startWith, tap } from 'rxjs';
 import { WebappService } from '../webapp.service';
-import { GetItemRequest } from '../model/get-item-request.model';
 import { PropertyType } from '../model/property-type.model';
 
 class dumbCollectionViewer implements CollectionViewer {
@@ -21,16 +20,15 @@ class dumbCollectionViewer implements CollectionViewer {
 export class PropertyTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
 
   public ds: PropertyDataSource;
   public selection = new SelectionModel<number>(true, []);
   public selectionMode = 0; // 0- manually selected, 1- select all, 2- unselect all
   public displayedColumns: string[] = ['id', 'key', 'description'];
   
-    constructor(
-      public rcr: RcrJsonService,
-      public app: WebappService
+  constructor(
+    public rcr: RcrJsonService,
+    public app: WebappService
   ) {
     this.ds = new PropertyDataSource(this.rcr, this.app);
   }

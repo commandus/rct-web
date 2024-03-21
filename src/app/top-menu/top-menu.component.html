@@ -1,38 +1,41 @@
-<button mat-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="nav2('')">Список компонентов</button>
-  <button mat-menu-item (click)="nav2('boxes')">Коробки</button>
-  <hr/>
-  <button mat-menu-item (click)="nav2('add-into-box')">Опись коробки</button>
-  <button mat-menu-item (click)="nav2('import-excel')">Импорт</button>
-  <button mat-menu-item (click)="nav2('stat')">Сводка</button>
-  <button mat-menu-item (click)="nav2('log')">Журнал</button>
-  <hr/>
-  <button *ngIf="!env.hasAccount()" mat-menu-item (click)="env.login()">Войти</button>
-
-  <ng-container *ngIf="env.hasAccount()">
-    <button mat-menu-item (click)="env.login()">Войти с другим именем</button>
-    <button mat-menu-item (click)="env.logout()">Выйти ({{env.user.name}})</button>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <button mat-button matTooltip="Меню" [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+  </button>
+  <button mat-button (click)="nav2('add-into-box')" matTooltip="Опись коробки"><mat-icon>add</mat-icon></button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="nav2('')">Список компонентов</button>
+    <button mat-menu-item (click)="nav2('boxes')">Коробки</button>
     <hr/>
-    <button mat-menu-item [matMenuTriggerFor]="db">
-      База данных
-    </button>
-    <mat-menu #db="matMenu">
-      <button mat-menu-item (click)="selectDb(e.name)" *ngFor="let e of env.rcr.endpoints.endpoints" value="e.url">
-        {{e.name}} <mat-icon>{{e.selected ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
+    <button mat-menu-item (click)="nav2('add-into-box')">Опись коробки</button>
+    <button mat-menu-item (click)="nav2('import-excel')">Импорт</button>
+    <button mat-menu-item (click)="nav2('stat')">Сводка</button>
+    <button mat-menu-item (click)="nav2('log')">Журнал</button>
+    <hr/>
+    <button *ngIf="!env.hasAccount()" mat-menu-item (click)="env.login()">Войти</button>
+
+    <ng-container *ngIf="env.hasAccount()">
+      <button mat-menu-item (click)="env.login()">Войти с другим именем</button>
+      <button mat-menu-item (click)="env.logout()">Выйти ({{env.user.name}})</button>
+      <hr/>
+      <button mat-menu-item [matMenuTriggerFor]="db">
+        База данных
       </button>
-    </mat-menu>
-    <button mat-menu-item [matMenuTriggerFor]="settings">
-      Настройки
-    </button>
-    <mat-menu #settings="matMenu">
-      <button mat-menu-item (click)="nav2('users')">Пользователи</button>
-      <button mat-menu-item (click)="nav2('properties')">Типы свойств</button>
-      <button mat-menu-item (click)="nav2('symbols')">Типы компонент</button>
-      <button mat-menu-item (click)="nav2('operations')">Типы операций</button>
-      <button mat-menu-item (click)="nav2('symbol-property')">Свойства компонент</button>
-    </mat-menu>
-  </ng-container>
-</mat-menu>
+      <mat-menu #db="matMenu">
+        <button mat-menu-item (click)="selectDb(e.name)" *ngFor="let e of env.rcr.endpoints.endpoints" value="e.url">
+          {{e.name}} <mat-icon>{{e.selected ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
+        </button>
+      </mat-menu>
+      <button mat-menu-item [matMenuTriggerFor]="settings">
+        Настройки
+      </button>
+      <mat-menu #settings="matMenu">
+        <button mat-menu-item (click)="nav2('users')">Пользователи</button>
+        <button mat-menu-item (click)="nav2('properties')">Типы свойств</button>
+        <button mat-menu-item (click)="nav2('symbols')">Типы компонент</button>
+        <button mat-menu-item (click)="nav2('operations')">Типы операций</button>
+        <button mat-menu-item (click)="nav2('symbol-property')">Свойства компонент</button>
+      </mat-menu>
+    </ng-container>
+  </mat-menu>
+</div>

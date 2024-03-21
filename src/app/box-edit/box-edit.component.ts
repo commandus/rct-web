@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebappService } from '../webapp.service';
-import { RcrJsonService } from '../rcr-json.service';
 import { Box } from '../model/box.model';
 import { ChBoxRequest } from '../model/ch-box-request.model';
 
@@ -25,10 +23,9 @@ export class BoxEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private env: WebappService,
-    private svc: RcrJsonService
+    private app: WebappService
   ) {
-    this.success = env.hasAccount();
+    this.success = app.hasAccount();
   }
 
   ngOnInit(): void {
@@ -50,7 +47,7 @@ export class BoxEditComponent implements OnInit {
   save(): void {
     const r = new ChBoxRequest;
     r.value.id = this.id;
-    r.user = this.env.user;
+    r.user = this.app.user;
     r.operationSymbol = this.id ? '=' : '+';
     r.value.box_id = Box.string2box(this.formGroup.getRawValue().box);
     r.value.name = this.formGroup.getRawValue().name;

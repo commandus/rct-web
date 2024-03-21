@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { WebappService } from '../webapp.service';
 import { Router } from '@angular/router';
 import { CardQueryRequest } from '../model/card-query-request.model';
 import { RcrJsonService } from '../rcr-json.service';
@@ -22,11 +21,9 @@ export class StatComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private app: WebappService,
     private svc: RcrJsonService
   ) {
     this.success = true;
-    app.load().subscribe(v=>{});
   }
 
   ngOnInit(): void {
@@ -47,7 +44,6 @@ export class StatComponent implements OnInit {
 
   refresh(): void {
     const r = new CardQueryRequest();
-    r.user = this.app.user;
     r.query = "* sum";
     this.svc.cardQuery(r)
     .subscribe(

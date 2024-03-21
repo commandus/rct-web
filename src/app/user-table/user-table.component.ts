@@ -6,7 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, delay, startWith, tap } from 'rxjs';
 import { WebappService } from '../webapp.service';
-import { GetItemRequest } from '../model/get-item-request.model';
 import { User } from '../model/user.model';
 
 class dumbCollectionViewer implements CollectionViewer {
@@ -28,7 +27,7 @@ export class UserTableComponent {
   public selectionMode = 0; // 0- manually selected, 1- select all, 2- unselect all
   public displayedColumns: string[] = ['id', 'name', 'rights'];
   
-    constructor(
+  constructor(
       public rcr: RcrJsonService,
       public app: WebappService
   ) {

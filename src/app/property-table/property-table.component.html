@@ -25,8 +25,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="edit(row)"></tr>
   </table>
   <mat-paginator [pageSize]="200"></mat-paginator>
-  <div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
 	  <button mat-button color="primary" matTooltip="Обновить" (click)="refresh()">Обновить</button>
-    <button mat-button color="primary" matTooltip="Добавить" (click)="add()"><mat-icon>add_circle</mat-icon></button>
+    <button mat-button color="primary" matTooltip="Добавить" (click)="add()"><mat-icon>add</mat-icon></button>
   </div>
 </div>

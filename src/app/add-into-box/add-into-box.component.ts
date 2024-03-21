@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Symbol } from '../model/symbol.model';
 import { Box } from '../model/box.model';
-import { WebappService } from '../webapp.service';
 import { CardTableComponent } from '../card-table/card-table.component';
 import { AddNewItemIntoBoxComponent } from '../add-new-item-into-box/add-new-item-into-box';
 import { ChCardRequest } from '../model/ch-card-request.model';
 import { RcrJsonService } from '../rcr-json.service';
+import { WebappService } from '../webapp.service';
 
 @Component({
   selector: 'app-add-into-box',
@@ -20,12 +20,9 @@ export class AddIntoBoxComponent {
 
   constructor(
     private snackbar: MatSnackBar,
-    public svc: WebappService,
+    private app: WebappService,
     public rcr: RcrJsonService
   ) { 
-    svc.load().subscribe(v => {
-      this.addNewItemIntoBoxComponent.setDictionaries(v.dictionaries);
-    });
   }
 
   private loadBox() : void {
@@ -49,8 +46,7 @@ export class AddIntoBoxComponent {
       value => {
         const snack = this.snackbar.open('Элемент добавлен', '№ ' + value.id, {duration: 1000});
         snack.onAction().subscribe(() => {
-          console.log(value.count);
-          console.log(value.description);
+          console.log(value);
         });
         this.loadBox();
       });

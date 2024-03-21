@@ -99,7 +99,7 @@ export class Symbol {
                 idx = 3;
             else
                 if (componentNumber == 7)
-                    idx = 14;
+                    idx = 3;
                 else
                     if (componentNumber == 12)
                         idx = 1;

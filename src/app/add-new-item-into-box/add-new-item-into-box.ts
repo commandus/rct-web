@@ -9,8 +9,8 @@ import { Property } from '../model/property.model';
 import { PropertyWithName } from '../model/property-with-name.model';
 import { Package } from '../model/package.model';
 import { Box } from '../model/box.model';
-import { DictionariesResponse } from '../model/dictionaries-response.model';
 import { ComponentListComponent } from '../component-list/component-list.component';
+import { SymbolProperty } from '../model/symbol-property.model';
 
 @Component({
   selector: 'app-add-new-item-into-box',
@@ -37,13 +37,11 @@ export class AddNewItemIntoBoxComponent implements OnInit {
   message = '';
   success: boolean;
 
-  private dictionaries = new DictionariesResponse;
-
   constructor(
     private formBuilder: FormBuilder,
-    private env: WebappService,
+    private app: WebappService
   ) {
-    this.success = env.hasAccount();
+    this.success = app.hasAccount();
   }
 
   ngOnInit(): void {
@@ -59,17 +57,21 @@ export class AddNewItemIntoBoxComponent implements OnInit {
     this.value.packages.push(new Package);
    }
 
-  public setDictionaries(value: DictionariesResponse) {
-    this.dictionaries = value;
-    this.clearProperties();
-  }
-
   private clearProperties() {
     this.value.properties.splice(0);
-    this.dictionaries.property_type.forEach(pt => {
+    this.app.dictionaries.property_type.forEach(pt => {
       const pn : PropertyWithName = { id: pt.id, property_type: pt.key, value: '' };
-      this.value.properties.push(pn);
+      if (this.isPropertyMandatory(this.value.card.symbol_id, pt.id))
+        this.value.properties.push(pn);
     });
+  }
+
+  private isPropertyMandatory(symbolId: number, propertyTypeId: number) : boolean {
+    let a = this.app.settings.symbol_property.find(
+      (value: SymbolProperty, index: number, obj: SymbolProperty[]) => {
+        return value.property_type_id == propertyTypeId && value.symbol_id == symbolId;
+      });
+    return typeof(a) != 'undefined';
   }
 
   private clearNew() {
@@ -84,7 +86,7 @@ export class AddNewItemIntoBoxComponent implements OnInit {
     const r = new ChCardRequest;
 
     r.value.id = this.value.card.id;
-    r.user = this.env.user;
+    r.user = this.app.user;
     // save card
     r.operationSymbol = '+';
     r.value.name = this.formGroup.getRawValue().name;
@@ -106,7 +108,7 @@ export class AddNewItemIntoBoxComponent implements OnInit {
         const p = new Property;
         p.card_id = this.value.card.id;
         p.value = pn.value;
-        p.property_type_id = this.env.getPropertyTypeByKey(pn.property_type).id;
+        p.property_type_id = this.app.getPropertyTypeByKey(pn.property_type).id;
         r.properties.push(p);
       }
     });
@@ -119,6 +121,7 @@ export class AddNewItemIntoBoxComponent implements OnInit {
 
   onSymbolSelected(value: Symbol) {
     this.value.card.symbol_id = value.id;
+    this.clearProperties();
   }
 
   onQtyChanged(value: any) {
@@ -165,7 +168,7 @@ export class AddNewItemIntoBoxComponent implements OnInit {
     
     this.value.properties.slice(0);
     let i = 0;
-    this.dictionaries.property_type.forEach(pt => {
+    this.app.dictionaries.property_type.forEach(pt => {
       let pv = '';
       
       v.properties.forEach(v => {
@@ -173,14 +176,9 @@ export class AddNewItemIntoBoxComponent implements OnInit {
             pv = v.value;
         }
       );
-
       const pn : PropertyWithName = { id: pt.id, property_type: pt.key, value: pv };
       this.value.properties[i] = pn;
       i++;
-    });
-
-    v.properties.forEach(v => {
-
     });
   }
 

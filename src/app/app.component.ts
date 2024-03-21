@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WebappService } from './webapp.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'rcr';
+  title = 'Компоненты';
+
+  constructor(
+    public svc: WebappService
+  ) {
+    svc.load().subscribe(v=>{
+      console.log('RCR started');
+    });
+  }
+
 }

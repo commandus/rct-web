@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     private svc: WebappService
   ) {
     this.success = svc.hasAccount();
-    svc.load().subscribe(v=>{});
   }
 
   ngOnInit(): void {
