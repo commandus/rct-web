@@ -41,7 +41,6 @@ export class AddIntoBoxComponent {
   }
 
   public onAdd(request: ChCardRequest) {
-    console.log(request);
     this.rcr.chCard(request).subscribe(
       value => {
         const snack = this.snackbar.open('Элемент добавлен', '№ ' + value.id, {duration: 1000});
