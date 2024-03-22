@@ -39,6 +39,8 @@ import { Settings } from './model/settings.model';
 import { SymbolProperty } from './model/symbol-property.model';
 import { SymbolPropertyEditDialogComponent } from './symbol-property-edit-dialog/symbol-property-edit-dialog.component';
 import { SettingsRequest } from './model/settings-request.model';
+import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component'
+import { Card } from './model/card.model';
 
 @Injectable({
   providedIn: 'root'
@@ -256,15 +258,42 @@ export class WebappService {
     const dialogRef = this.dialog.open(CardEditDialogComponent, d);
     return new Promise<string>((resolve, reject) => { 
       dialogRef.componentInstance.changed.subscribe((request: ChCardRequest) => {
-        this.rcr.chCard(request).subscribe(
-          resp => {
-            if (resp && resp.code == 0) {
-              resolve("ok");
-            }
-          },
-          error => {
-            reject('fail');
-        });    
+        const d = new MatDialogConfig();
+        if (request.operationSymbol == '-') {
+          d.autoFocus = true;
+          d.disableClose = true;
+          d.data = {
+            title: 'Удалить карточку ',
+            message: 'Удаленную запись невозможно восстановить',
+            value: request.value.id + ' ' + request.value.name
+          };
+          const dialogRef = this.dialog.open(DialogConfirmComponent, d);
+          dialogRef.afterClosed().subscribe(
+              data => {
+                if (data.yes) {
+                  this.rcr.chCard(request).subscribe(
+                    resp => {
+                      if (resp && resp.code == 0) {
+                        resolve("ok");
+                      }
+                    },
+                    error => {
+                      reject('fail');
+                  });    
+                }
+              }
+          );
+        } else {
+          this.rcr.chCard(request).subscribe(
+            resp => {
+              if (resp && resp.code == 0) {
+                resolve("ok");
+              }
+            },
+            error => {
+              reject('fail');
+          });    
+          }
       });
         
     });

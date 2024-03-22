@@ -6,9 +6,9 @@ import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model'
 import { ChCardRequest } from '../model/ch-card-request.model';
 import { Symbol } from '../model/symbol.model';
 import { Property } from '../model/property.model';
-import { RcrJsonService } from '../rcr-json.service';
 import { PropertyWithName } from '../model/property-with-name.model';
 import { Package } from '../model/package.model';
+import { Card } from '../model/card.model';
 
 @Component({
   selector: 'app-card-edit',
@@ -29,8 +29,7 @@ export class CardEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private env: WebappService,
-    private svc: RcrJsonService
+    private env: WebappService
   ) {
     this.success = env.hasAccount();
   }
@@ -48,6 +47,18 @@ export class CardEditComponent implements OnInit {
 
   cancel(): void {
     this.cancelled.emit();
+  }
+
+  rm() {
+    const r = new ChCardRequest;
+    r.value.id = this.value.card.id;
+    r.user = this.env.user;
+    // remove card
+    r.operationSymbol = '-';
+    r.value.name = this.formGroup.getRawValue().name;
+    r.value.symbol_id = this.value.card.symbol_id;
+    r.value.nominal = Symbol.string2nominal(String.fromCharCode(+this.value.card.symbol_id + 0x40), this.formGroup.getRawValue().nominal).toString();
+    this.changed.emit(r);
   }
 
   save(): void {

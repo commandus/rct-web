@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model';
 import { ChCardRequest } from '../model/ch-card-request.model';
+import { Card } from '../model/card.model';
 
 @Component({
   selector: 'app-card-edit-dialog',
@@ -30,8 +31,7 @@ export class CardEditDialogComponent {
   }
 
   onCancel() {
-    this.cancelled.emit();
+    console.log('cancelled ');
     this.dialogRef.close( { yes: false } );
   }
-
 }
