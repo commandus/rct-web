@@ -32,11 +32,15 @@ export class LogDataSource implements DataSource<Log> {
   }
 
   load(
+    box_id: number,
+    card_id: number,
     ofs: number,
     pagesize: number
   ): void {
     this.loadingSubject.next(true);
     const r = new JournalRequest;
+    r.box_id = box_id;
+    r.card_id = card_id;
     r.user = this.app.user;
     r.list.offset = ofs;
     r.list.size = pagesize;

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CollectionViewer, ListRange, SelectionModel } from '@angular/cdk/collections';
 import { SymbolDataSource } from '../symbol.ds.service';
 import { RcrJsonService } from '../rcr-json.service';
@@ -23,6 +23,8 @@ class dumbCollectionViewer implements CollectionViewer {
 export class LogTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @Input() box_id = 0;
+  @Input() card_id = 0;
  
   public ds: LogDataSource;
   public selection = new SelectionModel<number>(true, []);
@@ -63,7 +65,7 @@ export class LogTableComponent {
 
   load(): void {
     const ofs = this.paginator.pageIndex * this.paginator.pageSize;
-    this.ds.load(ofs, this.paginator.pageSize);
+    this.ds.load(this.box_id, this.card_id, ofs, this.paginator.pageSize);
   }
 
   show(row: Log) {
@@ -78,6 +80,23 @@ export class LogTableComponent {
 
   refresh(): void {
     this.load();
+  }
+
+  getOperationClass(op: string) : string{
+    let s = '';
+    switch(op) {
+      case '=':
+        s = 'op-assign';
+        break;
+      case '+':
+        s = 'op-add';
+        break;
+      case '-':
+        s = 'op-sub';
+        break;
+      default:
+    }
+    return s;
   }
 
 }

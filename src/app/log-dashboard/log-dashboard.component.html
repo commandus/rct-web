@@ -6,9 +6,8 @@
         </div>
     </div>
     
-    <app-log-table class="user-table"></app-log-table>
-    <div class="paramBox">
-    </div>
+    <app-log-table class="log-table" [box_id]="box_id" [card_id]="card_id"></app-log-table>
+    <div class="paramBox"></div>
 
     <div class="back">
         <button mat-button color="primary" matTooltip="Вернуться назад" (click)="back()">Назад</button>

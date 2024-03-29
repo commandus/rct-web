@@ -12,15 +12,15 @@ export class OperationPipe implements PipeTransform {
     else {
       switch (value.symbol) {
         case '+':
-          return 'добавлено';
+          return 'добавление';
         case '-':
-          return 'убавлено';
+          return 'убавление';
         case '=':
-            return 'задано новое значение';
+          return 'присвоение';
         case '/':
-          return 'перемещено';
+          return 'перемещение';
         default:
-          return 'неизвестная операция';
+          return 'неизвестное';
         }
     } 
   }

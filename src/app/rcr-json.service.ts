@@ -142,10 +142,21 @@ export class RcrJsonService {
     return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/importExcel", request);
   }
   lsJournal(request: JournalRequest): Observable<JournalResponse> {
-    return this.httpClient.post<JournalResponse>(this.endpoints.current.url + "/lsJournal", request);
+    return this.httpClient.post<JournalResponse>(this.endpoints.current.url + "/lsJournal", request).pipe(
+      map(v => {
+        v.rslt.id = +v.rslt.id;
+        v.rslt.count = +v.rslt.count;
+        v.rslt.sum = +v.rslt.sum;
+        v.log.forEach(l=> {
+          l.id = +l.id;
+          l.dt = +l.dt;
+        });
+        return v;
+      })
+    );
   }
+  
   exportExcel(request: ExportExcelRequest): Observable<ExportExcelResponse> {
     return this.httpClient.post<ExportExcelResponse>(this.endpoints.current.url + "/exportExcel", request);
   }
 }
-
