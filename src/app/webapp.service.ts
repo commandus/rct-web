@@ -40,7 +40,8 @@ import { SymbolProperty } from './model/symbol-property.model';
 import { SymbolPropertyEditDialogComponent } from './symbol-property-edit-dialog/symbol-property-edit-dialog.component';
 import { SettingsRequest } from './model/settings-request.model';
 import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component'
-import { Card } from './model/card.model';
+import { Package } from './model/package.model';
+import { DialogLogComponent } from './dialog-log/dialog-log.component';
 
 @Injectable({
   providedIn: 'root'
@@ -448,6 +449,19 @@ export class WebappService {
       });
     });
     return obs;
+  }
+
+  public showHistory(
+    p: Package
+  ): void {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: 'История карточки ' + p.card_id + ' коробки ' + Box.box2string(p.box),
+      message: '',
+      value: p
+    };
+    const dialogRef = this.dialog.open(DialogLogComponent, d);
   }
 
   public getComponentById(id: number): Symbol {

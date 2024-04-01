@@ -1,12 +1,20 @@
+.op {
+    color:blueviolet;
+}
+
 .op-assign {
-    background-color:blue;
+    color:blue;
 }
 
 .op-add {
-    background-color:chartreuse;
+    color:darkgreen;
 }
 
 .op-sub {
-    background-color:red;
+    color:red;
 }
 
+.bottom-panel {
+    padding-left: 20pt;
+    padding-bottom: 20pt;
+}

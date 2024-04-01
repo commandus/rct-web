@@ -11,6 +11,7 @@ import { CardNPropetiesPackages } from '../model/card-npropeties-packages.model'
 import { WebappService } from '../webapp.service';
 import { GetItemRequest } from '../model/get-item-request.model';
 import { ExcelHelper } from '../model/excel-helper.model';
+import { Package } from '../model/package.model';
 
 class dumbCollectionViewer implements CollectionViewer {
   viewChange!: Observable<ListRange>;
@@ -30,7 +31,7 @@ export class CardTableComponent {
   public ds: CardsDataSource;
   public selection = new SelectionModel<number>(true, []);
   public selectionMode = 0; // 0- manually selected, 1- select all, 2- unselect all
-  public displayedColumns: string[] = ['name', 'nominal', 'properties', 'box-qty'];
+  public displayedColumns: string[] = ['name', 'nominal', 'properties', 'box-qty', 'action'];
   lastSymbol: Symbol = new Symbol;
   lastBox: Box = new Box;
   lastQuery = '';
@@ -119,6 +120,10 @@ export class CardTableComponent {
       });
 
     });
+  }
+
+  showHistory(p: Package): void {
+    this.app.showHistory(p);
   }
 
 }

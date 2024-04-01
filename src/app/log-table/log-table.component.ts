@@ -1,15 +1,14 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { CollectionViewer, ListRange, SelectionModel } from '@angular/cdk/collections';
-import { SymbolDataSource } from '../symbol.ds.service';
 import { RcrJsonService } from '../rcr-json.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, delay, startWith, tap } from 'rxjs';
 import { WebappService } from '../webapp.service';
-import { Symbol } from '../model/symbol.model';
 import { LogDataSource } from '../log.ds.service';
 import { Log } from '../model/log';
 import { GetItemRequest } from '../model/get-item-request.model';
+import { Operation } from '../model/operation.model';
 
 class dumbCollectionViewer implements CollectionViewer {
   viewChange!: Observable<ListRange>;
@@ -25,6 +24,7 @@ export class LogTableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() box_id = 0;
   @Input() card_id = 0;
+  @Input() hideButtons = false;
  
   public ds: LogDataSource;
   public selection = new SelectionModel<number>(true, []);
@@ -64,6 +64,8 @@ export class LogTableComponent {
   }
 
   load(): void {
+    console.log(this.box_id);
+    console.log(this.card_id);
     const ofs = this.paginator.pageIndex * this.paginator.pageSize;
     this.ds.load(this.box_id, this.card_id, ofs, this.paginator.pageSize);
   }
@@ -82,9 +84,9 @@ export class LogTableComponent {
     this.load();
   }
 
-  getOperationClass(op: string) : string{
-    let s = '';
-    switch(op) {
+  getOperationClass(op: Operation) : string{
+    let s = 'op';
+    switch(op.symbol) {
       case '=':
         s = 'op-assign';
         break;

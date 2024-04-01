@@ -48,6 +48,7 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
 import { BoxAutocompleteComponent } from './box-autocomplete/box-autocomplete.component';
 import { LoginComponent } from './login/login.component';
 import { DialogLoginComponent } from './dialog-login/dialog-login.component';
+import { DialogLogComponent } from './dialog-log/dialog-log.component';
 import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component';
 import { CardEditComponent } from './card-edit/card-edit.component';
 import { CardEditDialogComponent } from './card-edit-dialog/card-edit-dialog.component';
@@ -114,6 +115,7 @@ import { SymbolPropertyEditComponent } from './symbol-property-edit/symbol-prope
     LoginComponent,
     DialogLoginComponent,
     DialogConfirmComponent,
+    DialogLogComponent,
     CardEditComponent,
     BoxEditComponent,
     CardEditDialogComponent,
