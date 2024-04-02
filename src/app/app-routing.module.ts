@@ -25,8 +25,8 @@ const routes: Routes = [
   { path: 'import-excel', component: ImportExcelComponent },
   { path: 'stat', component: StatComponent },
   { path: 'log', component: LogDashboardComponent },
-  { path: 'log/:box_id', component: LogDashboardComponent },
-  { path: 'log/:box_id/:card_id', component: LogDashboardComponent },
+  { path: 'log/:box', component: LogDashboardComponent },
+  { path: 'log/:box/:card_id', component: LogDashboardComponent },
   { path: 'card/:id', component: CardByIdEditComponent },
   { path: 'add-into-box', component: AddIntoBoxComponent },
   { path: 'symbol-property', component: SymbolPropertyDashboardComponent }

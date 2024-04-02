@@ -8,7 +8,7 @@ import { switchMap } from 'rxjs';
   styleUrls: ['./log-dashboard.component.css']
 })
 export class LogDashboardComponent {
-  public box_id = 0;
+  public box = '';
   public card_id = 0;
 
   constructor(
@@ -19,7 +19,8 @@ export class LogDashboardComponent {
   }
 
   ngOnInit(): void {
-    this.box_id = Number(this.route.snapshot.paramMap.get('box_id'));
+    const b = this.route.snapshot.paramMap.get('box');;
+    this.box = b ? b : '';
     this.card_id = Number(this.route.snapshot.paramMap.get('card_id'));
   }
 

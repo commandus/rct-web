@@ -15,7 +15,7 @@ export class DialogLogComponent {
   title: string;
   message: string;
   card_id = 0;
-  box = 0;
+  box = '';
 
   constructor(
     private dialogRef: MatDialogRef<DialogLogComponent>,
@@ -24,7 +24,7 @@ export class DialogLogComponent {
     this.title = data.title;
     this.message = data.message;
     this.card_id = data.value.card_id ? data.value.card_id : 0;
-    this.box = Number(BigInt.asUintN(64, BigInt(data.value.box)));
+    this.box = data.value.box;
   }
 
   onLogged(value: User) {

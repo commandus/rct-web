@@ -22,7 +22,7 @@ class dumbCollectionViewer implements CollectionViewer {
 export class LogTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @Input() box_id = 0;
+  @Input() box = '';
   @Input() card_id = 0;
   @Input() hideButtons = false;
  
@@ -64,10 +64,8 @@ export class LogTableComponent {
   }
 
   load(): void {
-    console.log(this.box_id);
-    console.log(this.card_id);
     const ofs = this.paginator.pageIndex * this.paginator.pageSize;
-    this.ds.load(this.box_id, this.card_id, ofs, this.paginator.pageSize);
+    this.ds.load(this.box, this.card_id, ofs, this.paginator.pageSize);
   }
 
   show(row: Log) {

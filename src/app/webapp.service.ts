@@ -455,9 +455,19 @@ export class WebappService {
     p: Package
   ): void {
     const d = new MatDialogConfig();
+    let t = 'История ';
+    if (p.card_id) {
+      t += ' карточки ' + p.card_id;
+      if (p.box)
+        t += ' в коробке ' + Box.box2string(p.box)
+    } else {
+      if (p.box)
+        t += ' коробки ' + Box.box2string(p.box)
+    }
+     
     d.autoFocus = true;
     d.data = {
-      title: 'История карточки ' + p.card_id + ' коробки ' + Box.box2string(p.box),
+      title: t,
       message: '',
       value: p
     };
