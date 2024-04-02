@@ -29,9 +29,9 @@ export class CardEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private env: WebappService
+    private app: WebappService
   ) {
-    this.success = env.hasAccount();
+    this.success = app.hasAccount();
   }
 
   ngOnInit(): void {
@@ -52,7 +52,7 @@ export class CardEditComponent implements OnInit {
   rm() {
     const r = new ChCardRequest;
     r.value.id = this.value.card.id;
-    r.user = this.env.user;
+    r.user = this.app.user;
     // remove card
     r.operationSymbol = '-';
     r.value.name = this.formGroup.getRawValue().name;
@@ -61,10 +61,18 @@ export class CardEditComponent implements OnInit {
     this.changed.emit(r);
   }
 
+  history() {
+    let p = new Package;
+    p.card_id = this.value.card.id;
+    p.box = '';
+    this.app.showHistory(p);
+    this.cancelled.emit();
+  }
+
   save(): void {
     const r = new ChCardRequest;
     r.value.id = this.value.card.id;
-    r.user = this.env.user;
+    r.user = this.app.user;
     // save card
     r.operationSymbol = '=';
     r.value.name = this.formGroup.getRawValue().name;
@@ -76,7 +84,7 @@ export class CardEditComponent implements OnInit {
       const p = new Property;
       p.card_id = this.value.card.id;
       p.value = pn.value;
-      p.property_type_id = this.env.getPropertyTypeByKey(pn.property_type).id;
+      p.property_type_id = this.app.getPropertyTypeByKey(pn.property_type).id;
       r.properties.push(p);
     });
 

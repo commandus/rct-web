@@ -47,8 +47,9 @@
                     </ng-container>
                 </ng-container>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
-                    <button mat-button type="button" (click)="rm()">Удалить</button>  
-                    <button mat-button type="button" (click)="cancel()">Отменить</button>  
+                    <button mat-button type="button" (click)="rm()" matTooltip="Удалить"><mat-icon>delete_forever</mat-icon></button>  
+                    <button mat-button type="button" (click)="history()" matTooltip="История"><mat-icon>chevron_right</mat-icon></button>  
+                    <button mat-button type="button" (click)="cancel()">Отмена</button>  
                     <button color="primary" mat-button type="submit">Сохранить</button>  
                 </div>
             </div>
