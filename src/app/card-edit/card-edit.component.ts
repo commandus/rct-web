@@ -8,7 +8,6 @@ import { Symbol } from '../model/symbol.model';
 import { Property } from '../model/property.model';
 import { PropertyWithName } from '../model/property-with-name.model';
 import { Package } from '../model/package.model';
-import { Card } from '../model/card.model';
 
 @Component({
   selector: 'app-card-edit',
