@@ -177,7 +177,9 @@ export class AddNewItemIntoBoxComponent implements OnInit {
         }
       );
       const pn : PropertyWithName = { id: pt.id, property_type: pt.key, value: pv };
-      this.value.properties[i] = pn;
+
+      if (pv.length > 0 || this.isPropertyMandatory(this.value.card.symbol_id, pt.id))
+        this.value.properties[i] = pn;
       i++;
     });
   }
