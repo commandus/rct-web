@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebappService } from '../webapp.service';
 import { PropertyWithName } from '../model/property-with-name.model';
@@ -11,6 +11,7 @@ import { PropertyType } from '../model/property-type.model';
 })
 export class PropertyValueComponent {
   @Input() @Output() value: PropertyWithName = new PropertyWithName;
+  @Output() removed = new EventEmitter<PropertyWithName>();
 
   public formGroup: FormGroup = new FormGroup({});
 
@@ -30,9 +31,13 @@ export class PropertyValueComponent {
       value: [this.value ? this.value.value : '', []
       ]
     });
-   }
+  }
 
-   onPropertyTypeSelected(value: PropertyType) {
+  rmProperty() : void {
+    this.removed.emit(this.value);
+  }
+
+  onPropertyTypeSelected(value: PropertyType) {
     this.value.property_type = value.key;
   }
 

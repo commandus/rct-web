@@ -107,4 +107,13 @@ export class CardEditComponent implements OnInit {
     this.value.packages.push(p); 
   }
 
+  propertyRemoved(v: PropertyWithName) : void {
+    this.app.confirmRmProperty(v).then((y: string) => {
+      if (y === 'y') {
+        const p = this.value.properties.indexOf(v);
+        this.value.properties.splice(p, 1);
+      }
+    })
+  }
+
 }

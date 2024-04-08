@@ -42,6 +42,7 @@ import { SettingsRequest } from './model/settings-request.model';
 import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.component'
 import { Package } from './model/package.model';
 import { DialogLogComponent } from './dialog-log/dialog-log.component';
+import { PropertyWithName } from './model/property-with-name.model';
 
 @Injectable({
   providedIn: 'root'
@@ -504,6 +505,27 @@ export class WebappService {
     request.query = lastQuery;
     request.symbol_name = symbolName;
     return this.rcr.exportExcel(request);
+  }
+
+  public confirmRmProperty(v: PropertyWithName): Promise<string> {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.disableClose = true;
+    d.data = {
+      title: 'Удалить свойство "' + v.property_type + ': ' + v.value + '"',
+        message: 'Нажмите <Enter> для подтверждения',
+        value: v
+    };
+    const dialogRef = this.dialog.open(DialogConfirmComponent, d);
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.afterClosed().subscribe(
+        data => {
+          if (data.yes) {
+            resolve('y');
+          }
+        }
+      );
+    });
   }
 
 }

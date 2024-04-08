@@ -2,7 +2,6 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../model/user.model';
 import { Package } from '../model/package.model';
-import { Box } from '../model/box.model';
 
 @Component({
   selector: 'app-dialog-log',

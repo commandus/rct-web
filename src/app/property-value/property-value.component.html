@@ -1,9 +1,10 @@
 <form #propertyValueForm="ngForm" [formGroup]="formGroup">
-    <div fxLayout="row" fxLayoutAlign="stretch" >
+    <div fxLayout="row" fxLayoutAlign="space-between center" >
         <app-property-type-select [key]="value.property_type" (propertyTypeSelected)="onPropertyTypeSelected($event)"></app-property-type-select>
         <mat-form-field>
             <mat-label>Значение</mat-label>
             <input matInput type="text" placeholder="Значение" formControlName="value" (change)="onValueChanged($event)">
         </mat-form-field>
+        <button mat-button type="button" class="rm" matTooltip="Удалить свойство" (click)="rmProperty()"><mat-icon>remove</mat-icon></button>
     </div>
 </form>
