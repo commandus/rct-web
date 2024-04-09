@@ -1,10 +1,41 @@
 export class Box {
-    public id = 0;                          ///< in chBox() reserved for '=' operation when a new box assigned
-    public box_id = "";                     ///< uint64 repesented as string
-    public name = "";
-    public uname = "";                       ///< uppercase name for search
+    public id = 0;                              ///< in chBox() reserved for '=' operation when a new box assigned
+    public box_id = '';                         ///< uint64 repesented as string
+    public name = '';
+    public uname = '';                          ///< uppercase name for search
     // angular
-    public box_id_name = "";
+    public box_id_name = '';
+
+    constructor(value: any = {}) {
+        this.reset();
+        try {
+          let v;
+          if (typeof value == 'string') {
+                v = JSON.parse(value);
+          } else {
+              v = value;
+          }
+          if (typeof v !== 'undefined') {
+              this.assign(v);
+          }
+        } catch (error) {
+          
+        }
+    }
+
+    public assign(value: object): any {
+        if (typeof value !== 'undefined') {
+            Object.assign(this, value);
+        }
+    }
+  
+    private reset() {
+        this.id = 0;
+        this.box_id = '';                       ///< uint64 repesented as string
+        this.name = '';
+        this.uname = '';                        ///< uppercase name for search
+        this.box_id_name = '';
+    }
 
     public empty() {
         return this.box_id.length == 0;

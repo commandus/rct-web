@@ -1,9 +1,40 @@
 export class Symbol {
     public id = 0;
-    public sym = "";
-    public description = "";
-    public unit = "";
+    public sym = '';
+    public description = '';
+    public unit = '';
     public pow10 = 0;                            ///< power of 10
+
+    constructor(value: any = {}) {
+        this.reset();
+        try {
+          let v;
+          if (typeof value == 'string') {
+                v = JSON.parse(value);
+          } else {
+              v = value;
+          }
+          if (typeof v !== 'undefined') {
+              this.assign(v);
+          }
+        } catch (error) {
+          
+        }
+    }
+
+    public assign(value: object): any {
+        if (typeof value !== 'undefined') {
+            Object.assign(this, value);
+        }
+    }
+  
+    private reset() {
+        this.id = 0;
+        this.sym = '';
+        this.description = '';
+        this.unit = '';
+        this.pow10 = 0;                            ///< power of 10
+    }
 
     private static prefixes: string[] = [
         "",

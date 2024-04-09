@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-label>Коробки</mat-label>
-  <mat-select [(value)]="svc.box" (selectionChange)="onSelectionChanged($event, svc.box)">
+  <mat-select [(value)]="selectedBox" (selectionChange)="onSelectionChanged($event, svc.box)">
     <mat-option *ngFor="let b of svc.boxes.box" [value]="b">
       {{b.box_id_name}}
     </mat-option>

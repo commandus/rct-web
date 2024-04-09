@@ -22,7 +22,6 @@ export class ComponentListComponent implements OnChanges {
     this.update();
   }
 
-
   public onSelectionChanged(event: MatSelectChange) {
     this.symbol = this.selectedSymbol;
     this.symbol_id = this.selectedSymbol.id;

@@ -92,6 +92,10 @@ export class WebappService {
   ) { 
     this.rcr = aRcr;
     this.user = new User(localStorage.getItem('user'));
+    this.box = new Box(localStorage.getItem('box'));
+    this.symbol = new Symbol(localStorage.getItem('symbol'));
+    const q = localStorage.getItem('query');
+    this.query = q ? q : '';
     this.rcr.endpoints.select(localStorage.getItem('db'));
   }
 
@@ -118,10 +122,10 @@ export class WebappService {
     const obs = new Observable<DictionariesResponse>((observer) => {
       const r = new DictionariesRequest;
       this.rcr.getDictionaries(r).subscribe(v => { 
-        this.symbol = new Symbol;
-        this.symbol.id = 0;
-        this.symbol.description = "Все";
-        v.symbol.unshift(this.symbol);
+        const sym = new Symbol;
+        sym.id = 0;
+        sym.description = "Все";
+        v.symbol.unshift(sym);
         this.dictionaries = v;
         observer.next(v);
       });
@@ -475,6 +479,14 @@ export class WebappService {
     const dialogRef = this.dialog.open(DialogLogComponent, d);
   }
 
+  public getBoxById(box_id: string): Box {
+    for (let i = 0; i < this.boxes.box.length; i++) {
+      if (this.boxes.box[i].box_id == box_id)
+        return this.boxes.box[i];
+    };
+    return this.boxes.box.length ? this.boxes.box[0] : new Box;
+  }
+
   public getComponentById(id: number): Symbol {
     for (let i = 0; i < this.dictionaries.symbol.length; i++) {
       if (this.dictionaries.symbol[i].id == id)
@@ -526,6 +538,12 @@ export class WebappService {
         }
       );
     });
+  }
+
+  public saveSession() : void {
+    localStorage.setItem('box', JSON.stringify(this.box));
+    localStorage.setItem('symbol', JSON.stringify(this.symbol));
+    localStorage.setItem('query', this.query);
   }
 
 }

@@ -11,12 +11,17 @@ import { MatSelectChange } from '@angular/material/select';
 export class BoxCombolistComponent {
   @Output() boxSelected = new EventEmitter<Box>();
   
+  public selectedBox: Box = new Box;
+
   constructor(public svc: WebappService) { 
 
   }
 
   public onSelectionChanged(event: MatSelectChange, box: Box) {
-    this.boxSelected.emit(box);
+    this.boxSelected.emit(this.selectedBox);
   }
 
+  public setBoxId(v: string) : void {
+    this.selectedBox = this.svc.getBoxById(v);
+  }
 }

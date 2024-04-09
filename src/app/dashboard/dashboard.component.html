@@ -1,11 +1,11 @@
 <div class="dasboard">
     <div class="searchBox">
         <app-top-menu class="top-menu"></app-top-menu>
-        <app-query-component class="query-input" (queryChanged)="onQuery(svc.symbol, svc.box, $event)"></app-query-component>
-        <app-box-combolist class="box-tree" (boxSelected)="onQuery(svc.symbol, $event, svc.query)"></app-box-combolist>
-        <app-component-list [symbol]="svc.symbol" class="symbol-selector" (symbolSelected)="onQuery($event, svc.box, svc.query)"></app-component-list>
+        <app-query-component class="query-input" (queryChanged)="onQuery(app.symbol, app.box, $event)"></app-query-component>
+        <app-box-combolist class="box-tree" (boxSelected)="onQuery(app.symbol, $event, app.query)"></app-box-combolist>
+        <app-component-list class="symbol-selector" (symbolSelected)="onQuery($event, app.box, app.query)"></app-component-list>
     </div>
     <div class="boxNlist">
-        <app-card-table class="package-list"></app-card-table>
+        <app-card-table [autoload]=false class="package-list"></app-card-table>
     </div>
 </div>
