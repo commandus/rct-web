@@ -14,3 +14,8 @@
 .back {
     padding: 4pt;
 }
+
+.box-filter {
+    display: flex;
+    padding: 10pt;
+}

@@ -5,6 +5,13 @@
             Коробки
         </div>
     </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="space-between baseline">
+            Начальная
+            <app-box-autocomplete class="box-filter" (boxSelected)="onFilterBox($event)"></app-box-autocomplete>
+        </div>
+        <div></div>
+    </div>
     <app-box-table></app-box-table>
     <div class="back">
         <button mat-button color="primary" matTooltip="Вернуться назад" (click)="back()">Назад</button>

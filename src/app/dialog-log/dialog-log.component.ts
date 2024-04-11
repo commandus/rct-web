@@ -14,7 +14,7 @@ export class DialogLogComponent {
   title: string;
   message: string;
   card_id = 0;
-  box = '';
+  box = 0n;
 
   constructor(
     private dialogRef: MatDialogRef<DialogLogComponent>,

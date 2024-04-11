@@ -5,7 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable, delay, startWith, tap } from 'rxjs';
 import { WebappService } from '../webapp.service';
-import { GetItemRequest } from '../model/get-item-request.model';
 import { BoxDataSource } from '../box.ds.service';
 import { Box } from '../model/box.model';
 
@@ -28,10 +27,11 @@ export class BoxTableComponent {
   public selection = new SelectionModel<number>(true, []);
   public selectionMode = 0; // 0- manually selected, 1- select all, 2- unselect all
   public displayedColumns: string[] = ['box_id', 'name'];
+  public start_box_id = 0n;
   
-    constructor(
-      public rcr: RcrJsonService,
-      public app: WebappService
+  constructor(
+    public rcr: RcrJsonService,
+    public app: WebappService
   ) {
     this.ds = new BoxDataSource(this.rcr, this.app);
   }
@@ -42,7 +42,7 @@ export class BoxTableComponent {
         startWith(null),
         delay(0),
         tap(() => {
-          this.refresh();
+          this.load();
         })
         )
       .subscribe();
@@ -51,7 +51,7 @@ export class BoxTableComponent {
     .pipe(
       tap(() => {
         this.paginator.pageIndex = 0;
-        this.refresh();
+        this.load();
       })
     )
     .subscribe();
@@ -62,24 +62,26 @@ export class BoxTableComponent {
   }
 
   load(): void {
-    this.ds.load(this.paginator.pageIndex * this.paginator.pageSize, this.paginator.pageSize);
+    this.ds.load(this.start_box_id, this.paginator.pageIndex * this.paginator.pageSize, this.paginator.pageSize);
   }
 
   edit(row: Box) {
     this.app.showBox(row).then(
       v=>{
-        this.refresh();
+        this.load();
       });
   }
 
   add() {
     this.app.showBox(new Box).then(
       v=>{
-        this.refresh();
+        this.load();
       });
   }
 
-  refresh(): void {
+  reload(start_box_id: bigint): void {
+    this.start_box_id = start_box_id;
+    this.paginator.pageIndex = 0;
     this.load();
   }
 

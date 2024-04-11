@@ -5,6 +5,7 @@ import { Symbol } from '../model/symbol.model';
 import { CardTableComponent } from '../card-table/card-table.component';
 import { ComponentListComponent } from '../component-list/component-list.component';
 import { BoxCombolistComponent } from '../box-combolist/box-combolist.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,8 +18,9 @@ export class DashboardComponent {
   @ViewChild(BoxCombolistComponent) boxCombolist!: BoxCombolistComponent;
   
   @HostListener('window:beforeunload', ['$event'])
-  save($event: any) {
+  canDeactivate(): Observable<boolean> | boolean {
     this.app.saveSession();
+    return true;
   }
 
   constructor(public app: WebappService) { 

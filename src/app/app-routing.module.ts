@@ -13,9 +13,11 @@ import { LogDashboardComponent } from './log-dashboard/log-dashboard.component';
 import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.component';
 import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
 import { SymbolPropertyDashboardComponent } from './symbol-property-dashboard/symbol-property-dashboard.component';
+import { PendingChangesGuard } from './pending-changes-guard.service';
 
+// @see https://stackoverflow.com/questions/35922071/warn-user-of-unsaved-changes-before-leaving-page
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', component: DashboardComponent, canDeactivate: [PendingChangesGuard] },
   { path: 'users', component: UserDasboardComponent },
   { path: 'boxes', component: BoxDashboardComponent },
   { path: 'properties', component: PropertyDashboardComponent },

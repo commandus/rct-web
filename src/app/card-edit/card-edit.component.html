@@ -38,16 +38,18 @@
                 
                 <cdk-virtual-scroll-viewport *ngIf="enableScroll" itemSize="50" class="box-scroll">
                     <ng-container *ngFor="let p of value.packages"><!-- cdkVirtualFor does not wotk addBox()-->
-                        <app-box-qty [value]="p"></app-box-qty>
+                        <app-box-qty [value]="p" [enableButtons]=true (onAdd)="addToPackage($event)" 
+                        (onMinus)="minusFromPackage($event)" (onMove)="movePackage($event)"></app-box-qty>
                     </ng-container>
                 </cdk-virtual-scroll-viewport>
                 <ng-container *ngIf="!enableScroll">
                     <ng-container *ngFor="let p of value.packages">
-                        <app-box-qty [value]="p"></app-box-qty>
+                        <app-box-qty [value]="p" [enableButtons]=true (onAdd)="addToPackage($event)" 
+                            (onMinus)="minusFromPackage($event)" (onMove)="movePackage($event)"></app-box-qty>
                     </ng-container>
                 </ng-container>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
-                    <button mat-button type="button" (click)="rm()" matTooltip="Удалить"><mat-icon>delete_forever</mat-icon></button>  
+                    <button mat-button color="accent" type="button" (click)="rm()" matTooltip="Удалить"><mat-icon>delete</mat-icon></button>  
                     <button mat-button type="button" (click)="history()" matTooltip="История"><mat-icon>chevron_right</mat-icon></button>  
                     <button mat-button type="button" (click)="cancel()">Отмена</button>  
                     <button color="primary" mat-button type="submit">Сохранить</button>  

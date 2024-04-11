@@ -45,8 +45,8 @@ export class CardsDataSource implements DataSource<CardNPropetiesPackages> {
 
     if (query.length == 0)
       query = '*';
-    if (box.box_id.length > 0)
-      query += ' ' + Box.box2string(box.box_id);
+    if (box.box_id > 0n)
+      query += ' ' + Box.boxBigint2string(box.box_id);
     r.query = query;
     r.measure_symbol = symbol.sym;
     r.list.offset = ofs;

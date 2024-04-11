@@ -32,7 +32,7 @@ export class LogDataSource implements DataSource<Log> {
   }
 
   load(
-    box: string,
+    box: bigint,
     card_id: number,
     ofs: number,
     pagesize: number

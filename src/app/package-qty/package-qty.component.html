@@ -1,0 +1,8 @@
+<form #boxQtyForm="ngForm" [formGroup]="formGroup">
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-form-field class="qty">
+            <mat-label>Количество</mat-label>
+            <input matInput type="number" placeholder="Количество" formControlName="qty" (change)="onQtyChanged($event)">
+        </mat-form-field>
+    </div>
+</form>

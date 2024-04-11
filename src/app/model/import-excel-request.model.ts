@@ -3,9 +3,9 @@ import { User } from "./user.model";
 
 export class ImportExcelRequest {
     public user: User = new User;
-    public symbol = "";
-    public prefix_box = ''; // first box, e.g. 219
+    public symbol = '';
+    public prefix_box = 0n; // first box, e.g. 219
     public number_in_filename = true;
-    public operation = "+";
+    public operation = '+';
     public file: ExcelFile[] = [];
 }

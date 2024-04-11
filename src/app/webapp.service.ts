@@ -43,6 +43,7 @@ import { DialogConfirmComponent } from './dialog-confirm/dialog-confirm.componen
 import { Package } from './model/package.model';
 import { DialogLogComponent } from './dialog-log/dialog-log.component';
 import { PropertyWithName } from './model/property-with-name.model';
+import { DialogPackageQtyComponent } from './dialog-package-qty/dialog-package-qty.component';
 
 @Injectable({
   providedIn: 'root'
@@ -109,8 +110,8 @@ export class WebappService {
     if (query.indexOf('*') < 0)
       query += '*';
     r.measure_symbol = symbol.sym;
-    if (box.box_id.length > 0)
-      query += ' ' + Box.box2string(box.box_id);
+    if (box.box_id > 0n)
+      query += ' ' + Box.boxBigint2string(box.box_id);
     r.query = query;
 
     this.rcr.cardQuery(r).subscribe(v => { 
@@ -160,11 +161,12 @@ export class WebappService {
     const obs = new Observable<BoxResponse>((observer) => {
       const r = new BoxRequest;
       r.user = this.user;
+      r.list.size = 1000;
       this.rcr.getBox(r)
       .pipe(map(v => {
         // add helper property
         v.box.forEach(b => {
-          b.box_id_name = Box.box2string(b.box_id);
+          b.box_id_name = Box.boxBigint2string(b.box_id);
         });
         return v;
       }))
@@ -182,7 +184,7 @@ export class WebappService {
 
   loadExcelFile(
     symbol: string,
-    prefixBox: string,
+    prefixBox: bigint,
     numberInFilename: boolean,
     operation: string,
     fileName: string,
@@ -347,6 +349,8 @@ export class WebappService {
       title: isNew ? 'Новый пользователь' : 'Пользователь ' + v.id,
       message: '',
       value: v
+    };BigInt.prototype.toJSON = function () {
+      return this.toString();
     };
 
     const dialogRef = this.dialog.open(UserEditDialogComponent, d);
@@ -407,7 +411,7 @@ export class WebappService {
     const d = new MatDialogConfig();
     d.autoFocus = true;
     d.data = {
-      title: 'Коробка ' + v.id,
+      title: v.box_id ? 'Коробка ' + Box.boxBigint2string(v.box_id) : 'Новая коробка',
       message: '',
       value: v
     };
@@ -464,10 +468,10 @@ export class WebappService {
     if (p.card_id) {
       t += ' карточки ' + p.card_id;
       if (p.box)
-        t += ' в коробке ' + Box.box2string(p.box)
+        t += ' в коробке ' + Box.boxBigint2string(p.box)
     } else {
       if (p.box)
-        t += ' коробки ' + Box.box2string(p.box)
+        t += ' коробки ' + Box.boxBigint2string(p.box)
     }
      
     d.autoFocus = true;
@@ -479,7 +483,7 @@ export class WebappService {
     const dialogRef = this.dialog.open(DialogLogComponent, d);
   }
 
-  public getBoxById(box_id: string): Box {
+  public getBoxById(box_id: bigint): Box {
     for (let i = 0; i < this.boxes.box.length; i++) {
       if (this.boxes.box[i].box_id == box_id)
         return this.boxes.box[i];
@@ -540,10 +544,55 @@ export class WebappService {
     });
   }
 
+  public confirmRmBox(v: ChBoxRequest): Promise<string> {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.disableClose = true;
+    d.data = {
+      title: 'Удалить коробку "' + v.value.name + ' ' + Box.boxBigint2string(v.value.box_id),
+        message: 'Нажмите <Enter> для безвозвратного удаления',
+        value: v
+    };
+    const dialogRef = this.dialog.open(DialogConfirmComponent, d);
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.afterClosed().subscribe(
+        data => {
+          if (data.yes) {
+            resolve('y');
+          }
+        }
+      );
+    });
+  }
+
   public saveSession() : void {
     localStorage.setItem('box', JSON.stringify(this.box));
     localStorage.setItem('symbol', JSON.stringify(this.symbol));
     localStorage.setItem('query', this.query);
+  }
+
+  public showPackageQty(
+    dlgTitle: string,
+    initialValue: number
+  ) : Promise<number>
+  {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: dlgTitle,
+      qty: initialValue
+    };
+
+    const dialogRef = this.dialog.open(DialogPackageQtyComponent, d);
+    return new Promise<number>((resolve, reject) => { 
+      dialogRef.afterClosed().subscribe(
+        data => {
+          if (data.yes) {
+            resolve(data.qty);
+          }
+        }
+      );
+    });
   }
 
 }

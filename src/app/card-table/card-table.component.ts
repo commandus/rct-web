@@ -88,7 +88,7 @@ export class CardTableComponent {
 
   clear(): void {
     let box = new Box;
-    box.box_id = '42-42-42-42';
+    box.box_id = Box.string2boxBigint('42-42-42-42');
     this.ds.load(new Symbol, box, '', 0, 0);
   }
 

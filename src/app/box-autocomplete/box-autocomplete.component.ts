@@ -28,7 +28,7 @@ export class BoxAutocompleteComponent {
       map(value => { 
         if (value) {
           const box = new Box;
-          box.box_id = Box.string2box(value);
+          box.box_id = Box.string2boxBigint(value);
           box.name = value;
           box.uname = value;
           box.box_id_name = value;

@@ -31,7 +31,6 @@ export class CardEditDialogComponent {
   }
 
   onCancel() {
-    console.log('cancelled ');
     this.dialogRef.close( { yes: false } );
   }
 }

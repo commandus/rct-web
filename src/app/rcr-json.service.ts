@@ -34,6 +34,21 @@ class EndPoint {
   public selected = false;
 }
 
+// @see https://stackoverflow.com/questions/65152373/typescript-serialize-bigint-in-json
+declare global
+{
+  interface BigInt {
+    /** Convert to BigInt to string form in JSON.stringify */
+    toJSON: () => string;
+  }
+}
+
+BigInt.prototype.toJSON = function () {
+  return this.toString();
+};
+
+BigInt.prototype.toJSON = function() { return this.toString() }
+
 export class EndPointList {
   public endpoints: EndPoint[] = [
     { url: "http://kb-srv.ysn.ru:8050", name: "КБ", selected: true },

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WebappService } from '../webapp.service';
@@ -28,7 +28,8 @@ export class CardEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private app: WebappService
+    private app: WebappService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.success = app.hasAccount();
   }
@@ -38,6 +39,7 @@ export class CardEditComponent implements OnInit {
   }
 
   private initForm() {
+    console.log(this.value);
     this.formGroup = this.formBuilder.group({
       name: [this.value ? this.value.card.name : '', []],
       nominal: [this.value ? Symbol.nominal2string(String.fromCharCode(+this.value.card.symbol_id + 0x40), this.value.card.nominal) : 0, []]
@@ -63,7 +65,7 @@ export class CardEditComponent implements OnInit {
   history() {
     let p = new Package;
     p.card_id = this.value.card.id;
-    p.box = '';
+    p.box = 0n;
     this.app.showHistory(p);
     this.cancelled.emit();
   }
@@ -114,6 +116,33 @@ export class CardEditComponent implements OnInit {
         this.value.properties.splice(p, 1);
       }
     })
+  }
+
+  rerender() : void {
+    // deep copy
+    this.value = JSON.parse(JSON.stringify(this.value));
+    this.changeDetectorRef.detectChanges();
+  }
+
+  addToPackage(v: Package) : void {
+    this.app.showPackageQty('Добавить', 1).then( val => {
+      v.qty = +v.qty + val;
+      this.rerender();
+    })
+  }
+
+  minusFromPackage(v: Package) : void {
+    this.app.showPackageQty('Убавить', 1).then( val => {
+      v.qty = +v.qty - val;
+      if (v.qty < 0)
+        v.qty = 0;
+      this.rerender();
+    })
+  }
+
+  movePackage(v: Package) : void {
+    v.qty++;
+    this.rerender();
   }
 
 }

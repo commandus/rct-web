@@ -1,6 +1,6 @@
 export class Box {
     public id = 0;                              ///< in chBox() reserved for '=' operation when a new box assigned
-    public box_id = '';                         ///< uint64 repesented as string
+    public box_id = 0n;                         ///< uint64 repesented as string
     public name = '';
     public uname = '';                          ///< uppercase name for search
     // angular
@@ -31,14 +31,14 @@ export class Box {
   
     private reset() {
         this.id = 0;
-        this.box_id = '';                       ///< uint64 repesented as string
+        this.box_id = 0n;                       ///< uint64 repesented as string
         this.name = '';
         this.uname = '';                        ///< uppercase name for search
         this.box_id_name = '';
     }
 
     public empty() {
-        return this.box_id.length == 0;
+        return this.box_id == 0n;
     }
 
     private static getBoxDepth(boxes: bigint) {
@@ -67,6 +67,20 @@ export class Box {
     ): string 
     {
         const b = BigInt.asUintN(64, BigInt(boxes));
+        return Box.boxBigint2string(b);
+    }
+
+    /**
+     * Return string representation of the box path
+     * @param boxes box identifier e.g. '35747326337220608'
+     * @returns '127-1'
+     */
+    public static boxBigint2string(
+        b: bigint | string
+    ): string
+    {
+        if (typeof(b) == 'string')
+            b = BigInt.asUintN(64, BigInt(b));    
         let ss = "";
         let shift = 6n * 8n;
         ss += (b >> shift);
@@ -74,6 +88,8 @@ export class Box {
             shift -= 16n;
             ss += '-' + ((b >> shift) & 0xffffn);
         }
+        if (ss == '0')
+            ss = '';
         return ss;
     }
 
@@ -121,4 +137,50 @@ export class Box {
         }
         return retBoxes.toString();
     }
+
+        /**
+     * Return box identifier from the box path
+     * @param value string representation of the box path e.g. '127-1'
+     * @returns box identifier e.g. '35747326337220608'
+     */
+    static string2boxBigint(
+        value: string
+    ): bigint {
+        let retBoxes = 0n;
+        
+        // skip spaces if exists
+        let s = 0;
+    
+        let blocks = 0;
+        for (let block = 0; block < 4; block++) {
+            let f = value.length;
+            // skip separator(s)
+            for (let p = s; p < f; p++) {
+                const c = value.substring(p, p + 1);
+                if (c >= '0' && c <= '9') {
+                    s = p;
+                    break;
+                }
+            }
+            // find out end of the number block
+            for (let p = s; p < f; p++) {
+                const c = value.substring(p, p + 1);
+                if (!(c >= '0' && c <= '9')) {
+                    f = p;
+                    break;
+                }
+            }
+            // nothing found
+            if (f <= s)
+                break;
+            // has box number, try to read
+            let sv = value.substring(s, f);
+            const b = BigInt(sv);
+            retBoxes |= (b & 0xffffn) << BigInt(((3 - block) * 16));
+            blocks++;
+            s = f;
+        }
+        return retBoxes;
+    }
+    
 }

@@ -21,7 +21,7 @@ export class BoxCombolistComponent {
     this.boxSelected.emit(this.selectedBox);
   }
 
-  public setBoxId(v: string) : void {
+  public setBoxId(v: bigint) : void {
     this.selectedBox = this.svc.getBoxById(v);
   }
 }

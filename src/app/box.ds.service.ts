@@ -31,14 +31,16 @@ export class BoxDataSource implements DataSource<Box> {
   }
 
   load(
+    start_box_id: bigint,
     ofs: number,
     pagesize: number
   ): void {
     this.loadingSubject.next(true);
-    const r = new BoxRequest;
+    let r = new BoxRequest;
     r.user = this.app.user;
     r.list.offset = ofs;
     r.list.size = pagesize;
+    r.start = start_box_id;
     this.service.getBox(r)
     .subscribe(
       value => {

@@ -22,7 +22,7 @@ class dumbCollectionViewer implements CollectionViewer {
 export class LogTableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @Input() box = '';
+  @Input() box = 0n;
   @Input() card_id = 0;
   @Input() hideButtons = false;
  
