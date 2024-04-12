@@ -309,11 +309,11 @@ export class WebappService {
         this.rcr.cardQuery(request).subscribe(
           resp => {
             if (resp && resp.rslt.code == 0) {
-              // console.log('modified successfully');  
+              resolve("ok");
             }
           },
           error => {
-            console.log('modify fail');
+            reject('fail');
           }
         );    
       }

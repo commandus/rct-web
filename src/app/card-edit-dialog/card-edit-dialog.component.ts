@@ -33,7 +33,7 @@ export class CardEditDialogComponent {
 
   onModified(value: CardQueryRequest) {
     this.modified.emit(value);
-    // this.dialogRef.close( {yes: true} );
+    this.dialogRef.close( {yes: true} );
   }
 
   onCancel() {
