@@ -303,7 +303,21 @@ export class WebappService {
           });    
           }
       });
-        
+      dialogRef.componentInstance.modified.subscribe((request: CardQueryRequest) => {
+        if (request.query == '')
+          return;
+        this.rcr.cardQuery(request).subscribe(
+          resp => {
+            if (resp && resp.rslt.code == 0) {
+              // console.log('modified successfully');  
+            }
+          },
+          error => {
+            console.log('modify fail');
+          }
+        );    
+      }
+      );
     });
   }
 

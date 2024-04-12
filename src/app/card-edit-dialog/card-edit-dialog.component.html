@@ -1,2 +1,2 @@
 <h2 mat-dialog-title><button mat-button type="button" routerLink="/card/{{value.card.id}}" (click)="onCancel()">{{title}}</button></h2>
-<app-card-edit [enableScroll]="true" [value]="value" (changed)="onChanged($event)" (cancelled)="onCancel()"></app-card-edit>
+<app-card-edit [enableScroll]="true" [value]="value" (changed)="onChanged($event)" (modified)="onModified($event)" (cancelled)="onCancel()"></app-card-edit>

@@ -1,3 +1,5 @@
+import { Card } from "./card.model";
+
 export class Symbol {
     public id = 0;
     public sym = '';
@@ -117,7 +119,7 @@ export class Symbol {
 
     }
 
-    public static componentUnitName(componentNumber: number): string
+    private static componentUnitIndex(componentNumber: number): number
     {
         // ABCDEFGHIJKLMNOPQRSTUVWXYZ
         // 12345678901234567890123456
@@ -140,10 +142,17 @@ export class Symbol {
                         else
                             if (componentNumber == 18)
                                 idx = 2;
-        if (idx < 0)
+        return idx;
+    }
+
+    public static componentUnitName(componentNumber: number): string
+    {
+        const idx = Symbol.componentUnitIndex(componentNumber);
+        if (idx >= 0)
+            return Symbol.unitNames[idx];
+        else
             return '';
-        return Symbol.unitNames[idx];
-    };
+    }
 
     private static measurePow10 = [
         -12,    // C Емкость -12
@@ -164,46 +173,62 @@ export class Symbol {
             if (v < 1000) {
                 let idx = i + initialPowIdx;
                 if (idx >= 0)
-                    return v + ' ' + Symbol.prefixes[idx];
+                    return v + Symbol.prefixes[idx];
                 else
-                    return v + ' ' + Symbol.prefixesPart[-idx];
+                    return v + Symbol.prefixesPart[-idx];
             }
             v /= 1000n;
         }
         return "";
     }
-    
-    
+
+    public static nominal2stringById(
+        symbol_id: number, 
+        value: string
+    ) : string {
+        const idx = Symbol.componentUnitIndex(symbol_id);
+        if (idx < 0)
+            return '';
+        const b = BigInt.asUintN(64, BigInt(value));
+        return Symbol.val1000(b, Symbol.measurePow10[idx]) + Symbol.unitNames[idx];
+    }
+
+    private static componentById(id: number): string {
+        if (id < 1 || id > 26)
+            return '';
+        return String.fromCharCode(id + 64); // ASCII 'A' = 65
+    }
+
+    private static componentIdByname(c: string): number {
+        if (!c || c.length > 1)
+            return -1;
+        const u = c.toUpperCase();
+        const r = u.charCodeAt(0) - 64;    // ASCII 'A' = 65
+        if (r < 1 || r > 26)
+            return -1;
+        return r;
+    }
+
     public static nominal2string(
         symbol: string, 
         value: string
     ) : string {
-        const b = BigInt.asUintN(64, BigInt(value));
-        switch(symbol) {
-            case 'C':
-                return Symbol.val1000(b, -12) + 'Ф';
-            case 'F':
-                return Symbol.val1000(b, 0) + 'А';
-            case 'G':
-                return Symbol.val1000(b, 0) + 'В';
-            case 'L':
-                return Symbol.val1000(b, -12) + 'Гн';
-            case 'M':
-                return Symbol.val1000(b, 0) + 'Вт';
-            case 'Q':
-                return Symbol.val1000(b, 0) + 'А';
-            case 'R':
-                return Symbol.val1000(b, 0) + 'Ом';
-            case 'S':
-                return Symbol.val1000(b, 0) + 'А';
-            case 'T':
-                return Symbol.val1000(b, 0) + 'Вт';
-            default:
-        }
-        return b.toString();
+
+        const sid = Symbol.componentIdByname(symbol);
+        if (sid < 0)
+            return '';
+        return Symbol.nominal2stringById(sid, value);
     }
 
-    static string2nominal(
+    public static nameOrNominal(card: Card) : string
+    {
+        const idx = Symbol.componentUnitIndex(card.symbol_id);
+        if (idx < 0)
+            return card.name;
+        return Symbol.nominal2stringById(card.symbol_id, card.nominal);
+    }
+
+    public static string2nominal(
         symbol: string,
         value: string
     ): bigint

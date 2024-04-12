@@ -8,6 +8,8 @@ import { Symbol } from '../model/symbol.model';
 import { Property } from '../model/property.model';
 import { PropertyWithName } from '../model/property-with-name.model';
 import { Package } from '../model/package.model';
+import { CardQueryRequest } from '../model/card-query-request.model';
+import { Box } from '../model/box.model';
 
 @Component({
   selector: 'app-card-edit',
@@ -18,6 +20,7 @@ export class CardEditComponent implements OnInit {
   @Input() value: CardNPropetiesPackages = new CardNPropetiesPackages;
   @Input() enableScroll = true;
   @Output() changed = new EventEmitter<ChCardRequest>();
+  @Output() modified = new EventEmitter<CardQueryRequest>();
   @Output() cancelled = new EventEmitter<void>();
   
   public formGroup: FormGroup = new FormGroup({});
@@ -125,18 +128,26 @@ export class CardEditComponent implements OnInit {
   }
 
   addToPackage(v: Package) : void {
-    this.app.showPackageQty('Добавить', 1).then( val => {
+    this.app.showPackageQty('Пополнение запаса', 1).then( val => {
       v.qty = +v.qty + val;
       this.rerender();
+      const r = new CardQueryRequest;
+      r.user = this.app.user;
+      r.query = Symbol.nameOrNominal(this.value.card) + ' ' + Box.boxBigint2string(v.box) + ' +' + val;
+      this.modified.emit(r);
     })
   }
 
   minusFromPackage(v: Package) : void {
-    this.app.showPackageQty('Убавить', 1).then( val => {
+    this.app.showPackageQty('Списание', 1).then( val => {
       v.qty = +v.qty - val;
       if (v.qty < 0)
         v.qty = 0;
       this.rerender();
+      const r = new CardQueryRequest;
+      r.user = this.app.user;
+      r.query = Symbol.nameOrNominal(this.value.card) + ' ' + Box.boxBigint2string(v.box) + ' -' + val;
+      this.modified.emit(r);
     })
   }
 
