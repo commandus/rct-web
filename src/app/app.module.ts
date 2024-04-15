@@ -91,7 +91,9 @@ import { SymbolPropertyDashboardComponent } from './symbol-property-dashboard/sy
 import { SymbolPropertyEditDialogComponent } from './symbol-property-edit-dialog/symbol-property-edit-dialog.component';
 import { SymbolPropertyEditComponent } from './symbol-property-edit/symbol-property-edit.component';
 import { PackageQtyComponent } from './package-qty/package-qty.component';
+import { PackageBoxQtyComponent } from './package-box-qty/package-box-qty.component';
 import { DialogPackageQtyComponent } from './dialog-package-qty/dialog-package-qty.component';
+import { DialogPackageBoxQtyComponent } from './dialog-package-box-qty/dialog-package-box-qty.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +121,7 @@ import { DialogPackageQtyComponent } from './dialog-package-qty/dialog-package-q
     DialogConfirmComponent,
     DialogLogComponent,
     DialogPackageQtyComponent,
+    DialogPackageBoxQtyComponent,
     CardEditComponent,
     BoxEditComponent,
     CardEditDialogComponent,
@@ -157,7 +160,8 @@ import { DialogPackageQtyComponent } from './dialog-package-qty/dialog-package-q
     SymbolPropertyDashboardComponent,
     SymbolPropertyEditDialogComponent,
     SymbolPropertyEditComponent,
-    PackageQtyComponent
+    PackageQtyComponent,
+    PackageBoxQtyComponent
   ],
   imports: [
     BrowserModule,

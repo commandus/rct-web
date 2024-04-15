@@ -20,7 +20,7 @@ export class OperationPipe implements PipeTransform {
         case '/':
           return 'перемещение';
         default:
-          return 'неизвестное';
+          return 'неизвестная операция';
         }
     } 
   }

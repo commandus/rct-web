@@ -42,7 +42,6 @@ export class CardEditComponent implements OnInit {
   }
 
   private initForm() {
-    console.log(this.value);
     this.formGroup = this.formBuilder.group({
       name: [this.value ? this.value.card.name : '', []],
       nominal: [this.value ? Symbol.nominal2string(String.fromCharCode(+this.value.card.symbol_id + 0x40), this.value.card.nominal) : 0, []]
@@ -152,8 +151,16 @@ export class CardEditComponent implements OnInit {
   }
 
   movePackage(v: Package) : void {
-    v.qty++;
-    this.rerender();
+    this.app.movePackageToBox('Перемещение', 1).then( val => {
+      if (v.qty < 0)
+        v.qty = 0;
+      this.rerender();
+      const r = new CardQueryRequest;
+      r.user = this.app.user;
+      r.query = Symbol.nameOrNominal(this.value.card) + ' ' + Box.boxBigint2string(v.box) 
+        + ' /' + val.qty + ' ' + Box.boxBigint2string(val.box_id);
+      this.modified.emit(r);
+    })
   }
 
 }

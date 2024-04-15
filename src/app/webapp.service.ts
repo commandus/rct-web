@@ -44,6 +44,8 @@ import { Package } from './model/package.model';
 import { DialogLogComponent } from './dialog-log/dialog-log.component';
 import { PropertyWithName } from './model/property-with-name.model';
 import { DialogPackageQtyComponent } from './dialog-package-qty/dialog-package-qty.component';
+import { PackageBoxQty } from './model/package-box-qty';
+import { DialogPackageBoxQtyComponent } from './dialog-package-box-qty/dialog-package-box-qty.component';
 
 @Injectable({
   providedIn: 'root'
@@ -603,6 +605,33 @@ export class WebappService {
         data => {
           if (data.yes) {
             resolve(data.qty);
+          }
+        }
+      );
+    });
+  }
+
+  public movePackageToBox(
+    dlgTitle: string,
+    initialValue: number
+  ) : Promise<PackageBoxQty>
+  {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.data = {
+      title: dlgTitle,
+      qty: initialValue
+    };
+
+    const dialogRef = this.dialog.open(DialogPackageBoxQtyComponent, d);
+    return new Promise<PackageBoxQty>((resolve, reject) => { 
+      dialogRef.afterClosed().subscribe(
+        data => {
+          if (data.yes) {
+            const boxQty = new PackageBoxQty;
+            boxQty.box_id = data.box_id;
+            boxQty.qty = data.qty;
+            resolve(boxQty);
           }
         }
       );
