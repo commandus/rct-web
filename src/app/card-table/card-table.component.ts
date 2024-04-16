@@ -118,7 +118,18 @@ export class CardTableComponent {
         link.download = f.name;
         link.click();
       });
+    });
+  }
 
+  export2csv(): void {
+    this.app.exportCSV(this.lastQuery, this.lastSymbol.sym).subscribe( v => {
+      v.file.forEach(f => {
+        const downloadURL = window.URL.createObjectURL(ExcelHelper.b64toBlob(f.content));
+        const link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = f.name;
+        link.click();
+      });
     });
   }
 

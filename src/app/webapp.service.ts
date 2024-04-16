@@ -536,6 +536,17 @@ export class WebappService {
     request.user = this.user;
     request.query = lastQuery;
     request.symbol_name = symbolName;
+    // XLS ("application/vnd.ms-excel") does not supported
+    request.mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";  // XLSX
+    return this.rcr.exportExcel(request);
+  }
+
+  exportCSV(lastQuery: string, symbolName: string): Observable<ExportExcelResponse> {
+    const request = new ExportExcelRequest;
+    request.user = this.user;
+    request.query = lastQuery;
+    request.symbol_name = symbolName;
+    request.mime_type = "text/csv";  // CSV
     return this.rcr.exportExcel(request);
   }
 
