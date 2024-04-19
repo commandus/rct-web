@@ -1,0 +1,16 @@
+.menu {
+    width: 100%;
+    display: flex;
+}
+
+.right-menu {
+    padding-top: 6pt;
+}
+
+.cleanAll {
+    padding: 20pt;
+}
+
+.back {
+    padding: 4pt;
+}

@@ -20,7 +20,6 @@ export class AddIntoBoxComponent {
 
   constructor(
     private snackbar: MatSnackBar,
-    private app: WebappService,
     public rcr: RcrJsonService
   ) { 
   }

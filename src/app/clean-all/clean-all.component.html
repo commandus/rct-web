@@ -1,0 +1,24 @@
+<div class="cleanAll">
+    <div class="menu">
+        <app-top-menu class="top-menu"></app-top-menu>
+        <div class="right-menu">
+            Удаление всех компонент и коробок
+        </div>
+    </div>
+    <p></p>
+    <h3>Полная очистка</h3>
+    <p></p>
+    <div>
+        Удалятся:
+        <ul>
+            <li>Коробки</li>
+            <li>Карточки</li>
+            <li>Свойства</li>
+            <li>История действий</li>
+        </ul>
+    </div>
+    <div class="back">
+        <button mat-button color="accent" matTooltip="Безвозвратно удалить все коробки и карточки" (click)="clean()">Удалить все</button>
+        <button mat-button color="primary" matTooltip="Вернуться назад" (click)="back()">Назад</button>
+    </div>
+</div>

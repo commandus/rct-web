@@ -14,6 +14,7 @@ import { CardByIdEditComponent } from './card-by-id-edit/card-by-id-edit.compone
 import { AddIntoBoxComponent } from './add-into-box/add-into-box.component';
 import { SymbolPropertyDashboardComponent } from './symbol-property-dashboard/symbol-property-dashboard.component';
 import { PendingChangesGuard } from './pending-changes-guard.service';
+import { CleanAllComponent } from './clean-all/clean-all.component';
 
 // @see https://stackoverflow.com/questions/35922071/warn-user-of-unsaved-changes-before-leaving-page
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'log/:box/:card_id', component: LogDashboardComponent },
   { path: 'card/:id', component: CardByIdEditComponent },
   { path: 'add-into-box', component: AddIntoBoxComponent },
-  { path: 'symbol-property', component: SymbolPropertyDashboardComponent }
+  { path: 'symbol-property', component: SymbolPropertyDashboardComponent },
+  { path: 'clean', component: CleanAllComponent }
 ];
 
 @NgModule({

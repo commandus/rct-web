@@ -94,6 +94,7 @@ import { PackageQtyComponent } from './package-qty/package-qty.component';
 import { PackageBoxQtyComponent } from './package-box-qty/package-box-qty.component';
 import { DialogPackageQtyComponent } from './dialog-package-qty/dialog-package-qty.component';
 import { DialogPackageBoxQtyComponent } from './dialog-package-box-qty/dialog-package-box-qty.component';
+import { CleanAllComponent } from './clean-all/clean-all.component';
 
 @NgModule({
   declarations: [
@@ -161,7 +162,8 @@ import { DialogPackageBoxQtyComponent } from './dialog-package-box-qty/dialog-pa
     SymbolPropertyEditDialogComponent,
     SymbolPropertyEditComponent,
     PackageQtyComponent,
-    PackageBoxQtyComponent
+    PackageBoxQtyComponent,
+    CleanAllComponent
   ],
   imports: [
     BrowserModule,

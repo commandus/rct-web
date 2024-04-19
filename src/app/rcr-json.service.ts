@@ -27,6 +27,7 @@ import { ExportExcelRequest } from './model/export-excel-request.model';
 import { ExportExcelResponse } from './model/export-excel-response.model';
 import { SymbolPropertyRequest } from './model/symbol-property-request.model';
 import { SettingsRequest } from './model/settings-request.model';
+import { CleanRequest } from './model/clean.model';
 
 class EndPoint {
   public url = "";
@@ -173,5 +174,9 @@ export class RcrJsonService {
   
   exportExcel(request: ExportExcelRequest): Observable<ExportExcelResponse> {
     return this.httpClient.post<ExportExcelResponse>(this.endpoints.current.url + "/exportExcel", request);
+  }
+
+  clean(request: CleanRequest): Observable<OperationResponse> {
+    return this.httpClient.post<OperationResponse>(this.endpoints.current.url + "/clean", request);
   }
 }

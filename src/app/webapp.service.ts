@@ -46,6 +46,7 @@ import { PropertyWithName } from './model/property-with-name.model';
 import { DialogPackageQtyComponent } from './dialog-package-qty/dialog-package-qty.component';
 import { PackageBoxQty } from './model/package-box-qty';
 import { DialogPackageBoxQtyComponent } from './dialog-package-box-qty/dialog-package-box-qty.component';
+import { CleanRequest } from './model/clean.model';
 
 @Injectable({
   providedIn: 'root'
@@ -643,6 +644,36 @@ export class WebappService {
             boxQty.box_id = data.box_id;
             boxQty.qty = data.qty;
             resolve(boxQty);
+          }
+        }
+      );
+    });
+  }
+
+  public clean(): Promise<string> {
+    const d = new MatDialogConfig();
+    d.autoFocus = true;
+    d.disableClose = true;
+    d.data = {
+      title: 'Удалить все',
+      message: 'Нажмите <Enter> для подтверждения'
+    };
+    const dialogRef = this.dialog.open(DialogConfirmComponent, d);
+    return new Promise<string>((resolve, reject) => { 
+      dialogRef.afterClosed().subscribe(
+        data => {
+          if (data.yes) {
+            const r = new CleanRequest;
+            r.user = this.user;
+            this.rcr.clean(r).subscribe(
+              resp => {
+                if (resp && resp.code == 0) {
+                  resolve("y");
+                }
+              },
+              error => {
+                reject('fail');
+            });    
           }
         }
       );
