@@ -1,5 +1,12 @@
 # Rcr
 
+```
+npm install
+sudo npm install -g @angular/cli
+ng build
+
+```
+
 ## Prerequisites
 
 Install nvm
